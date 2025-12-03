@@ -1,0 +1,32 @@
+
+
+
+board_size:8
+inaccessible_ratio:20
+market_ratio:30
+battle_probability_percent:15
+
+# Hero
+party_max_size:3
+hero_hp_per_level:100
+hero_dodge_factor:0.002
+hero_dodge_cap:0.6
+hero_attack_damage_factor:0.05
+hero_levelup_skill_increase_percent:5
+hero_levelup_favored_extra_percent:5
+hero_levelup_mp_multiplier:1.10
+hero_exp_to_level_multiplier:10
+battle_round_regen_percent:10
+
+# Reward
+post_battle_reward_gold_per_level:100
+post_battle_reward_exp_mode:count_times_factor
+post_battle_reward_exp_factor:2
+
+# Market / items
+market_initial_stock_size:10
+item_sell_ratio:0.5
+
+
+# UI / timing
+sleep_ms_after_action:4000

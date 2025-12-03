@@ -1,0 +1,55 @@
+Name/mana/strength/agility/dexterity/starting money/starting experience
+Gaerdal_Ironhand    100     700     500     600     1354    7
+Sehanine_Monnbow    600     700     800     500     2500    8
+Muamman_Duathall    300     900     500     750     2546    6
+Flandal_Steelskin   200     750     650     700     2500    7
+Undefeated_Yoj      400     800     400     700     2500    7
+Eunoia_Cyn          400     700     800     600     2500    6
+Blade_Master        250     850     600     650     2500    7
+Axe_Berserker       150     900     550     600     2500    7
+Sword_Champion      300     800     650     680     2500    7
+Spear_Veteran       200     820     580     640     2500    6
+Shield_Guardian     350     780     520     620     2500    6
+Battle_Hardened     180     870     560     630     2500    7
+War_Veteran         280     840     590     660     2500    7
+Frontline_Hero      220     860     570     640     2500    7
+Combat_Specialist   320     810     620     670     2500    7
+Melee_Expert        240     850     580     650     2500    7
+Weapon_Master       350     830     610     680     2500    8
+Iron_Warrior        180     880     550     630     2500    7
+Steel_Berserker     200     870     560     640     2500    7
+Bronze_Champion     150     820     540     610     2500    6
+Silver_Blade        280     840     600     660     2500    7
+Golden_Knight       400     800     650     700     2500    8
+Crimson_Slayer      250     860     590     650     2500    7
+Shadow_Assassin     380     780     700     720     2500    8
+Light_Crusader      300     820     620     670     2500    7
+Dark_Reaver         220     870     570     640     2500    7
+Storm_Raider        260     850     590     660     2500    7
+Flame_Warrior       240     860     580     650     2500    7
+Frost_Fighter       280     840     600     660     2500    7
+Thunder_Striker     300     830     610     670     2500    7
+Earth_Shaker        200     880     560     640     2500    7
+Wind_Dancer         350     790     680     690     2500    8
+Void_Marauder       250     850     590     650     2500    7
+Chaos_Brawler       220     870     570     640     2500    7
+Order_Sentinel      320     810     620     670     2500    7
+Primal_Savage       180     890     550     630     2500    7
+Noble_Duelist       380     780     660     700     2500    8
+Rogue_Fighter       340     800     640     680     2500    7
+Honor_Bound         300     820     610     670     2500    7
+Glory_Seeker        260     850     590     660     2500    7
+Fame_Hunter         280     840     600     660     2500    7
+Victory_Chaser      250     860     580     650     2500    7
+Conquest_Lord       400     800     650     700     2500    8
+Battle_Born         200     870     560     640     2500    7
+War_Forged          220     860     570     640     2500    7
+Combat_Tested       240     850     580     650     2500    7
+Blood_Soaked        180     880     550     630     2500    7
+Scar_Bearer         280     840     600     660     2500    7
+Veteran_Legend      350     810     630     680     2500    8
+Legendary_Hero      450     800     680     720     2500    9
+
+
+
+
