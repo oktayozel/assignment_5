@@ -120,7 +120,7 @@ public  class Input {
             getPartyInfoInput(gm);
 
         } else if (input.equals("M")) {
-            gm.tryEnterMarket();
+            gm.getBoard().tryEnterMarket(gm.getPartyPiece().getRow(), gm.getPartyPiece().getCol(), gm.getUser());
 
         } else if (input.equals("H")) {
             Output.displayInstructions();

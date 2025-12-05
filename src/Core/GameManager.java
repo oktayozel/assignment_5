@@ -105,19 +105,6 @@ public class GameManager {
         }
     }
 
-    // enter market if on market tile
-    public void tryEnterMarket() {
-        Tile tile = board.getTile(partyPiece.getRow(), partyPiece.getCol());
-        if (tile != null && tile.isMarket()) {
-            user.setInMarket(true);
-            tile.getMarket().start(user);
-        } 
-        else {
-            Output.print("You are not standing on a market tile.");
-            Output.sleep(2000);
-        }
-    }
-
     public Board getBoard() {
         return board;
     }

@@ -105,5 +105,17 @@ public class Board {
         return grid[row][col];
     }
 
+    // enter market if on market tile
+    public void tryEnterMarket(int row, int col, User user) {
+        Tile tile = getTile(row, col);
+        if (tile != null && tile.isMarket()) {
+            user.setInMarket(true);
+            tile.getMarket().start(user);
+        } 
+        else {
+            Output.print("You are not standing on a market tile.");
+            Output.sleep(2000);
+        }
+    }
 
 }
