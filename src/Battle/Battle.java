@@ -29,7 +29,7 @@ public class Battle {
     private Statistics statistics;
 
 
-    // constructo
+    // constructor
     public Battle(GameManager gm) {
         this.gm = gm;
         this.statistics = gm.getStatistics();
@@ -39,7 +39,6 @@ public class Battle {
         this.party = gm.getUser().getParty();
         this.monsters = generateMonstersForBattle(party.size(),party.getHighestLevel());
     }
-
 
     // battle  loop
     public void start() {
