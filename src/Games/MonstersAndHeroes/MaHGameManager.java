@@ -1,7 +1,6 @@
 package src.Games.MonstersAndHeroes;
 
 import src.Core.GameManager;
-import src.Core.Board;
 import src.Core.Piece;
 import src.Core.Tile;
 import src.Core.User;
@@ -28,9 +27,9 @@ public class MaHGameManager extends GameManager{
         this.user.getParty().initializeParty(partySize);
 
         // make board until its playable
-        this.board = new Board(DefaultReader.getDefaultSettings("board_size"));
+        this.board = new MaHBoard(DefaultReader.getDefaultSettings("board_size"));
         while(!board.isBoardPlayable()){
-            this.board = new Board(DefaultReader.getDefaultSettings("board_size"));
+            this.board = new MaHBoard(DefaultReader.getDefaultSettings("board_size"));
         }   
 
         // find first accessible tile for party
