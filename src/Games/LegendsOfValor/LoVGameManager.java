@@ -40,6 +40,7 @@ public class LoVGameManager extends GameManager implements Multiplayer {
     @Override
     public void start() {
         Output.displaySecondWelcomeMessage(user1, user2);
+        switchUser();
         boolean running = true;
         while (running) {
             System.out.println("UPS: I didn't implement this part yettt sorry");
@@ -60,6 +61,19 @@ public class LoVGameManager extends GameManager implements Multiplayer {
 
     @Override
     public User switchUser() {
-        return null;
+        if (currentUser == null || currentUser == user2) {
+            currentUser = user1;
+        } else {
+            currentUser = user2;
+        }
+        return currentUser;
     }
+
+    @Override
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+
+    
 }
