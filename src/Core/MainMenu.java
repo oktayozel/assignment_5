@@ -1,8 +1,7 @@
 package src.Core;
 
-import src.IO.Input;
-import src.Statistics.Statistics;
-import src.Core.GameManager; 
+import src.Utils.IO.Input;
+import src.Utils.Statistics.Statistics;
 
 public class MainMenu {
     private Statistics statistics;
@@ -15,6 +14,8 @@ public class MainMenu {
         System.out.println("Welcome to the Fantastic Games Main Menu. Hope you are ready for the adventure!");
 
         String game = Input.getGame();
+        Input.setStatistics(statistics);
+
         
         while (true) {
             GameManager gm = null;

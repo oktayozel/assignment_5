@@ -10,16 +10,17 @@ import src.Utils.Default.DefaultReader;
 import src.Hero.Hero;
 import src.Inventory.InventoryEntry;
 import src.Item.Item;
+import src.Utils.Statistics.Statistics;
 
 // handles all user input
 public  class Input {
     private static Scanner scanner = new Scanner(System.in);
-    private static src.Utils.Statistics.Statistics statistics = null;
+    private static Statistics statistics = null;
 
     public Input() {
     }
     
-    public static void setStatistics(src.Utils.Statistics.Statistics stats) {
+    public static void setStatistics(Statistics stats) {
         statistics = stats;
     }
 
