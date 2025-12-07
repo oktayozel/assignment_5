@@ -55,13 +55,12 @@ public class MaHGameManager extends GameManager{
     public void start() {
 
         Output.displaySecondWelcomeMessage(user);
-        Input.setStatistics(statistics);
         
         boolean running = true;
         while (running) {
             if (!user.isInMarket() && !user.isInBattle()) {
                 board.printBoard(partyPiece.getRow(), partyPiece.getCol());
-                Output.printMenu();
+                Output.printMenu("mah");
                 running = Input.getInput(this);
             }
         }

@@ -555,14 +555,26 @@ public class Output {
         System.out.println(BRIGHT_RED + "Q" + RESET + " - Quit game");
     }
 
-    public static void printMenu() {
-        System.out.println(BRIGHT_CYAN + "\nControls:" + RESET);
-        System.out.println(GREEN + "W/A/S/D" + RESET + " - move");
-        System.out.println(CYAN + "I/C" + RESET + " - manage inventory (view info, equip/use items)");
-        System.out.println(YELLOW + "M" + RESET + " - enter market (if on market tile)");
-        System.out.println(RED + "Q" + RESET + " - quit game");
-        System.out.println(BLUE + "H" + RESET + " - Help/Information");
-        System.out.print(BRIGHT_YELLOW + "Your move > " + RESET);
+    public static void printMenu(String game) {
+        if( game.equals("mah")){
+            System.out.println(BRIGHT_CYAN + "\nControls:" + RESET);
+            System.out.println(GREEN + "W/A/S/D" + RESET + " - move");
+            System.out.println(CYAN + "I/C" + RESET + " - manage inventory (view info, equip/use items)");
+            System.out.println(YELLOW + "M" + RESET + " - enter market (if on market tile)");
+            System.out.println(RED + "Q" + RESET + " - quit game");
+            System.out.println(BLUE + "H" + RESET + " - Help/Information");
+            System.out.print(BRIGHT_YELLOW + "Your move > " + RESET);
+        }
+        else if ( game.equals("lov")){
+            System.out.println(BRIGHT_CYAN + "\nControls:" + RESET);
+            System.out.println(GREEN + "W/A/S/D" + RESET + " - move");
+            System.out.println(CYAN + "I/C" + RESET + " - manage inventory (view info, equip/use items)");
+            System.out.println(YELLOW + "M" + RESET + " - enter market (if on market tile)");
+            System.out.println(YELLOW + "P" + RESET + " - Pass this round");
+            System.out.println(RED + "Q" + RESET + " - quit game");
+            System.out.println(BLUE + "H" + RESET + " - Help/Information");
+            System.out.print(BRIGHT_YELLOW + "Your move > " + RESET);
+        }
         
     }
 

@@ -44,6 +44,8 @@ public class LoVGameManager extends GameManager implements Multiplayer {
         boolean running = true;
         while (running) {
             System.out.println("UPS: I didn't implement this part yettt sorry");
+            Output.printMenu("mah");
+
         }
 
 
