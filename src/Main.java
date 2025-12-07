@@ -10,6 +10,7 @@ public class Main {
 
         // start game
         mainMenu.start();
+        
     }
 }
 

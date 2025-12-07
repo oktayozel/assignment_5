@@ -17,13 +17,15 @@ public class MainMenu {
         String game = Input.getGame();
         
         while (true) {
-            GameManager gm;
+            GameManager gm = null;
             if (game.equals("1")) {
                 gm = new src.Games.MonstersAndHeroes.MaHGameManager(statistics);
             } else if (game.equals("2")) {
                 gm = new src.Games.LegendsOfValor.LoVGameManager(statistics);
             }
-            gm.start();
+            if (gm != null) {
+                gm.start();
+            }
         }
     }
 }

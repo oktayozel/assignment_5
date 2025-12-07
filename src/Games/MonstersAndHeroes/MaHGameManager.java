@@ -1,12 +1,14 @@
 package src.Games.MonstersAndHeroes;
 
 import src.Core.GameManager;
+import src.Core.Board;
+import src.Core.Piece;
+import src.Core.Tile;
+import src.Core.User;
 import src.Default.DefaultReader;
 import src.IO.Input;
 import src.IO.Output;
 import src.Battle.Battle;
-import src.Games.MonstersAndHeroes.Board;
-import src.Games.MonstersAndHeroes.Piece;
 
 public class MaHGameManager extends GameManager{
     
@@ -15,7 +17,7 @@ public class MaHGameManager extends GameManager{
     }
 
     // setup user party board and starting position
-    private void setupGame() {
+    public void setupGame() {
         Output.gameInitializationMessage();
         Output.someSpace();
 

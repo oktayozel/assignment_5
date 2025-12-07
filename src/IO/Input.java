@@ -552,7 +552,7 @@ public  class Input {
             if (raw.equals("Y")) {
                 System.out.println("Starting a new game...");
                 Output.sleep(2000);
-                GameManager gm = new GameManager(statistics);
+                src.Core.GameManager gm = new src.Games.MonstersAndHeroes.MaHGameManager(statistics);
                 gm.start();
                 break;
             } else if (raw.equals("N")) {

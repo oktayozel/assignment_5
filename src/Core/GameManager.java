@@ -5,12 +5,12 @@ import java.util.Random;
 
 public abstract class GameManager {
 
-    private Random rand = new Random();
+    protected Random rand = new Random();
 
-    private Board board;
-    private Piece partyPiece;
-    private User user;
-    private src.Statistics.Statistics statistics;
+    protected Board board;
+    protected Piece partyPiece;
+    protected User user;
+    protected src.Statistics.Statistics statistics;
     
     public GameManager(src.Statistics.Statistics statistics) {
         this.statistics = statistics;
