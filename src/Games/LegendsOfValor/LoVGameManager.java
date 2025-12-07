@@ -1,10 +1,12 @@
 package src.Games.LegendsOfValor;
 
 import src.Core.GameManager;
+import src.Utils.Interface.Multiplayer;
+import src.Core.User;
 
-public class LoVGameManager extends GameManager{
+public class LoVGameManager extends GameManager implements Multiplayer {
     
-    public LoVGameManager(src.Statistics.Statistics statistics) {
+    public LoVGameManager(src.Utils.Statistics.Statistics statistics) {
         super(statistics);
     }
 
@@ -21,5 +23,10 @@ public class LoVGameManager extends GameManager{
     @Override
     public void handleTileEvent() {
         // TODO: Implement Legends of Valor tile events
+    }
+
+    @Override
+    public User switchUser() {
+        return null;
     }
 }
