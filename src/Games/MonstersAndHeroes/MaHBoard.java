@@ -5,8 +5,8 @@ import java.util.Random;
 import src.Core.Board;
 import src.Core.Tile;
 import src.Core.User;
-import src.IO.Output;
-import src.Default.DefaultReader;
+import src.Utils.Default.DefaultReader;
+import src.Utils.IO.Output;
 
 // Monsters and Heroes game board implementation
 public class MaHBoard extends Board {

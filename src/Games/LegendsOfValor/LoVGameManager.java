@@ -1,6 +1,8 @@
 package src.Games.LegendsOfValor;
 
+import java.util.List;
 import src.Core.GameManager;
+import src.Utils.IO.Input;
 import src.Utils.IO.Output;
 import src.Utils.Interface.Multiplayer;
 import src.Core.User;
@@ -15,6 +17,11 @@ public class LoVGameManager extends GameManager implements Multiplayer {
     public void setupGame() {
         Output.gameInitializationMessage("lov");
         Output.someSpace();
+
+        List<String> nameList = Input.getMultiplayerUsernames();
+
+        this.user1 = new User(nameList.get(0));
+        this.user2 = new User(nameList.get(1));
     }
 
     @Override
