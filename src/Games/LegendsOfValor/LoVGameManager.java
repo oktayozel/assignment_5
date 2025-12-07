@@ -1,6 +1,7 @@
 package src.Games.LegendsOfValor;
 
 import src.Core.GameManager;
+import src.Utils.IO.Output;
 import src.Utils.Interface.Multiplayer;
 import src.Core.User;
 
@@ -12,7 +13,8 @@ public class LoVGameManager extends GameManager implements Multiplayer {
 
     @Override
     public void setupGame() {
-        // TODO: Implement Legends of Valor setup
+        Output.gameInitializationMessage("lov");
+        Output.someSpace();
     }
 
     @Override

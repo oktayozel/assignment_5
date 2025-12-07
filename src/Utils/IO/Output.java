@@ -1,7 +1,8 @@
-package src.IO;
+package src.Utils.IO;
 
 import src.Monster.Monster;
-import src.Statistics.Statistics;
+import src.Utils.Default.DefaultReader;
+import src.Utils.Statistics.Statistics;
 import src.Hero.Hero;
 import src.Item.Item;
 import src.Item.Weapon;
@@ -10,7 +11,6 @@ import src.Inventory.InventoryEntry;
 import src.Market.Market;
 import src.Battle.Battle;
 import src.Core.User;
-import src.Default.DefaultReader;
 import src.Core.Party;
 import java.util.Arrays;
 import java.util.List;
@@ -133,28 +133,45 @@ public class Output {
         someSpace();
 
     }
-    public static void gameInitializationMessage() {
+    public static void gameInitializationMessage(String game) {
         clearScreen();
-        System.out.println(BRIGHT_CYAN + "██╗     ███████╗ ██████╗ ███████╗███╗   ██╗██████╗ ███████╗                    " + RESET);
-        System.out.println(BRIGHT_CYAN + "██║     ██╔════╝██╔════╝ ██╔════╝████╗  ██║██╔══██╗██╔════╝██╗                 " + RESET);
-        System.out.println(BRIGHT_CYAN + "██║     █████╗  ██║  ███╗█████╗  ██╔██╗ ██║██║  ██║███████╗╚═╝                 " + RESET);
-        System.out.println(BRIGHT_CYAN + "██║     ██╔══╝  ██║   ██║██╔══╝  ██║╚██╗██║██║  ██║╚════██║██╗                 " + RESET);
-        System.out.println(BRIGHT_CYAN + "███████╗███████╗╚██████╔╝███████╗██║ ╚████║██████╔╝███████║╚═╝                 " + RESET);
-        System.out.println(BRIGHT_CYAN + "╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚══════╝                    " + RESET);
-        System.out.println("                                                                               ");
-        System.out.println(BRIGHT_RED + "███╗   ███╗ ██████╗ ███╗   ██╗███████╗████████╗███████╗██████╗ ███████╗        " + RESET);
-        System.out.println(BRIGHT_RED + "████╗ ████║██╔═══██╗████╗  ██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗██╔════╝        " + RESET);
-        System.out.println(BRIGHT_RED + "██╔████╔██║██║   ██║██╔██╗ ██║███████╗   ██║   █████╗  ██████╔╝███████╗        " + RESET);
-        System.out.println(BRIGHT_RED + "██║╚██╔╝██║██║   ██║██║╚██╗██║╚════██║   ██║   ██╔══╝  ██╔══██╗╚════██║        " + RESET);
-        System.out.println(BRIGHT_RED + "██║ ╚═╝ ██║╚██████╔╝██║ ╚████║███████║   ██║   ███████╗██║  ██║███████║        " + RESET);
-        System.out.println(BRIGHT_RED + "╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚══════╝        " + RESET);
-        System.out.println("                                                                               ");
-        System.out.println(BRIGHT_YELLOW + " █████╗ ███╗   ██╗██████╗     ██╗  ██╗███████╗██████╗  ██████╗ ███████╗███████╗" + RESET);
-        System.out.println(BRIGHT_YELLOW + "██╔══██╗████╗  ██║██╔══██╗    ██║  ██║██╔════╝██╔══██╗██╔═══██╗██╔════╝██╔════╝" + RESET);
-        System.out.println(BRIGHT_YELLOW + "███████║██╔██╗ ██║██║  ██║    ███████║█████╗  ██████╔╝██║   ██║█████╗  ███████╗" + RESET);
-        System.out.println(BRIGHT_YELLOW + "██╔══██║██║╚██╗██║██║  ██║    ██╔══██║██╔══╝  ██╔══██╗██║   ██║██╔══╝  ╚════██║" + RESET);
-        System.out.println(BRIGHT_YELLOW + "██║  ██║██║ ╚████║██████╔╝    ██║  ██║███████╗██║  ██║╚██████╔╝███████╗███████║" + RESET);
-        System.out.println(BRIGHT_YELLOW + "╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝     ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚══════╝" + RESET);
+        if (game.equals("mah")){
+            System.out.println(BRIGHT_CYAN + "██╗     ███████╗ ██████╗ ███████╗███╗   ██╗██████╗ ███████╗                    " + RESET);
+            System.out.println(BRIGHT_CYAN + "██║     ██╔════╝██╔════╝ ██╔════╝████╗  ██║██╔══██╗██╔════╝██╗                 " + RESET);
+            System.out.println(BRIGHT_CYAN + "██║     █████╗  ██║  ███╗█████╗  ██╔██╗ ██║██║  ██║███████╗╚═╝                 " + RESET);
+            System.out.println(BRIGHT_CYAN + "██║     ██╔══╝  ██║   ██║██╔══╝  ██║╚██╗██║██║  ██║╚════██║██╗                 " + RESET);
+            System.out.println(BRIGHT_CYAN + "███████╗███████╗╚██████╔╝███████╗██║ ╚████║██████╔╝███████║╚═╝                 " + RESET);
+            System.out.println(BRIGHT_CYAN + "╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚══════╝                    " + RESET);
+            System.out.println("                                                                               ");
+            System.out.println(BRIGHT_RED + "███╗   ███╗ ██████╗ ███╗   ██╗███████╗████████╗███████╗██████╗ ███████╗        " + RESET);
+            System.out.println(BRIGHT_RED + "████╗ ████║██╔═══██╗████╗  ██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗██╔════╝        " + RESET);
+            System.out.println(BRIGHT_RED + "██╔████╔██║██║   ██║██╔██╗ ██║███████╗   ██║   █████╗  ██████╔╝███████╗        " + RESET);
+            System.out.println(BRIGHT_RED + "██║╚██╔╝██║██║   ██║██║╚██╗██║╚════██║   ██║   ██╔══╝  ██╔══██╗╚════██║        " + RESET);
+            System.out.println(BRIGHT_RED + "██║ ╚═╝ ██║╚██████╔╝██║ ╚████║███████║   ██║   ███████╗██║  ██║███████║        " + RESET);
+            System.out.println(BRIGHT_RED + "╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚══════╝        " + RESET);
+            System.out.println("                                                                               ");
+            System.out.println(BRIGHT_YELLOW + " █████╗ ███╗   ██╗██████╗     ██╗  ██╗███████╗██████╗  ██████╗ ███████╗███████╗" + RESET);
+            System.out.println(BRIGHT_YELLOW + "██╔══██╗████╗  ██║██╔══██╗    ██║  ██║██╔════╝██╔══██╗██╔═══██╗██╔════╝██╔════╝" + RESET);
+            System.out.println(BRIGHT_YELLOW + "███████║██╔██╗ ██║██║  ██║    ███████║█████╗  ██████╔╝██║   ██║█████╗  ███████╗" + RESET);
+            System.out.println(BRIGHT_YELLOW + "██╔══██║██║╚██╗██║██║  ██║    ██╔══██║██╔══╝  ██╔══██╗██║   ██║██╔══╝  ╚════██║" + RESET);
+            System.out.println(BRIGHT_YELLOW + "██║  ██║██║ ╚████║██████╔╝    ██║  ██║███████╗██║  ██║╚██████╔╝███████╗███████║" + RESET);
+            System.out.println(BRIGHT_YELLOW + "╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝     ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚══════╝" + RESET);
+        }
+        else if ( game.equals("lov")){
+            System.out.println(BRIGHT_CYAN + "██╗     ███████╗ ██████╗ ███████╗███╗   ██╗██████╗ ███████╗                    " + RESET);
+            System.out.println(BRIGHT_CYAN + "██║     ██╔════╝██╔════╝ ██╔════╝████╗  ██║██╔══██╗██╔════╝██╗                 " + RESET);
+            System.out.println(BRIGHT_CYAN + "██║     █████╗  ██║  ███╗█████╗  ██╔██╗ ██║██║  ██║███████╗╚═╝                 " + RESET);
+            System.out.println(BRIGHT_CYAN + "██║     ██╔══╝  ██║   ██║██╔══╝  ██║╚██╗██║██║  ██║╚════██║██╗                 " + RESET);
+            System.out.println(BRIGHT_CYAN + "███████╗███████╗╚██████╔╝███████╗██║ ╚████║██████╔╝███████║╚═╝                 " + RESET);
+            System.out.println(BRIGHT_CYAN + "╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚══════╝                    " + RESET);
+            System.out.println("                                                                               ");
+            System.out.println(BRIGHT_YELLOW + "  ██████╗ ███████╗   ██╗   ██╗ █████╗ ██╗      ██████╗ ██████╗  "+ RESET);
+            System.out.println(BRIGHT_YELLOW + " ██╔═══██╗██╔════╝   ██║   ██║██╔══██╗██║     ██╔═══██╗██╔══██╗ "+ RESET);
+            System.out.println(BRIGHT_YELLOW + " ██║   ██║█████╗     ██║   ██║███████║██║     ██║   ██║██████╔╝ "+ RESET); 
+            System.out.println(BRIGHT_YELLOW + " ██║   ██║██╔══╝     ╚██╗ ██╔╝██╔══██║██║     ██║   ██║██╔══██╗ "+ RESET); 
+            System.out.println(BRIGHT_YELLOW + " ╚██████╔╝██║         ╚████╔╝ ██║  ██║███████╗╚██████╔╝██║  ██║ "+ RESET);
+            System.out.println(BRIGHT_YELLOW + "  ╚═════╝ ╚═╝          ╚═══╝  ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝ "+ RESET);
+        }
     }
     public static void print(String message){
         System.out.print(message);
