@@ -1,18 +1,15 @@
 package src;
 import src.Core.GameManager;
 import src.Statistics.Statistics;
-
+import src.Core.MainMenu;
 // entry point for game
 public class Main {
     public static void main(String[] args) {
-        // make statistics object
-        Statistics stats = new Statistics();
-        
-        // make game manager
-        GameManager gameManager = new GameManager(stats);
-        
+                
+        MainMenu mainMenu = new MainMenu();
+
         // start game
-        gameManager.start();
+        mainMenu.start();
     }
 }
 
