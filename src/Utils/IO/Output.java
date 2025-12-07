@@ -123,13 +123,22 @@ public class Output {
         }
     }
 
-    public static void boardBanner(){
-        System.out.println(BRIGHT_CYAN + "██╗     ███████╗ ██████╗ ███████╗███╗   ██╗██████╗ ███████╗" + RESET + "       " + BRIGHT_RED + "███╗   ███╗" + RESET + "      " + BRIGHT_YELLOW + "██╗  ██╗" + RESET + "        ");
-        System.out.println(BRIGHT_CYAN + "██║     ██╔════╝██╔════╝ ██╔════╝████╗  ██║██╔══██╗██╔════╝██╗" + RESET + "    " + BRIGHT_RED + "████╗ ████║" + RESET + "      " + BRIGHT_YELLOW + "██║  ██║" + RESET + "        ");
-        System.out.println(BRIGHT_CYAN + "██║     █████╗  ██║  ███╗█████╗  ██╔██╗ ██║██║  ██║███████╗╚═╝" + RESET + "    " + BRIGHT_RED + "██╔████╔██║" + RESET + "      " + BRIGHT_YELLOW + "███████║" + RESET + "        ");
-        System.out.println(BRIGHT_CYAN + "██║     ██╔══╝  ██║   ██║██╔══╝  ██║╚██╗██║██║  ██║╚════██║██╗" + RESET + "    " + BRIGHT_RED + "██║╚██╔╝██║" + RESET + " and  " + BRIGHT_YELLOW + "██╔══██║" + RESET + "        ");
-        System.out.println(BRIGHT_CYAN + "███████╗███████╗╚██████╔╝███████╗██║ ╚████║██████╔╝███████║╚═╝" + RESET + "    " + BRIGHT_RED + "██║ ╚═╝ ██║" + RESET + "      " + BRIGHT_YELLOW + "██║  ██║" + RESET + "        ");
-        System.out.println(BRIGHT_CYAN + "╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚══════╝" + RESET + "       " + BRIGHT_RED + "╚═╝     ╚═╝" + RESET + "      " + BRIGHT_YELLOW + "╚═╝  ╚═╝" + RESET + "        ");
+    public static void boardBanner(String game){
+        if(game.equals("mah")){
+            System.out.println(BRIGHT_CYAN + "██╗     ███████╗ ██████╗ ███████╗███╗   ██╗██████╗ ███████╗" + RESET + "       " + BRIGHT_RED + "███╗   ███╗" + RESET + "      " + BRIGHT_YELLOW + "██╗  ██╗" + RESET + "        ");
+            System.out.println(BRIGHT_CYAN + "██║     ██╔════╝██╔════╝ ██╔════╝████╗  ██║██╔══██╗██╔════╝██╗" + RESET + "    " + BRIGHT_RED + "████╗ ████║" + RESET + "      " + BRIGHT_YELLOW + "██║  ██║" + RESET + "        ");
+            System.out.println(BRIGHT_CYAN + "██║     █████╗  ██║  ███╗█████╗  ██╔██╗ ██║██║  ██║███████╗╚═╝" + RESET + "    " + BRIGHT_RED + "██╔████╔██║" + RESET + "      " + BRIGHT_YELLOW + "███████║" + RESET + "        ");
+            System.out.println(BRIGHT_CYAN + "██║     ██╔══╝  ██║   ██║██╔══╝  ██║╚██╗██║██║  ██║╚════██║██╗" + RESET + "    " + BRIGHT_RED + "██║╚██╔╝██║" + RESET + " and  " + BRIGHT_YELLOW + "██╔══██║" + RESET + "        ");
+            System.out.println(BRIGHT_CYAN + "███████╗███████╗╚██████╔╝███████╗██║ ╚████║██████╔╝███████║╚═╝" + RESET + "    " + BRIGHT_RED + "██║ ╚═╝ ██║" + RESET + "      " + BRIGHT_YELLOW + "██║  ██║" + RESET + "        ");
+            System.out.println(BRIGHT_CYAN + "╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚══════╝" + RESET + "       " + BRIGHT_RED + "╚═╝     ╚═╝" + RESET + "      " + BRIGHT_YELLOW + "╚═╝  ╚═╝" + RESET + "        ");
+        }
+        else if (game.equals("lov")){
+            System.out.println(BRIGHT_CYAN + "██╗     ███████╗ ██████╗ ███████╗███╗   ██╗██████╗ ███████╗" + RESET + "       " + BRIGHT_YELLOW + "  ██████╗" + RESET + "      " + BRIGHT_YELLOW +  "██╗   ██╗" + RESET + "        ");
+            System.out.println(BRIGHT_CYAN + "██║     ██╔════╝██╔════╝ ██╔════╝████╗  ██║██╔══██╗██╔════╝██╗" + RESET + "    " + BRIGHT_YELLOW + " ██╔═══██╗" + RESET + "     " + BRIGHT_YELLOW +  "██║   ██║" + RESET + "        ");
+            System.out.println(BRIGHT_CYAN + "██║     █████╗  ██║  ███╗█████╗  ██╔██╗ ██║██║  ██║███████╗╚═╝" + RESET + "    " + BRIGHT_YELLOW + " ██║   ██║" + RESET + "     " + BRIGHT_YELLOW +  "██║   ██║" + RESET + "        ");
+            System.out.println(BRIGHT_CYAN + "██║     ██╔══╝  ██║   ██║██╔══╝  ██║╚██╗██║██║  ██║╚════██║██╗" + RESET + "    " + BRIGHT_YELLOW + " ██║   ██║" + RESET + " and  " + BRIGHT_YELLOW + "╚██╗ ██╔╝" + RESET + "        ");
+            System.out.println(BRIGHT_CYAN + "███████╗███████╗╚██████╔╝███████╗██║ ╚████║██████╔╝███████║╚═╝" + RESET + "    " + BRIGHT_YELLOW + " ╚██████╔╝" + RESET + "      " + BRIGHT_YELLOW + " ╚████╔╝ " + RESET + "        ");
+        }
         someSpace();
 
     }
