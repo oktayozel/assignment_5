@@ -1,8 +1,8 @@
-package src.Utils.IO;
+package src.IO;
 
 import src.Monster.Monster;
-import src.Utils.Default.DefaultReader;
-import src.Utils.Statistics.Statistics;
+import src.Default.DefaultReader;
+import src.Statistics.Statistics;
 import src.Hero.Hero;
 import src.Item.Item;
 import src.Item.Weapon;

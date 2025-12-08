@@ -2,10 +2,10 @@ package src.Games.LegendsOfValor;
 
 import java.util.List;
 import src.Core.GameManager;
-import src.Utils.Default.DefaultReader;
-import src.Utils.IO.Input;
-import src.Utils.IO.Output;
-import src.Utils.Interface.Multiplayer;
+import src.Default.DefaultReader;
+import src.IO.Input;
+import src.IO.Output;
+import src.Interface.Multiplayer;
 import src.Core.User;
 import src.Games.MonstersAndHeroes.MaHBoard;
 
@@ -15,7 +15,7 @@ public class LoVGameManager extends GameManager implements Multiplayer {
     private User user2;
     private User currentUser;
 
-    public LoVGameManager(src.Utils.Statistics.Statistics statistics) {
+    public LoVGameManager(src.Statistics.Statistics statistics) {
         super(statistics);
     }
 

@@ -5,8 +5,8 @@ import java.util.Random;
 import src.Core.Board;
 import src.Core.Tile;
 import src.Core.User;
-import src.Utils.Default.DefaultReader;
-import src.Utils.IO.Output;
+import src.Default.DefaultReader;
+import src.IO.Output;
 
 // Monsters and Heroes game board implementation
 public class MaHBoard extends Board {
@@ -70,7 +70,7 @@ public class MaHBoard extends Board {
     @Override
     public void printBoard(int partyRow, int partyCol) {
         Output.clearScreen();
-        Output.boardBanner();
+        Output.boardBanner("mah");
         
         for (int r = 0; r < size; r++) {
             for (int c = 0; c < size; c++) {

@@ -1,4 +1,4 @@
-package src.Utils.Interface;
+package src.Interface;
 
 import src.Core.User;
 public interface Multiplayer {
