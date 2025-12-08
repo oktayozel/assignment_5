@@ -12,12 +12,11 @@ import src.Default.DefaultReader;
 
 public class LoVBoard extends Board {
 
-    public static final int BOARD_SIZE = 8;
     private final Random rand = new Random();
 
 
-    public LoVBoard() {
-        super(BOARD_SIZE);
+    public LoVBoard(int size) {
+        super(size);
         generateRandomLayout();
     }
 
@@ -75,7 +74,7 @@ public class LoVBoard extends Board {
     @Override
     public void printBoard(int partyRow, int partyCol) {
         Output.clearScreen();
-        Output.boardBanner();
+        Output.boardBanner("lov");
 
         final String H_BORDER = "=======";
 
@@ -133,7 +132,7 @@ public class LoVBoard extends Board {
 
                     if (t == Terrain.WALL) {
                         String inner = "   " + baseSymbol + "   ";
-                        cellText = Output.BLACK_BG + inner + Output.RESET;
+                        cellText = inner;  // No special color for walls
                     }
                 }
 
