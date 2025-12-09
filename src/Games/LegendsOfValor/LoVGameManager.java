@@ -5,11 +5,10 @@ import src.Core.GameManager;
 import src.Default.DefaultReader;
 import src.IO.Input;
 import src.IO.Output;
-import src.Interface.Multiplayer;
 import src.Core.User;
 import src.Games.MonstersAndHeroes.MaHBoard;
 
-public class LoVGameManager extends GameManager implements Multiplayer {
+public class LoVGameManager extends GameManager {
     
     private User user1;
     private User user2;
@@ -42,6 +41,7 @@ public class LoVGameManager extends GameManager implements Multiplayer {
         Output.displaySecondWelcomeMessage(user1, user2);
         switchUser();
         boolean running = true;
+ 
         while (running) {
             System.out.println("UPS: I didn't implement this part yettt sorry");
             Output.printMenu("mah");
@@ -76,6 +76,7 @@ public class LoVGameManager extends GameManager implements Multiplayer {
         return currentUser;
     }
 
+    
 
     
 }
