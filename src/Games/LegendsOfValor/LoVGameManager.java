@@ -4,6 +4,7 @@ import src.Core.GameManager;
 import src.Utils.IO.Input;
 import src.Utils.IO.Output;
 import src.Utils.Statistics.Statistics;
+import src.Utils.Default.DefaultReader;
 import src.Core.User;
 
 public class LoVGameManager extends GameManager {
@@ -23,10 +24,11 @@ public class LoVGameManager extends GameManager {
         this.user = new User(Input.getUsername());
 
 
-        //this.board = new LoVBoard(DefaultReader.getDefaultSettings("board_size"));
-        //while(!board.isBoardPlayable()){
-        //    this.board = new LoVBoard(DefaultReader.getDefaultSettings("board_size"));
-        //}   
+        this.board = new LoVBoard();
+        while(!board.isBoardPlayable()){
+            this.board = new LoVBoard();
+        }   
+
     }
 
     @Override
@@ -36,7 +38,7 @@ public class LoVGameManager extends GameManager {
  
         while (running) {
             board.printBoard(-1,-1);
-
+            Input.getInput(this);
 
 
 
