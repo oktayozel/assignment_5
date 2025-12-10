@@ -95,6 +95,10 @@ public class Tile {
         return terrain == Terrain.NEXUS_MONSTER;
     }
 
+    public void setHeroOccupant(Hero h) { this.heroOccupant = h; }
+    public Hero getHeroOccupant() { return this.heroOccupant; }
+    public void setMonsterOccupant(Monster m) { this.monsterOccupant = m; }
+    public Monster getMonsterOccupant() { return this.monsterOccupant; }
 
     // get market
     public Market getMarket() {
