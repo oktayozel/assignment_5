@@ -2,6 +2,7 @@ package src.Battle;
 
 import src.Core.Tile;
 import src.Games.LegendsOfValor.LoVBoard;
+import src.Games.LegendsOfValor.TerrainEffects;
 import src.Hero.Hero;
 import src.Monster.Monster;
 import src.Monster.MonsterSpawner;
@@ -31,6 +32,8 @@ public class LoVCombatHandler {
     private Map<Hero, int[]> heroPositions;      // Hero -> [row, col, laneIndex]
     private Map<Monster, int[]> monsterPositions; // Monster -> [row, col, laneIndex]
     private List<Monster> activeMonsters;
+
+    private Map<Hero, int[]> heroSpawnPositions = new HashMap<>();
     
     public LoVCombatHandler(LoVBoard board, Party party, 
                            Map<Hero, int[]> heroPositions,
@@ -41,6 +44,11 @@ public class LoVCombatHandler {
         this.heroPositions = heroPositions;
         this.monsterPositions = monsterPositions;
         this.activeMonsters = activeMonsters;
+
+        for (Map.Entry<Hero, int[]> e : heroPositions.entrySet()) {
+            int[] p = e.getValue();
+            heroSpawnPositions.put(e.getKey(), new int[]{p[0], p[1], p[2]});
+        }
     }
     
     // ============================================
@@ -82,7 +90,9 @@ public class LoVCombatHandler {
         }
         
         // Calculate damage (same formula as MaH)
+        Tile heroTile = board.getTile(pos[0], pos[1]);
         int rawDamage = attacker.computeAttackDamage();
+        rawDamage = TerrainEffects.applyAttackBonus(attacker, heroTile, rawDamage);
         int finalDamage = Math.max(0, rawDamage - target.getDefense());
         target.takeDamage(finalDamage);
         
@@ -165,7 +175,9 @@ public class LoVCombatHandler {
         }
         
         // Calculate spell damage (same as MaH)
+        Tile casterTile = board.getTile(pos[0], pos[1]);
         int rawDamage = spell.getDamage() + (int)Math.round(caster.getDexterity() * 0.05);
+        rawDamage = TerrainEffects.applySpellBonus(caster, casterTile, rawDamage);
         int finalDamage = Math.max(0, rawDamage - target.getDefense());
         target.takeDamage(finalDamage);
         
@@ -343,8 +355,13 @@ public class LoVCombatHandler {
     
     // Monster attacks a hero
     private void monsterAttack(Monster attacker, Hero target) {
+
+        int[] hPos = heroPositions.get(target);
+        Tile heroTile = board.getTile(hPos[0], hPos[1]);
+        double dodgeChance = TerrainEffects.effectiveDodgeChance(target, heroTile);
+
         // Dodge check
-        if (Math.random() < target.getDodgeChance()) {
+        if (Math.random() < dodgeChance ) {
             Output.narrative(target.getName() + " dodged " + attacker.getName() + 
                            "'s attack!", Output.YELLOW);
             return;
@@ -537,5 +554,171 @@ public class LoVCombatHandler {
     
     public Map<Monster, int[]> getMonsterPositions() {
         return monsterPositions;
+    }
+
+    private int getLaneIndex(int col) {
+        if (col >= 0 && col <= 1) {
+            return 0;      // top lane
+        }
+        if (col >= 3 && col <= 4) {
+            return 1;      // mid lane
+        }
+        if (col >= 6 && col <= 7){
+            return 2;      // bot lane
+        }
+        return -1; // walls or invalid
+    }
+
+    private Tile getHeroTile(Hero hero) {
+        int[] pos = heroPositions.get(hero);
+        if (pos == null) return null;
+        return board.getTile(pos[0], pos[1]);
+    }
+
+    public void heroRecall(Hero hero) {
+
+        int[] spawn = heroSpawnPositions.get(hero);
+
+        int spawnRow = spawn[0];
+        int spawnCol = spawn[1];
+        int spawnLane = spawn[2];
+
+        Tile nexusTile = board.getTile(spawnRow, spawnCol);
+        // remove from old tile, if any
+        Tile current = getHeroTile(hero);
+        // move hero to their spawn Nexus
+        nexusTile.setHeroOccupant(hero);
+        heroPositions.put(hero, new int[]{spawnRow, spawnCol, spawnLane});
+
+        Output.narrative(hero.getName() + " recalls back to their Nexus!", Output.CYAN);
+    }
+
+    private int getMonsterRow(int laneIndex) {
+        int front = -1;
+        for (Map.Entry<Monster, int[]> e : monsterPositions.entrySet()) {
+            Monster m = e.getKey();
+            if (m.isDefeated()) continue;
+
+            int[] pos = e.getValue(); // [row, col, laneIndex]
+            if (pos[2] != laneIndex) continue;
+
+            int row = pos[0];
+            if (front == -1 || row > front) {
+                front = row;
+            }
+        }
+        return front;
+    }
+
+    public void heroTeleport(Hero hero) {
+
+        int[] pos = heroPositions.get(hero);
+
+        int heroLane = pos[2];
+
+        // --- choose target hero in a DIFFERENT lane ---
+        List<Hero> targets = new ArrayList<>();
+        for (Hero h : party.getHeroes()) {
+            if (h == hero) {
+                continue;
+            }
+            int[] p = heroPositions.get(h);
+            if (p[2] != heroLane) {
+                targets.add(h);
+            }
+        }
+
+        System.out.println("Select target hero to teleport next to (different lane):");
+        for (int i = 0; i < targets.size(); i++) {
+            Hero h = targets.get(i);
+            int[] p = heroPositions.get(h);
+            System.out.println("(" + (i + 1) + ") " + h.getName()
+                    + " at (" + p[0] + "," + p[1] + "), lane " + p[2]);
+        }
+        int heroSelected = Input.readInt(1, targets.size()) - 1;
+        Hero targetHero = targets.get(heroSelected);
+        int[] tPos = heroPositions.get(targetHero);
+        int tr = tPos[0];
+        int tc = tPos[1];
+        int targetLane = tPos[2];
+
+        // --- collect all LEGAL adjacent tiles around target hero ---
+        List<int[]> legal = new ArrayList<>(); // [row, col, laneIndex]
+        int[][] offsets = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // N, S, W, E
+
+        for (int[] off : offsets) {
+            int nr = tr + off[0];
+            int nc = tc + off[1];
+
+            if (!board.isInside(nr, nc)){
+                continue;
+            }
+            Tile tile = board.getTile(nr, nc);
+
+            // cannot land on inaccessible or obstacle tiles
+            if (tile.getType() == Tile.Type.INACCESSIBLE) {
+                continue;
+            }
+            if (tile.getTerrain() == Tile.Terrain.OBSTACLE) {
+                continue;
+            }
+
+            // cannot land on another hero
+            if (tile.getHeroOccupant() != null) {
+                continue;
+            }
+            int lane = getLaneIndex(nc);
+
+            //wall or invalid
+            if (lane == -1){
+                continue;
+            }
+
+            // Teleport must be between different lanes
+            if (lane == heroLane) {
+                continue;
+            }
+
+            // cannot teleport to a space AHEAD of target hero
+            if (nr < tr) {
+                continue;
+            }
+
+            // cannot teleport behind the front-most monster in that lane
+            int frontMonsterRow = getMonsterRow(lane);
+            if (frontMonsterRow != -1 && nr < frontMonsterRow) {
+                continue;
+            }
+
+            legal.add(new int[]{nr, nc, lane});
+        }
+
+        if (legal.isEmpty()) {
+            Output.narrative("No legal teleport destination around that hero.", Output.YELLOW);
+            return;
+        }
+
+        // --- let player choose a legal destination ---
+        System.out.println("Select teleport destination:");
+        for (int i = 0; i < legal.size(); i++) {
+            int[] p = legal.get(i);
+            System.out.println("(" + (i + 1) + ") (" + p[0] + "," + p[1] + ") lane " + p[2]
+                    + " [" + board.getTile(p[0], p[1]).getTerrain() + "]");
+        }
+        int goal = Input.readInt(1, legal.size()) - 1;
+        int[] dest = legal.get(goal);
+        int dr = dest[0];
+        int dc = dest[1];
+        int destLane = dest[2];
+
+        // --- move hero ---
+        Tile current = getHeroTile(hero);
+        Tile destTile = board.getTile(dr, dc);
+        destTile.setHeroOccupant(hero);
+        heroPositions.put(hero, new int[]{dr, dc, destLane});
+
+        Output.narrative(hero.getName() + " teleports next to " + targetHero.getName()
+                        + " to (" + dr + "," + dc + ") in lane " + destLane + "!",
+                Output.MAGENTA);
     }
 }
