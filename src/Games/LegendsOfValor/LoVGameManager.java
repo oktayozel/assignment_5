@@ -38,12 +38,10 @@ public class LoVGameManager extends GameManager {
  
         while (running) {
             board.printBoard(-1,-1);
-            Input.getInput(this);
-
-
+            Output.printMenu("lov");
+            running = Input.getInput(this);
 
         }
-
 
         Output.clearScreen();
         Output.displayStatistics(statistics);
@@ -52,14 +50,11 @@ public class LoVGameManager extends GameManager {
         Output.print("Thanks for playing!");
     }
 
+
     @Override
     public void handleTileEvent() {
-        // TODO: Implement Legends of Valor tile events
+        return;
     }
-
-
-
-
 
     
 
