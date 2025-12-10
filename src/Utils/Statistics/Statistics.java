@@ -1,4 +1,4 @@
-package src.Statistics;
+package src.Utils.Statistics;
 
 // tracks game stats
 public class Statistics {

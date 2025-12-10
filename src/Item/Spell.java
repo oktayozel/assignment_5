@@ -1,6 +1,6 @@
 package src.Item;
 
-import src.Interface.Consumable;
+import src.Utils.Interface.Consumable;
 
 
 // spell item

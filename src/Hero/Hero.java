@@ -2,10 +2,10 @@ package src.Hero;
 
 import src.Inventory.Inventory;
 import src.Item.Weapon;
+import src.Utils.Interface.AttackStrategy;
+import src.Utils.Interface.Combatant;
 import src.Item.Armor;
 import src.Item.Potion;
-import src.Interface.Combatant;
-import src.Interface.AttackStrategy;
 
 // hero base class
 public abstract class Hero implements Combatant {

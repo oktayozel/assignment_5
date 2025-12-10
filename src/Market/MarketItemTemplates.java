@@ -5,7 +5,7 @@ import src.Item.Item;
 import src.Item.Potion;
 import src.Item.Spell;
 import src.Item.Weapon;
-import src.Default.DefaultReader;
+import src.Utils.Default.DefaultReader;
 
 import java.util.*;
 

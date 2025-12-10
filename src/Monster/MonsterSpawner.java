@@ -2,9 +2,9 @@ package src.Monster;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import src.Utils.Default.DefaultReader;
 
-import src.Default.DefaultReader;
+import java.util.Random;
 
 // generates monsters for battle
 public class MonsterSpawner {

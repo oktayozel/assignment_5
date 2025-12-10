@@ -1,5 +1,5 @@
 package src.Core;
-import src.IO.Output;
+import src.Utils.IO.Output;
 
 // party position on board
 public class Piece {

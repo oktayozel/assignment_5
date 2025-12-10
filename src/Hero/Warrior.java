@@ -1,9 +1,10 @@
 package src.Hero;
 import src.Inventory.Inventory;
 import src.Item.Weapon;
-import src.Default.DefaultReader;
+import src.Utils.Default.DefaultReader;
+import src.Utils.Strategy.WarriorAttackStrategy;
+
 import java.util.List;
-import src.Strategy.WarriorAttackStrategy;
 
 // warrior favors strength and agility
 public class Warrior extends Hero {

@@ -1,4 +1,4 @@
-package src.Interface;
+package src.Utils.Interface;
 
 public interface Tradeable {
     String getName();

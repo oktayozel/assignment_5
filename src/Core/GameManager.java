@@ -1,7 +1,7 @@
 package src.Core;
 
 import java.util.Random;
-
+import src.Utils.Statistics.Statistics;
 
 public abstract class GameManager {
 
@@ -10,9 +10,9 @@ public abstract class GameManager {
     protected Board board;
     protected Piece partyPiece;
     protected User user;
-    protected src.Statistics.Statistics statistics;
+    protected Statistics statistics;
     
-    public GameManager(src.Statistics.Statistics statistics) {
+    public GameManager(Statistics statistics) {
         this.statistics = statistics;
         this.statistics.incrementGamesPlayed();
         setupGame();
@@ -33,7 +33,7 @@ public abstract class GameManager {
     public Piece getPartyPiece() {
         return partyPiece;
     }
-    public src.Statistics.Statistics getStatistics() {
+    public src.Utils.Statistics.Statistics getStatistics() {
         return statistics;
     }
 }

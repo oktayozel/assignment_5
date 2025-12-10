@@ -1,4 +1,4 @@
-package src.IO;
+package src.Utils.IO;
 import java.util.Scanner;
 
 import java.util.List;
@@ -6,11 +6,12 @@ import src.Battle.Battle;
 import src.Core.GameManager;
 import src.Core.User;
 import src.Market.Market;
-import src.Default.DefaultReader;
+import src.Utils.Default.DefaultReader;
 import src.Hero.Hero;
 import src.Inventory.InventoryEntry;
 import src.Item.Item;
-import src.Statistics.Statistics;
+import src.Utils.Statistics.Statistics;
+import src.Utils.Interface.Repairable;
 
 // handles all user input
 public  class Input {
@@ -44,16 +45,7 @@ public  class Input {
         return name;
     }
 
-    public static List<String> getMultiplayerUsernames(){
-        List<String> names = new java.util.ArrayList<>();
-        for (int i = 1; i <= 2; i++) {
-            Output.print("Enter name for Player " + i + ": "); 
-            String name = scanner.nextLine();
-            isGameExit(name);
-            names.add(name);
-        }
-        return names;
-    }
+
 
     public static String getGame(){
         Output.print("Enter the game you want to play, enter Q to quit game \n [1] MaH for Monsters and Heroes\n [2]LoV for Legends of Valor): "); 
@@ -464,8 +456,8 @@ public  class Input {
         java.util.List<Item> brokenItems = new java.util.ArrayList<>();
         for (InventoryEntry entry : hero.getInventory().getEntries()) {
             Item item = entry.getItem();
-            if (item instanceof src.Interface.Repairable) {
-                src.Interface.Repairable repairable = (src.Interface.Repairable) item;
+            if (item instanceof Repairable) {
+                Repairable repairable = (Repairable) item;
                 if (repairable.isBroken()) {
                     brokenItems.add(item);
                 }
@@ -481,7 +473,7 @@ public  class Input {
         System.out.println("Select broken item to repair:");
         for (int i = 0; i < brokenItems.size(); i++) {
             Item item = brokenItems.get(i);
-            src.Interface.Repairable repairable = (src.Interface.Repairable) item;
+            Repairable repairable = (Repairable) item;
             int repairCost = repairable.getRepairCost();
             System.out.println("(" + (i + 1) + ") " + item.getName() + " (Repair cost: " + repairCost + " gold)");
         }
@@ -557,7 +549,7 @@ public  class Input {
         } catch (Exception ignored) {}
     }
 
-    public static void inputNewGame(src.Statistics.Statistics statistics) {
+    public static void inputNewGame(Statistics statistics) {
         System.out.print("Do you want to start a new game? (Y/N), to exit press Q: ");
         while (true) {
             String raw = scanner.nextLine().trim().toUpperCase();

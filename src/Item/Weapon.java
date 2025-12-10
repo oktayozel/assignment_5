@@ -1,7 +1,7 @@
 package src.Item;
 
-import src.Interface.Equippable;
-import src.Interface.Repairable;
+import src.Utils.Interface.Equippable;
+import src.Utils.Interface.Repairable;
 
 public class Weapon extends Item implements Equippable, Repairable {
     private int damage;

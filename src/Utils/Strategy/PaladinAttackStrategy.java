@@ -1,8 +1,8 @@
-package src.Strategy;
+package src.Utils.Strategy;
 
-import src.Interface.AttackStrategy;
 import src.Hero.Hero;
 import src.Item.Weapon;
+import src.Utils.Interface.AttackStrategy;
 
 // paladin balanced with 10 percent chance to heal 5 percent of damage
 public class PaladinAttackStrategy implements AttackStrategy {

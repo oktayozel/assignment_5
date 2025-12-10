@@ -1,6 +1,6 @@
 package src.Item;
 
-import src.Interface.Tradeable;
+import src.Utils.Interface.Tradeable;
 
 // base class for all items
 abstract public class Item implements Tradeable {

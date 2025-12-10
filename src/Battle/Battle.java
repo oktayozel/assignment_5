@@ -3,10 +3,12 @@ package src.Battle;
 
 import java.util.List;
 import java.util.ArrayList;
-import src.IO.Input;
-import src.IO.Output;
+
 import src.Monster.MonsterSpawner;
-import src.Statistics.Statistics;
+import src.Utils.Default.DefaultReader;
+import src.Utils.IO.Input;
+import src.Utils.IO.Output;
+import src.Utils.Statistics.Statistics;
 import src.Core.GameManager;
 import src.Core.Party;
 import src.Monster.Monster;
@@ -16,7 +18,6 @@ import src.Item.Weapon;
 import src.Item.Armor;
 import src.Item.Spell;
 import src.Item.Potion;
-import src.Default.DefaultReader;
 
 public class Battle {
 
@@ -39,6 +40,9 @@ public class Battle {
         this.party = gm.getUser().getParty();
         this.monsters = generateMonstersForBattle(party.size(),party.getHighestLevel());
     }
+
+
+
 
     // battle  loop
     public void start() {
@@ -125,6 +129,7 @@ public class Battle {
                 aliveMonsters.add(m);
             }
         }
+    
         if (aliveMonsters.isEmpty()) {
             Output.narrative("All monsters are already defeated.\n");
             return;

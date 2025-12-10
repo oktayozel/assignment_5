@@ -1,4 +1,4 @@
-package src.Interface;
+package src.Utils.Interface;
 
 // for weapons and armor
 public interface Equippable {

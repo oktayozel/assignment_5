@@ -1,7 +1,7 @@
 package src.Core;
 
-import src.IO.Input;
-import src.Statistics.Statistics;
+import src.Utils.IO.Input;
+import src.Utils.Statistics.Statistics;
 
 public class MainMenu {
     private Statistics statistics;

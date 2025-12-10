@@ -1,4 +1,4 @@
-package src.Interface;
+package src.Utils.Interface;
 
 // for heroes and monsters in combat
 public interface Combatant {
