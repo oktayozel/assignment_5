@@ -39,7 +39,7 @@ public class LoVGameManager extends GameManager {
         while (running) {
             board.printBoard(-1,-1);
             Output.printMenu("lov");
-            running = Input.getInput(this);
+            running = Input.getInputLoV(this);
 
         }
 

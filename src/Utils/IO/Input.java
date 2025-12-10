@@ -144,7 +144,7 @@ public  class Input {
             gm.getBoard().tryEnterMarket(gm.getPartyPiece().getRow(), gm.getPartyPiece().getCol(), gm.getUser());
 
         } else if (input.equals("H")) {
-            Output.displayInstructions();
+            Output.displayInstructions("mah");
             waitForEnter();
         }
         else if (input.equals("Q")) {
@@ -156,6 +156,97 @@ public  class Input {
         return running;
 
     }
+
+    public static boolean getInputLoV(GameManager gm) {
+        boolean running = true;
+        String input;
+        while(true){
+            input = scanner.nextLine().trim().toUpperCase();
+        if (!input.equals("W") &&
+            !input.equals("A") &&
+            !input.equals("S") &&
+            !input.equals("D") &&
+            !input.equals("I") &&
+            !input.equals("M") &&
+            !input.equals("H") &&
+            !input.equals("Q") &&
+            !input.equals("R") &&
+            !input.equals("T")
+        ) {
+            
+            System.out.println("Invalid input. Please try again.");
+            }
+        else {
+                isGameExit(input);
+                break;
+            }
+        }
+
+        if (input.equals("W")) {
+            if (gm.getPartyPiece().moveUp(gm.getBoard())) {
+                gm.handleTileEvent();
+            }
+
+        } else if (input.equals("A")) {
+            if (gm.getPartyPiece().moveLeft(gm.getBoard())) {
+                gm.handleTileEvent();
+            }
+
+        } else if (input.equals("S")) {
+            if (gm.getPartyPiece().moveDown(gm.getBoard())) {
+                gm.handleTileEvent();
+            }
+
+        } else if (input.equals("D")) {
+            if (gm.getPartyPiece().moveRight(gm.getBoard())) {
+                gm.handleTileEvent();
+            }
+
+        } else if (input.equals("I")) {
+            // Show info AND open inventory 
+            getPartyInfoInput(gm);
+
+        } else if (input.equals("C")) {
+            getPartyInfoInput(gm);
+
+        } else if (input.equals("M")) {
+            gm.getBoard().tryEnterMarket(gm.getPartyPiece().getRow(), gm.getPartyPiece().getCol(), gm.getUser());
+
+        } else if (input.equals("H")) {
+            Output.displayInstructions("lov");
+            waitForEnter();
+        }
+        else if (input.equals("T")) {
+            // implement teleport
+        }
+        else if (input.equals("R")) {
+            // implement recall
+        }
+
+        else if (input.equals("Q")) {
+            running = false;
+
+        } else {
+            System.out.println("Unknown command.");
+        }
+        return running;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public static boolean getMarketInput(Market market, User user) {
         String input = scanner.nextLine().trim().toUpperCase();
