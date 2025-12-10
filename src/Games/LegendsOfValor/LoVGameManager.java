@@ -61,7 +61,6 @@ public class LoVGameManager extends GameManager {
         // TODO: Implement Legends of Valor tile events
     }
 
-    @Override
     public User switchUser() {
         if (currentUser == null || currentUser == user2) {
             currentUser = user1;
@@ -71,10 +70,7 @@ public class LoVGameManager extends GameManager {
         return currentUser;
     }
 
-    @Override
-    public User getCurrentUser() {
-        return currentUser;
-    }
+
 
     
 
