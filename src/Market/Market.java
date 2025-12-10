@@ -3,14 +3,13 @@ package src.Market;
 import src.Core.User;
 import src.Hero.Hero;
 import src.Item.Item;
+import src.Utils.IO.Input;
+import src.Utils.IO.Output;
 import src.Inventory.InventoryEntry;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import src.IO.Input;
-import src.IO.Output;
 
 // market for buying selling items
 public class Market {
@@ -75,12 +74,12 @@ public class Market {
         }
         
         // Check if item implements Repairable interface
-        if (!(item instanceof src.Interface.Repairable)) {
+        if (!(item instanceof src.Utils.Interface.Repairable)) {
             Output.print("This item cannot be repaired.\n");
             return false;
         }
         
-        src.Interface.Repairable repairable = (src.Interface.Repairable) item;
+        src.Utils.Interface.Repairable repairable = (src.Utils.Interface.Repairable) item;
         
         // Check if item is broken
         if (!repairable.isBroken()) {

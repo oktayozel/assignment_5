@@ -1,8 +1,8 @@
-package src.IO;
+package src.Utils.IO;
 
 import src.Monster.Monster;
-import src.Default.DefaultReader;
-import src.Statistics.Statistics;
+import src.Utils.Default.DefaultReader;
+import src.Utils.Statistics.Statistics;
 import src.Hero.Hero;
 import src.Item.Item;
 import src.Item.Weapon;
@@ -29,7 +29,7 @@ public class Output {
     public static final String BRIGHT_RED = "\u001B[91m";
     public static final String BRIGHT_YELLOW = "\u001B[93m";
     public static final String BRIGHT_CYAN = "\u001B[96m";
-
+    public static final String BLACK_BG = "\u001B[40m";
 
 
     static List<String> paladingArt = Arrays.asList(
@@ -413,47 +413,6 @@ public class Output {
         System.out.println(BRIGHT_RED + "I beg mercy to you and the heroes, cause monsters won't show any!" + RESET);
         sleep(5000);
     }
-
-    public static void displaySecondWelcomeMessage(User user1, User user2 ){
-        clearScreen();
-        System.out.println(BRIGHT_CYAN + "Welcome to Legends: Monsters and Heroes, " + BRIGHT_YELLOW + user1.getName() + BRIGHT_CYAN + " and " + BRIGHT_YELLOW + user2.getName() + BRIGHT_CYAN + "!" + RESET);
-        System.out.println(BRIGHT_GREEN + "Prepare yourselves for new adventures and challenges ahead!" + RESET);
-        sleep(500);
-        System.out.println(CYAN + "Your game will start shotly with following heroes" + RESET);
-//        for( int i = 0 ; i < user1.getParty().getHeroes().size(); i++){
-//            sleep(500);
-//            Hero hero = user1.getParty().getHeroes().get(i);
-//            if(hero.getHeroClass().equals("Paladin")) {
-//                animateString(paladingArt);
-//            } else if (hero.getHeroClass().equals("Sorcerer")) {
-//                animateString(sorcererArt);
-//            } else if (hero.getHeroClass().equals("Warrior")) {
-//                animateString(warriorArt);
-//            }
-//            
-//            System.out.println("\n\n              " + BRIGHT_GREEN + "Hero " + (i + 1) + ": " + BRIGHT_YELLOW + hero.getName() + RESET);
-//            System.out.println("\n\n\n\n\n\n");
-//        }
-//        for( int i = 0 ; i < user2.getParty().getHeroes().size(); i++){
-//            sleep(500);
-//            Hero hero = user2.getParty().getHeroes().get(i);
-//            if(hero.getHeroClass().equals("Paladin")) {
-//                animateString(paladingArt);
-//            } else if (hero.getHeroClass().equals("Sorcerer")) {
-//                animateString(sorcererArt);
-//            } else if (hero.getHeroClass().equals("Warrior")) {
-//                animateString(warriorArt);
-//            }
-//            
-//            System.out.println("\n\n              " + BRIGHT_GREEN + "Hero " + (i + 1) + ": " + BRIGHT_YELLOW + hero.getName() + RESET);
-//            System.out.println("\n\n\n\n\n\n");
-//        }
-        System.out.println(BRIGHT_RED + "I beg mercy to you and the heroes, cause monsters won't show any!" + RESET);
-        sleep(5000);
-
-    }
-
-
 
 
 

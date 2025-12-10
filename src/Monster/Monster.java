@@ -1,6 +1,6 @@
 package src.Monster;
 
-import src.Interface.Combatant;
+import src.Utils.Interface.Combatant;
 
 
 // abstract base class for all monsters

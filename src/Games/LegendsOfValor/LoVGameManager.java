@@ -1,20 +1,16 @@
 package src.Games.LegendsOfValor;
 
-import java.util.List;
 import src.Core.GameManager;
-import src.Default.DefaultReader;
-import src.IO.Input;
-import src.IO.Output;
+import src.Utils.IO.Input;
+import src.Utils.IO.Output;
+import src.Utils.Statistics.Statistics;
 import src.Core.User;
-import src.Games.MonstersAndHeroes.MaHBoard;
 
 public class LoVGameManager extends GameManager {
     
-    private User user1;
-    private User user2;
-    private User currentUser;
+    private User user;
 
-    public LoVGameManager(src.Statistics.Statistics statistics) {
+    public LoVGameManager(Statistics statistics) {
         super(statistics);
     }
 
@@ -23,28 +19,26 @@ public class LoVGameManager extends GameManager {
         Output.gameInitializationMessage("lov");
         Output.someSpace();
 
-        List<String> nameList = Input.getMultiplayerUsernames();
 
-        this.user1 = new User(nameList.get(0));
-        this.user2 = new User(nameList.get(1));
+        this.user = new User(Input.getUsername());
 
 
-        this.board = new LoVBoard(DefaultReader.getDefaultSettings("board_size"));
-        while(!board.isBoardPlayable()){
-            this.board = new LoVBoard(DefaultReader.getDefaultSettings("board_size"));
-        }   
-
+        //this.board = new LoVBoard(DefaultReader.getDefaultSettings("board_size"));
+        //while(!board.isBoardPlayable()){
+        //    this.board = new LoVBoard(DefaultReader.getDefaultSettings("board_size"));
+        //}   
     }
 
     @Override
     public void start() {
-        Output.displaySecondWelcomeMessage(user1, user2);
-        switchUser();
+        Output.displaySecondWelcomeMessage(user);
         boolean running = true;
  
         while (running) {
-            System.out.println("UPS: I didn't implement this part yettt sorry");
-            Output.printMenu("mah");
+            board.printBoard(-1,-1);
+
+
+
 
         }
 
@@ -61,14 +55,7 @@ public class LoVGameManager extends GameManager {
         // TODO: Implement Legends of Valor tile events
     }
 
-    public User switchUser() {
-        if (currentUser == null || currentUser == user2) {
-            currentUser = user1;
-        } else {
-            currentUser = user2;
-        }
-        return currentUser;
-    }
+
 
 
 

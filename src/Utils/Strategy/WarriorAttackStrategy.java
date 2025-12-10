@@ -1,8 +1,8 @@
-package src.Strategy;
+package src.Utils.Strategy;
 
-import src.Interface.AttackStrategy;
 import src.Hero.Hero;
 import src.Item.Weapon;
+import src.Utils.Interface.AttackStrategy;
 
 // warrior gets 20 percent more from strength
 public class WarriorAttackStrategy implements AttackStrategy {

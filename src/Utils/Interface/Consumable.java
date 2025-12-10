@@ -1,4 +1,4 @@
-package src.Interface;
+package src.Utils.Interface;
 
 // for potions and spells
 public interface Consumable {

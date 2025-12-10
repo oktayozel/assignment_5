@@ -4,14 +4,15 @@ import src.Core.GameManager;
 import src.Core.Piece;
 import src.Core.Tile;
 import src.Core.User;
-import src.Default.DefaultReader;
-import src.IO.Input;
-import src.IO.Output;
+import src.Utils.Default.DefaultReader;
+import src.Utils.IO.Input;
+import src.Utils.IO.Output;
 import src.Battle.Battle;
+import src.Utils.Statistics.Statistics;
 
 public class MaHGameManager extends GameManager{
     
-    public MaHGameManager(src.Statistics.Statistics statistics) {
+    public MaHGameManager(Statistics statistics) {
         super(statistics);
     }
 

@@ -1,8 +1,8 @@
-package src.Strategy;
+package src.Utils.Strategy;
 
-import src.Interface.AttackStrategy;
 import src.Hero.Hero;
 import src.Item.Weapon;
+import src.Utils.Interface.AttackStrategy;
 
 // sorcerer uses 70 percent strength 30 percent dexterity
 public class SorcererAttackStrategy implements AttackStrategy {

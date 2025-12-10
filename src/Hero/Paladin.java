@@ -1,9 +1,11 @@
 package src.Hero;
+
+import src.Utils.Default.DefaultReader;
 import src.Inventory.Inventory;
 import src.Item.Weapon;
-import src.Default.DefaultReader;
+import src.Utils.Strategy.PaladinAttackStrategy;
+
 import java.util.List;
-import src.Strategy.PaladinAttackStrategy;
 
 // paladin favors strength and dexterity
 public class Paladin extends Hero{

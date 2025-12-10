@@ -7,16 +7,18 @@ import src.Core.Tile;
 import src.Core.Tile.Terrain;
 import src.Core.Tile.Type;
 import src.Core.User;
-import src.IO.Output;
-import src.Default.DefaultReader;
+import src.Utils.IO.Output;
+import src.Utils.Default.DefaultReader;
 
 public class LoVBoard extends Board {
 
+
+    public static final int BOARD_SIZE = 8;
     private final Random rand = new Random();
 
 
-    public LoVBoard(int size) {
-        super(size);
+    public LoVBoard() {
+        super(BOARD_SIZE);
         generateRandomLayout();
     }
 
@@ -74,7 +76,6 @@ public class LoVBoard extends Board {
     @Override
     public void printBoard(int partyRow, int partyCol) {
         Output.clearScreen();
-        Output.boardBanner("lov");
 
         final String H_BORDER = "=======";
 
@@ -132,7 +133,7 @@ public class LoVBoard extends Board {
 
                     if (t == Terrain.WALL) {
                         String inner = "   " + baseSymbol + "   ";
-                        cellText = inner;  // No special color for walls
+                        cellText = Output.BLACK_BG + inner + Output.RESET;
                     }
                 }
 

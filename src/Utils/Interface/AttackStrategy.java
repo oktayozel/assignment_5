@@ -1,4 +1,4 @@
-package src.Interface;
+package src.Utils.Interface;
 
 import src.Hero.Hero;
 import src.Item.Weapon;

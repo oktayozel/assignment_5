@@ -6,8 +6,8 @@ import src.Hero.Paladin;
 import src.Hero.Sorcerer;
 import src.Hero.Warrior;
 import src.Inventory.Inventory;
-import src.Default.DefaultReader;
-import src.IO.Input;
+import src.Utils.Default.DefaultReader;
+import src.Utils.IO.Input;
 
 // party of heroes max 3
 public class Party {
