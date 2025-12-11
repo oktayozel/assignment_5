@@ -80,4 +80,45 @@ public class MarketItemTemplates {
         }
         return list;
     }
+    
+    // Get all items that match or are below the hero's level
+    public static List<Item> getAllItemsForLevel(int heroLevel, Random random) {
+        List<Item> items = new ArrayList<>();
+        
+        // Load all items from templates
+        List<DefaultReader.WeaponTemplate> weapons = DefaultReader.loadWeapons();
+        List<DefaultReader.ArmorTemplate> armors = DefaultReader.loadArmor();
+        List<DefaultReader.PotionTemplate> potions = DefaultReader.loadPotions();
+        List<DefaultReader.SpellTemplate> spells = DefaultReader.loadSpells();
+        
+        // Add weapons at or below hero level
+        for (DefaultReader.WeaponTemplate wt : weapons) {
+            if (wt.level == heroLevel) {
+                items.add(new Weapon(wt.name, wt.cost, wt.level, wt.damage, wt.hands));
+            }
+        }
+        
+        // Add armors at or below hero level
+        for (DefaultReader.ArmorTemplate at : armors) {
+            if (at.level == heroLevel) {
+                items.add(new Armor(at.name, at.cost, at.level, at.reduction));
+            }
+        }
+        
+        // Add potions at or below hero level
+        for (DefaultReader.PotionTemplate pt : potions) {
+            if (pt.level == heroLevel) {
+                items.add(new Potion(pt.name, pt.cost, pt.level, pt.increase, pt.affected));
+            }
+        }
+        
+        // Add spells at or below hero level
+        for (DefaultReader.SpellTemplate st : spells) {
+            if (st.level == heroLevel) {
+                items.add(new Spell(st.name, st.cost, st.level, st.damage, st.manaCost, st.type));
+            }
+        }
+        
+        return items;
+    }
 }
