@@ -46,7 +46,8 @@ public class LoVGameManager extends GameManager {
 
     @Override
     public void start() {
-        Output.displaySecondWelcomeMessage(user);
+        
+        Output.displaySecondWelcomeMessage(heroes,user);
         boolean running = true;
         currentHeroTurn = 0;
  
@@ -118,13 +119,11 @@ public class LoVGameManager extends GameManager {
         }
     }
 
-    // Place heroes on the board at their selected lanes' Nexus positions
     private void placeHeroesOnBoard() {
         for (int i = 0; i < heroes.size(); i++) {
             Hero hero = heroes.get(i);
             String lane = heroLanes.get(i);
             
-            // Determine column based on lane
             int col;
             if ("left".equals(lane)) {
                 col = i % 2; // columns 0, 1
@@ -142,7 +141,6 @@ public class LoVGameManager extends GameManager {
         }
     }
     
-    // Initialize individual markets for each hero with 2 items of each type
     private void initializeHeroMarkets() {
         for (int i = 0; i < heroes.size(); i++) {
             Hero hero = heroes.get(i);
@@ -156,26 +154,21 @@ public class LoVGameManager extends GameManager {
         Output.print("Individual markets created for all heroes.");
     }
     
-    // Add 2 items of each type (Weapon, Armor, Potion, Spell) to hero's inventory
     private void addItemsToHeroInventory(Hero hero) {
         java.util.Random rand = new java.util.Random();
         
-        // Add 2 weapons
         for (int i = 0; i < 2; i++) {
             hero.getInventory().addItem(getRandomWeapon(rand), 1);
         }
         
-        // Add 2 armor
         for (int i = 0; i < 2; i++) {
             hero.getInventory().addItem(getRandomArmor(rand), 1);
         }
         
-        // Add 2 potions
         for (int i = 0; i < 2; i++) {
             hero.getInventory().addItem(getRandomPotion(rand), 1);
         }
         
-        // Add 2 spells
         for (int i = 0; i < 2; i++) {
             hero.getInventory().addItem(getRandomSpell(rand), 1);
         }

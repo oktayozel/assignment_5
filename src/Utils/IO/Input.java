@@ -48,7 +48,7 @@ public  class Input {
 
 
     public static String getGame(){
-        Output.print("Enter the game you want to play, enter Q to quit game \n [1] MaH for Monsters and Heroes\n [2]LoV for Legends of Valor): "); 
+        Output.print("Enter the game you want to play, enter Q to quit game \n [1] MaH for Monsters and Heroes\n [2] LoV for Legends of Valor)\n >> "); 
         String game;
 
         while (true) {

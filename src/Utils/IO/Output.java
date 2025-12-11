@@ -514,6 +514,31 @@ public class Output {
         sleep(5000);
     }
 
+    public static void displaySecondWelcomeMessage(List<Hero> heroes, User user){
+        clearScreen();
+        System.out.println(BRIGHT_CYAN + "Welcome to Legends of Valor " + BRIGHT_YELLOW + user.getName() + BRIGHT_CYAN + "!" + RESET);
+        System.out.println(BRIGHT_GREEN + "Prepare yourself for new adventures and challenges ahead!" + RESET);
+        sleep(500);
+        System.out.println(CYAN + "Your game will start shotly with following heroes" + RESET);
+        for( int i = 0 ; i < heroes.size(); i++){
+            sleep(500);
+            Hero hero = heroes.get(i);
+            if(hero.getHeroClass().equals("Paladin")) {
+                animateString(paladingArt);
+            } else if (hero.getHeroClass().equals("Sorcerer")) {
+                animateString(sorcererArt);
+            } else if (hero.getHeroClass().equals("Warrior")) {
+                animateString(warriorArt);
+            }
+            
+            System.out.println("\n\n              " + BRIGHT_GREEN + "Hero " + (i + 1) + ": " + BRIGHT_YELLOW + hero.getName() + RESET);
+            System.out.println("\n\n\n\n\n\n");
+        }
+        System.out.println(BRIGHT_RED + "I beg mercy to you and the heroes, cause monsters won't show any!" + RESET);
+        sleep(5000);
+    }
+
+
 
 
     public static void sleep(int milliseconds) {
