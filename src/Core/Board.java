@@ -22,8 +22,13 @@ public abstract class Board {
     // check if board playable
     public abstract boolean isBoardPlayable();
 
-    // print board with party position
-    public abstract void printBoard(int partyRow, int partyCol);
+    // print board
+    public abstract void printBoard();
+    
+    // print board with party position (for MaH)
+    public void printBoard(int partyRow, int partyCol) {
+        printBoard();
+    }
 
     // enter market if on market tile
     public abstract void tryEnterMarket(int row, int col, User user);

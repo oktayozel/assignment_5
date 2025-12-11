@@ -21,7 +21,9 @@ public abstract class GameManager {
 
 
     abstract public void start();
-    abstract public void handleTileEvent();
+    public void handleTileEvent(){
+        // Default implementation does nothing
+    }
     abstract public void setupGame();
 
     public Board getBoard() {

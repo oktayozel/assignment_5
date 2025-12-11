@@ -92,6 +92,11 @@ public class MaHBoard extends Board {
         }
         System.out.println("+");
     }
+    
+    @Override
+    public void printBoard() {
+        printBoard(-1, -1);
+    }
 
     // enter market if on market tile
     @Override

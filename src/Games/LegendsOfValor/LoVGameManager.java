@@ -22,13 +22,14 @@ public class LoVGameManager extends GameManager {
     private User user;
 
     public LoVGameManager(Statistics statistics) {
-        this.heroes = new ArrayList<>();
-        this.heroLanes = new ArrayList<>();
         super(statistics);
     }
 
     @Override
     public void setupGame() {
+        this.heroes = new ArrayList<>();
+        this.heroLanes = new ArrayList<>();
+        
         Output.gameInitializationMessage("lov");
         Output.someSpace();
 
@@ -48,7 +49,7 @@ public class LoVGameManager extends GameManager {
         boolean running = true;
  
         while (running) {
-            board.printBoard(-1,-1);
+            board.printBoard();
             Output.printMenu("lov");
             running = Input.getInputLoV(this);
 
@@ -78,53 +79,21 @@ public class LoVGameManager extends GameManager {
             }
 
             Inventory inv = new Inventory();
-            Hero hero = null;
             String romanNumber = (i==1?"I": i==2?"II":"III");
-
-            try {
-                System.out.println("Creating inventory for " + classPlural);
-                System.out.println("Hero name: " + (chosen.name + " " + romanNumber));
-                System.out.println("Hero stats - HP: " + chosen.HP + ", MP: " + chosen.MP + ", Level: " + chosen.level);
-                
-                if ("Warriors".equals(classPlural)) {
-                    System.out.println("About to create Warrior");
-                    Warrior warrior = new Warrior(chosen.name + " " + romanNumber, chosen.level, chosen.HP, chosen.MP,
-                        chosen.strength, chosen.dexterity, chosen.agility, chosen.gold, inv);
-                    System.out.println("Warrior created: " + warrior.getName());
-                    hero = warrior;
-                } else if ("Sorcerers".equals(classPlural)) {
-                    System.out.println("About to create Sorcerer");
-                    Sorcerer sorcerer = new Sorcerer(chosen.name + " " + romanNumber, chosen.level, chosen.HP, chosen.MP,
-                        chosen.strength, chosen.dexterity, chosen.agility, chosen.gold, inv);
-                    System.out.println("Sorcerer created: " + sorcerer.getName());
-                    hero = sorcerer;
-                } else {
-                    System.out.println("About to create Paladin");
-                    Paladin paladin = new Paladin(chosen.name + " " + romanNumber, chosen.level, chosen.HP, chosen.MP,
-                        chosen.strength, chosen.dexterity, chosen.agility, chosen.gold, inv);
-                    System.out.println("Paladin created: " + paladin.getName());
-                    hero = paladin;
-                }
-                
-                if (hero != null) {
-                    System.out.println("Adding hero to list: " + hero.getName());
-                    System.out.println("DEBUG: heroes list is: " + (heroes == null ? "NULL" : "initialized"));
-                    if (heroes != null) {
-                        heroes.add(hero);
-                        System.out.println("Hero " + hero.getName() + " added to list successfully");
-                    } else {
-                        System.out.println("ERROR: heroes list is null!");
-                    }
-                }
-            } catch (NullPointerException npe) {
-                System.out.println("NullPointerException creating hero:");
-                npe.printStackTrace();
-                continue;
-            } catch (Exception e) {
-                System.out.println("Exception creating hero: " + e.getClass().getName() + " - " + e.getMessage());
-                e.printStackTrace();
-                continue;
+            Hero hero;
+            
+            if ("Warriors".equals(classPlural)) {
+                hero = new Warrior(chosen.name + " " + romanNumber, chosen.level, chosen.HP, chosen.MP,
+                    chosen.strength, chosen.dexterity, chosen.agility, chosen.gold, inv);
+            } else if ("Sorcerers".equals(classPlural)) {
+                hero = new Sorcerer(chosen.name + " " + romanNumber, chosen.level, chosen.HP, chosen.MP,
+                    chosen.strength, chosen.dexterity, chosen.agility, chosen.gold, inv);
+            } else {
+                hero = new Paladin(chosen.name + " " + romanNumber, chosen.level, chosen.HP, chosen.MP,
+                    chosen.strength, chosen.dexterity, chosen.agility, chosen.gold, inv);
             }
+            
+            heroes.add(hero);
             
             Output.print("Select lane for Hero " + i + " (1: left, 2: mid, 3: right): ");
             int laneChoice = Input.readInt(1, 3);
@@ -226,8 +195,6 @@ public class LoVGameManager extends GameManager {
         return new src.Item.Spell(st.name, st.cost, st.level, st.damage, st.manaCost, st.type);
     }
 
-    @Override
-    public void handleTileEvent() {
-        return;
-    }
+
+
 }

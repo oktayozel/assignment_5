@@ -74,6 +74,7 @@ public class MaHGameManager extends GameManager{
 
 
     // random battle on common tile
+    @Override
     public void handleTileEvent() {
         Tile tile = board.getTile(partyPiece.getRow(), partyPiece.getCol());
         if (tile == null) {

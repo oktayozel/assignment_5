@@ -74,7 +74,7 @@ public class LoVBoard extends Board {
     }
 
     @Override
-    public void printBoard(int partyRow, int partyCol) {
+    public void printBoard() {
         Output.clearScreen();
 
         final String H_BORDER = "=======";
@@ -87,15 +87,16 @@ public class LoVBoard extends Board {
 
             for (int c = 0; c < size; c++) {
                 Tile tile = grid[r][c];
-                boolean hasParty = (r == partyRow && c == partyCol);
-
                 String baseSymbol;
                 String cellText;
 
-                if (hasParty) {
-                    baseSymbol = "P";
-                    String colored = Output.BRIGHT_GREEN + baseSymbol + Output.RESET;
-                    cellText = "   " + colored + "   ";   // width 7
+                if (tile.getHeroOccupant() != null) {
+                    Terrain t = tile.getTerrain();
+                    String terrainChar = terrainSymbol(t);
+                    int heroNum = getHeroNumber(tile.getHeroOccupant());
+                    String display = terrainChar + "/H" + heroNum;
+                    String colored = Output.BRIGHT_CYAN + display + Output.RESET;
+                    cellText = " " + colored + " ";
                 } else {
                     Terrain t = tile.getTerrain();
                     baseSymbol = terrainSymbol(t);
@@ -146,6 +147,19 @@ public class LoVBoard extends Board {
             System.out.print("+" + H_BORDER);
         }
         System.out.println("+");
+    }
+    
+    private int getHeroNumber(src.Hero.Hero hero) {
+        for (int r = 0; r < size; r++) {
+            for (int c = 0; c < size; c++) {
+                if (grid[r][c].getHeroOccupant() == hero) {
+                    if (c <= 1) return 1;
+                    if (c >= 3 && c <= 4) return 2;
+                    if (c >= 6) return 3;
+                }
+            }
+        }
+        return 0;
     }
 
     private String terrainSymbol(Terrain t) {
