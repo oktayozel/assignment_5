@@ -414,6 +414,24 @@ public class Output {
         System.out.println(BRIGHT_GREEN + "=====================================" + RESET);
     }
 
+    // Display LoV market header with hero info
+    public static void displayLoVMarketHeader(Hero hero) {
+        clearScreen();
+        System.out.println("\n" + BRIGHT_CYAN + "=== Market for " + hero.getName() + " ===" + RESET);
+        System.out.println("Gold: " + YELLOW + hero.getGold() + RESET);
+        System.out.println("Level: " + BRIGHT_GREEN + hero.getLevel() + RESET);
+    }
+    
+    // Display LoV market menu options
+    public static void displayLoVMarketMenu() {
+        System.out.println("\nActions:");
+        System.out.println("B - Buy Item");
+        System.out.println("S - Sell Item");
+        System.out.println("V - View Hero Stats");
+        System.out.println("E - Exit Market");
+        System.out.print("\nChoice: ");
+    }
+
     public static void displayMarket(Market market) {
         clearScreen();
         System.out.println(YELLOW + "+-+-+-+-+-+-+         +-+-+-+-+-+-+        +-+-+-+-+-+-+        +-+-+-+-+-+-+       +-+-+-+-+-+-+");

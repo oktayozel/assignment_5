@@ -18,6 +18,7 @@ import src.Core.User;
 public class LoVGameManager extends GameManager {
     private List<Hero> heroes;
     private List<String> heroLanes;
+    private int currentHeroTurn;
     
     private User user;
 
@@ -47,12 +48,28 @@ public class LoVGameManager extends GameManager {
     public void start() {
         Output.displaySecondWelcomeMessage(user);
         boolean running = true;
+        currentHeroTurn = 0;
  
         while (running) {
-            board.printBoard();
-            Output.printMenu("lov");
-            running = Input.getInputLoV(this);
-
+            for (int i = 0; i < heroes.size(); i++) {
+                Hero hero = heroes.get(i);
+                
+                currentHeroTurn = i;
+                board.printBoard();
+                Output.print("\n" + Output.BRIGHT_CYAN + "=== " + hero.getName() + "'s Turn (Hero " + (i+1) + ") ===" + Output.RESET);
+                Output.printMenu("lov");
+                
+                boolean actionTaken = false;
+                while (!actionTaken) {
+                    actionTaken = Input.getInputLoV(this);
+                    if (!actionTaken) {
+                        return;
+                    }
+                }
+            }
+            
+            Output.print("\n" + Output.BRIGHT_RED + "=== Monsters' Turn ===" + Output.RESET);
+            Output.sleep(1000);
         }
 
         Output.clearScreen();
@@ -127,10 +144,16 @@ public class LoVGameManager extends GameManager {
     
     // Initialize individual markets for each hero with 2 items of each type
     private void initializeHeroMarkets() {
-        for (Hero hero : heroes) {
+        for (int i = 0; i < heroes.size(); i++) {
+            Hero hero = heroes.get(i);
             addItemsToHeroInventory(hero);
+            
+            LoVMarket heroMarket = new LoVMarket(hero);
+            
+            int heroCol = (i == 0) ? 0 : (i == 1) ? 3 : 6;
+            board.getTile(7, heroCol).setMarket(heroMarket);
         }
-        Output.print("Individual market items initialized for all heroes.");
+        Output.print("Individual markets created for all heroes.");
     }
     
     // Add 2 items of each type (Weapon, Armor, Potion, Spell) to hero's inventory
@@ -194,7 +217,52 @@ public class LoVGameManager extends GameManager {
         DefaultReader.SpellTemplate st = templates.get(random.nextInt(templates.size()));
         return new src.Item.Spell(st.name, st.cost, st.level, st.damage, st.manaCost, st.type);
     }
-
-
+    
+    public List<Hero> getHeroes() {
+        return heroes;
+    }
+    
+    public Hero getCurrentHero() {
+        return heroes.get(currentHeroTurn);
+    }
+    
+    public int getCurrentHeroTurn() {
+        return currentHeroTurn;
+    }
+    
+    public LoVBoard getLoVBoard() {
+        return (LoVBoard) board;
+    }
+    
+    public void enterMarketForCurrentHero() {
+        Hero hero = getCurrentHero();
+        int heroRow = -1;
+        int heroCol = -1;
+        
+        for (int r = 0; r < board.getSize(); r++) {
+            for (int c = 0; c < board.getSize(); c++) {
+                if (board.getTile(r, c).getHeroOccupant() == hero) {
+                    heroRow = r;
+                    heroCol = c;
+                    break;
+                }
+            }
+        }
+        
+        if (heroRow != 7) {
+            Output.print(hero.getName() + " must be at their Nexus (row 7) to access the market.");
+            Output.sleep(2000);
+            return;
+        }
+        
+        Market market = board.getTile(heroRow, heroCol).getMarket();
+        if (market == null) {
+            Output.print("No market available at this location.");
+            Output.sleep(2000);
+            return;
+        }
+        
+        market.start(user);
+    }
 
 }

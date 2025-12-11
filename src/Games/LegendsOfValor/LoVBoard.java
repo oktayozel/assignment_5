@@ -188,4 +188,96 @@ public class LoVBoard extends Board {
             Output.sleep(DefaultReader.getDefaultSettings("sleep_ms_after_action"));
         }
     }
+    
+    // Move hero up (towards monsters' Nexus) with lane restrictions
+    public boolean moveHeroUp(src.Hero.Hero hero) {
+        int[] pos = findHeroPosition(hero);
+        if (pos == null) return false;
+        
+        int newRow = pos[0] - 1;
+        int newCol = pos[1];
+        
+        return moveHero(hero, pos[0], pos[1], newRow, newCol);
+    }
+    
+    // Move hero down (towards heroes' Nexus) with lane restrictions
+    public boolean moveHeroDown(src.Hero.Hero hero) {
+        int[] pos = findHeroPosition(hero);
+        if (pos == null) return false;
+        
+        int newRow = pos[0] + 1;
+        int newCol = pos[1];
+        
+        return moveHero(hero, pos[0], pos[1], newRow, newCol);
+    }
+    
+    // Move hero left within same lane
+    public boolean moveHeroLeft(src.Hero.Hero hero) {
+        int[] pos = findHeroPosition(hero);
+        if (pos == null) return false;
+        
+        int newRow = pos[0];
+        int newCol = pos[1] - 1;
+        
+        return moveHero(hero, pos[0], pos[1], newRow, newCol);
+    }
+    
+    // Move hero right within same lane
+    public boolean moveHeroRight(src.Hero.Hero hero) {
+        int[] pos = findHeroPosition(hero);
+        if (pos == null) return false;
+        
+        int newRow = pos[0];
+        int newCol = pos[1] + 1;
+        
+        return moveHero(hero, pos[0], pos[1], newRow, newCol);
+    }
+    
+    // Core movement logic with validation
+    private boolean moveHero(src.Hero.Hero hero, int currentRow, int currentCol, int newRow, int newCol) {
+        if (!isInside(newRow, newCol)) {
+            Output.print("You can't move outside the map!");
+            Output.sleep(1000);
+            return false;
+        }
+        
+        Tile dest = grid[newRow][newCol];
+        if (!dest.isAccessible()) {
+            Output.print("That tile is inaccessible!");
+            Output.sleep(1000);
+            return false;
+        }
+        
+        // Check if destination is in the same lane
+        if (!isInSameLane(currentCol, newCol)) {
+            Output.print("Heroes can only move within their lane!");
+            Output.sleep(1000);
+            return false;
+        }
+        
+        // Move hero
+        grid[currentRow][currentCol].setHeroOccupant(null);
+        dest.setHeroOccupant(hero);
+        return true;
+    }
+    
+    // Find hero's current position on the board
+    private int[] findHeroPosition(src.Hero.Hero hero) {
+        for (int r = 0; r < size; r++) {
+            for (int c = 0; c < size; c++) {
+                if (grid[r][c].getHeroOccupant() == hero) {
+                    return new int[]{r, c};
+                }
+            }
+        }
+        return null;
+    }
+    
+    // Check if two columns are in the same lane
+    private boolean isInSameLane(int col1, int col2) {
+        // Left lane: 0-1, Mid lane: 3-4, Right lane: 6-7
+        int lane1 = (col1 <= 1) ? 0 : (col1 <= 4) ? 1 : 2;
+        int lane2 = (col2 <= 1) ? 0 : (col2 <= 4) ? 1 : 2;
+        return lane1 == lane2;
+    }
 }

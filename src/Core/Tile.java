@@ -1,6 +1,7 @@
 package src.Core;
 
 import src.Market.Market;
+import src.Games.MonstersAndHeroes.MaHMarket;
 import src.Hero.Hero;
 import src.Monster.Monster;
 
@@ -28,7 +29,7 @@ public class Tile {
     private final int row;
     private final int col;
     private final Type type;
-    private final Market market;
+    private Market market;
 
     private Terrain terrain;
 
@@ -40,7 +41,7 @@ public class Tile {
         this.row = row;
         this.col = col;
         this.type = type;
-        this.market = (type == Type.MARKET) ? new Market() : null;
+        this.market = (type == Type.MARKET) ? new MaHMarket() : null;
     }
 
     // New constructor for LoV
@@ -49,7 +50,11 @@ public class Tile {
         this.col = col;
         this.type = type;
         this.terrain = terrain;
-        this.market = (type == Type.MARKET) ? new Market() : null;
+        this.market = (type == Type.MARKET || terrain == Terrain.NEXUS_HERO) ? null : null;
+    }
+    
+    public void setMarket(Market m) {
+        this.market = m;
     }
 
 

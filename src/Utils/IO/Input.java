@@ -183,23 +183,43 @@ public  class Input {
         }
 
         if (input.equals("W")) {
-            if (gm.getPartyPiece().moveUp(gm.getBoard())) {
-                gm.handleTileEvent();
+            if (gm instanceof src.Games.LegendsOfValor.LoVGameManager) {
+                src.Games.LegendsOfValor.LoVGameManager lovGm = (src.Games.LegendsOfValor.LoVGameManager) gm;
+                lovGm.getLoVBoard().moveHeroUp(lovGm.getCurrentHero());
+            } else {
+                if (gm.getPartyPiece().moveUp(gm.getBoard())) {
+                    gm.handleTileEvent();
+                }
             }
 
         } else if (input.equals("A")) {
-            if (gm.getPartyPiece().moveLeft(gm.getBoard())) {
-                gm.handleTileEvent();
+            if (gm instanceof src.Games.LegendsOfValor.LoVGameManager) {
+                src.Games.LegendsOfValor.LoVGameManager lovGm = (src.Games.LegendsOfValor.LoVGameManager) gm;
+                lovGm.getLoVBoard().moveHeroLeft(lovGm.getCurrentHero());
+            } else {
+                if (gm.getPartyPiece().moveLeft(gm.getBoard())) {
+                    gm.handleTileEvent();
+                }
             }
 
         } else if (input.equals("S")) {
-            if (gm.getPartyPiece().moveDown(gm.getBoard())) {
-                gm.handleTileEvent();
+            if (gm instanceof src.Games.LegendsOfValor.LoVGameManager) {
+                src.Games.LegendsOfValor.LoVGameManager lovGm = (src.Games.LegendsOfValor.LoVGameManager) gm;
+                lovGm.getLoVBoard().moveHeroDown(lovGm.getCurrentHero());
+            } else {
+                if (gm.getPartyPiece().moveDown(gm.getBoard())) {
+                    gm.handleTileEvent();
+                }
             }
 
         } else if (input.equals("D")) {
-            if (gm.getPartyPiece().moveRight(gm.getBoard())) {
-                gm.handleTileEvent();
+            if (gm instanceof src.Games.LegendsOfValor.LoVGameManager) {
+                src.Games.LegendsOfValor.LoVGameManager lovGm = (src.Games.LegendsOfValor.LoVGameManager) gm;
+                lovGm.getLoVBoard().moveHeroRight(lovGm.getCurrentHero());
+            } else {
+                if (gm.getPartyPiece().moveRight(gm.getBoard())) {
+                    gm.handleTileEvent();
+                }
             }
 
         } else if (input.equals("I")) {
@@ -210,7 +230,12 @@ public  class Input {
             getPartyInfoInput(gm);
 
         } else if (input.equals("M")) {
-            gm.getBoard().tryEnterMarket(gm.getPartyPiece().getRow(), gm.getPartyPiece().getCol(), gm.getUser());
+            if (gm instanceof src.Games.LegendsOfValor.LoVGameManager) {
+                src.Games.LegendsOfValor.LoVGameManager lovGm = (src.Games.LegendsOfValor.LoVGameManager) gm;
+                lovGm.enterMarketForCurrentHero();
+            } else {
+                gm.getBoard().tryEnterMarket(gm.getPartyPiece().getRow(), gm.getPartyPiece().getCol(), gm.getUser());
+            }
 
         } else if (input.equals("H")) {
             Output.displayInstructions("lov");
@@ -279,6 +304,17 @@ public  class Input {
             default:
                 return true;
         }
+    }
+
+    public static String getLoVMarketInput() {
+        String input = scanner.nextLine().trim().toUpperCase();
+        isGameExit(input);
+        if (!input.equals("B") && !input.equals("S") && !input.equals("V") && !input.equals("E")) {
+            Output.print("Invalid choice. Please enter B, S, V, or E.");
+            Output.sleep(1500);
+            return "";
+        }
+        return input;
     }
 
     private static void getPartyInfoInput(GameManager gm) {

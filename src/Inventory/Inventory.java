@@ -81,5 +81,15 @@ public class Inventory {
         }
     }
 
-
+    @Override
+    public String toString() {
+        if (entries.isEmpty()) {
+            return "Empty";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (InventoryEntry entry : entries) {
+            sb.append(entry.getItem().getName()).append(" x").append(entry.getQuantity()).append("\n");
+        }
+        return sb.toString();
+    }
 }
