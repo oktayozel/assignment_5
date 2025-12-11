@@ -262,57 +262,139 @@ public class Output {
         System.out.println(BRIGHT_GREEN + "=====================================" + RESET);
     }
 
-    public static void displayInstructions() {
+    public static void displayInstructions(String game) {
         clearScreen();
-        System.out.println(BRIGHT_CYAN + "\n╔════════════════════════════════════════════════════════════╗");
-        System.out.println("║          LEGENDS: MONSTERS AND HEROES - HELP               ║");
-        System.out.println("╚════════════════════════════════════════════════════════════╝" + RESET);
-        System.out.println(BRIGHT_YELLOW + "\n=== OBJECTIVE ===" + RESET);
-        System.out.println("Battle monsters, gain experience, level up, and survive!");
-        
-        System.out.println(BRIGHT_YELLOW + "\n=== WORLD CONTROLS ===" + RESET);
-        System.out.println("  " + GREEN + "W/w" + RESET + " - Move Up");
-        System.out.println("  " + GREEN + "A/a" + RESET + " - Move Left");
-        System.out.println("  " + GREEN + "S/s" + RESET + " - Move Down");
-        System.out.println("  " + GREEN + "D/d" + RESET + " - Move Right");
-        System.out.println("  " + CYAN + "I/i" + RESET + " - View party info & manage inventory");
-        System.out.println("  " + CYAN + "C/c" + RESET + " - Character/inventory menu");
-        System.out.println("  " + YELLOW + "M/m" + RESET + " - Enter market (only on market tiles)");
-        System.out.println("  " + BLUE + "H/h" + RESET + " - Display this help");
-        System.out.println("  " + RED + "Q/q" + RESET + " - Quit game");
-        
-        System.out.println(BRIGHT_YELLOW + "\n=== TILE TYPES ===" + RESET);
-        System.out.println("  " + BRIGHT_GREEN + "P" + RESET + " - Your party");
-        System.out.println("  " + YELLOW + "M" + RESET + " - Market (buy/sell items)");
-        System.out.println("  " + RED + "X" + RESET + " - Inaccessible");
-        System.out.println("  " + CYAN + "(space)" + RESET + " - Common (random battle chance)");
-        
-        System.out.println(BRIGHT_YELLOW + "\n=== BATTLE ACTIONS ===" + RESET);
-        System.out.println("  " + RED + "A" + RESET + " - Attack with equipped weapon");
-        System.out.println("  " + MAGENTA + "S" + RESET + " - Cast spell (consumes MP and spell)");
-        System.out.println("  " + BLUE + "P" + RESET + " - Use potion (HP/MP/stat boost)");
-        System.out.println("  " + CYAN + "E" + RESET + " - Equip weapon or armor");
-        System.out.println("  " + YELLOW + "I" + RESET + " - View battle info");
-        
-        System.out.println(BRIGHT_YELLOW + "\n=== HERO CLASSES ===" + RESET);
-        System.out.println("  " + BRIGHT_RED + "Warrior" + RESET + "  - Favors Strength & Agility");
-        System.out.println("  " + BRIGHT_CYAN + "Sorcerer" + RESET + " - Favors Dexterity & Agility");
-        System.out.println("  " + BRIGHT_YELLOW + "Paladin" + RESET + "  - Favors Strength & Dexterity");
-        
-        System.out.println(BRIGHT_YELLOW + "\n=== LEVEL UP ===" + RESET);
-        System.out.println("  - Requires " + BRIGHT_CYAN + "EXP = current_level × 10" + RESET);
-        System.out.println("  - All stats increase by " + GREEN + "5%" + RESET);
-        System.out.println("  - Favored stats increase by additional " + BRIGHT_GREEN + "5%" + RESET);
-        System.out.println("  - HP resets to " + GREEN + "level × 100" + RESET);
-        System.out.println("  - MP increases by " + BLUE + "10%" + RESET);
-        
-        System.out.println(BRIGHT_YELLOW + "\n=== TIPS ===" + RESET);
-        System.out.println("  - " + YELLOW + "Buy equipment at markets before battles" + RESET);
-        System.out.println("  - " + MAGENTA + "Use spells for damage + debuffs on monsters" + RESET);
-        System.out.println("  - " + CYAN + "Manage inventory (I/C) to equip items outside battle" + RESET);
-        System.out.println("  - " + GREEN + "Heroes regenerate 10% HP/MP each battle round" + RESET);
-        System.out.println("  - " + BRIGHT_GREEN + "Fainted heroes revive with half HP/MP after victory" + RESET);
+        if( game.equals("mah")){
+            System.out.println(BRIGHT_CYAN + "\n╔════════════════════════════════════════════════════════════╗");
+            System.out.println("║          LEGENDS: MONSTERS AND HEROES - HELP               ║");
+            System.out.println("╚════════════════════════════════════════════════════════════╝" + RESET);
+            System.out.println(BRIGHT_YELLOW + "\n=== OBJECTIVE ===" + RESET);
+            System.out.println("Battle monsters, gain experience, level up, and survive!");
+            
+            System.out.println(BRIGHT_YELLOW + "\n=== WORLD CONTROLS ===" + RESET);
+            System.out.println("  " + GREEN + "W/w" + RESET + " - Move Up");
+            System.out.println("  " + GREEN + "A/a" + RESET + " - Move Left");
+            System.out.println("  " + GREEN + "S/s" + RESET + " - Move Down");
+            System.out.println("  " + GREEN + "D/d" + RESET + " - Move Right");
+            System.out.println("  " + CYAN + "I/i" + RESET + " - View party info & manage inventory");
+            System.out.println("  " + CYAN + "C/c" + RESET + " - Character/inventory menu");
+            System.out.println("  " + YELLOW + "M/m" + RESET + " - Enter market (only on market tiles)");
+            System.out.println("  " + BLUE + "H/h" + RESET + " - Display this help");
+            System.out.println("  " + RED + "Q/q" + RESET + " - Quit game");
+            
+            System.out.println(BRIGHT_YELLOW + "\n=== TILE TYPES ===" + RESET);
+            System.out.println("  " + BRIGHT_GREEN + "P" + RESET + " - Your party");
+            System.out.println("  " + YELLOW + "M" + RESET + " - Market (buy/sell items)");
+            System.out.println("  " + RED + "X" + RESET + " - Inaccessible");
+            System.out.println("  " + CYAN + "(space)" + RESET + " - Common (random battle chance)");
+            
+            System.out.println(BRIGHT_YELLOW + "\n=== BATTLE ACTIONS ===" + RESET);
+            System.out.println("  " + RED + "A" + RESET + " - Attack with equipped weapon");
+            System.out.println("  " + MAGENTA + "S" + RESET + " - Cast spell (consumes MP and spell)");
+            System.out.println("  " + BLUE + "P" + RESET + " - Use potion (HP/MP/stat boost)");
+            System.out.println("  " + CYAN + "E" + RESET + " - Equip weapon or armor");
+            System.out.println("  " + YELLOW + "I" + RESET + " - View battle info");
+            
+            System.out.println(BRIGHT_YELLOW + "\n=== HERO CLASSES ===" + RESET);
+            System.out.println("  " + BRIGHT_RED + "Warrior" + RESET + "  - Favors Strength & Agility");
+            System.out.println("  " + BRIGHT_CYAN + "Sorcerer" + RESET + " - Favors Dexterity & Agility");
+            System.out.println("  " + BRIGHT_YELLOW + "Paladin" + RESET + "  - Favors Strength & Dexterity");
+            
+            System.out.println(BRIGHT_YELLOW + "\n=== LEVEL UP ===" + RESET);
+            System.out.println("  - Requires " + BRIGHT_CYAN + "EXP = current_level × 10" + RESET);
+            System.out.println("  - All stats increase by " + GREEN + "5%" + RESET);
+            System.out.println("  - Favored stats increase by additional " + BRIGHT_GREEN + "5%" + RESET);
+            System.out.println("  - HP resets to " + GREEN + "level × 100" + RESET);
+            System.out.println("  - MP increases by " + BLUE + "10%" + RESET);
+            
+            System.out.println(BRIGHT_YELLOW + "\n=== TIPS ===" + RESET);
+            System.out.println("  - " + YELLOW + "Buy equipment at markets before battles" + RESET);
+            System.out.println("  - " + MAGENTA + "Use spells for damage + debuffs on monsters" + RESET);
+            System.out.println("  - " + CYAN + "Manage inventory (I/C) to equip items outside battle" + RESET);
+            System.out.println("  - " + GREEN + "Heroes regenerate 10% HP/MP each battle round" + RESET);
+            System.out.println("  - " + BRIGHT_GREEN + "Fainted heroes revive with half HP/MP after victory" + RESET);
+        }
+        else{
+            System.out.println(BRIGHT_CYAN + "\n╔════════════════════════════════════════════════════════════╗");
+            System.out.println("║          LEGENDS OF VALOR  - HELP               ║");
+            System.out.println("╚════════════════════════════════════════════════════════════╝" + RESET);
+            System.out.println(BRIGHT_YELLOW + "\n=== OBJECTIVE ===" + RESET);
+            System.out.println("Battle monsters, gain experience, level up, and survive!");
+            
+            System.out.println(BRIGHT_YELLOW + "\n=== WORLD CONTROLS ===" + RESET);
+            System.out.println("  " + GREEN + "W/w" + RESET + " - Move Up");
+            System.out.println("  " + GREEN + "A/a" + RESET + " - Move Left");
+            System.out.println("  " + GREEN + "S/s" + RESET + " - Move Down");
+            System.out.println("  " + GREEN + "D/d" + RESET + " - Move Right");
+            System.out.println("  " + CYAN + "I/i" + RESET + " - View party info & manage inventory");
+            System.out.println("  " + CYAN + "C/c" + RESET + " - Character/inventory menu");
+            System.out.println("  " + YELLOW + "M/m" + RESET + " - Enter market (only on market tiles)");
+            System.out.println("  " + BLUE + "H/h" + RESET + " - Display this help");
+            System.out.println("  " + RED + "Q/q" + RESET + " - Quit game");
+            
+            System.out.println(BRIGHT_YELLOW + "\n=== TILE TYPES ===" + RESET);
+            System.out.println("  " + BRIGHT_GREEN + "P" + RESET + " - Your party");
+            System.out.println("  " + YELLOW + "M" + RESET + " - Market (buy/sell items)");
+            System.out.println("  " + RED + "X" + RESET + " - Inaccessible");
+            System.out.println("  " + CYAN + "(space)" + RESET + " - Common (random battle chance)");
+            
+            System.out.println(BRIGHT_YELLOW + "\n=== BATTLE ACTIONS ===" + RESET);
+            System.out.println("  " + RED + "A" + RESET + " - Attack with equipped weapon");
+            System.out.println("  " + MAGENTA + "S" + RESET + " - Cast spell (consumes MP and spell)");
+            System.out.println("  " + BLUE + "P" + RESET + " - Use potion (HP/MP/stat boost)");
+            System.out.println("  " + CYAN + "E" + RESET + " - Equip weapon or armor");
+            System.out.println("  " + YELLOW + "I" + RESET + " - View battle info");
+            
+            System.out.println(BRIGHT_YELLOW + "\n=== HERO CLASSES ===" + RESET);
+            System.out.println("  " + BRIGHT_RED + "Warrior" + RESET + "  - Favors Strength & Agility");
+            System.out.println("  " + BRIGHT_CYAN + "Sorcerer" + RESET + " - Favors Dexterity & Agility");
+            System.out.println("  " + BRIGHT_YELLOW + "Paladin" + RESET + "  - Favors Strength & Dexterity");
+            
+            System.out.println(BRIGHT_YELLOW + "\n=== LEVEL UP ===" + RESET);
+            System.out.println("  - Requires " + BRIGHT_CYAN + "EXP = current_level × 10" + RESET);
+            System.out.println("  - All stats increase by " + GREEN + "5%" + RESET);
+            System.out.println("  - Favored stats increase by additional " + BRIGHT_GREEN + "5%" + RESET);
+            System.out.println("  - HP resets to " + GREEN + "level × 100" + RESET);
+            System.out.println("  - MP increases by " + BLUE + "10%" + RESET);
+            
+            System.out.println(BRIGHT_YELLOW + "\n=== TIPS ===" + RESET);
+            System.out.println("  - " + YELLOW + "Buy equipment at markets before battles" + RESET);
+            System.out.println("  - " + MAGENTA + "Use spells for damage + debuffs on monsters" + RESET);
+            System.out.println("  - " + CYAN + "Manage inventory (I/C) to equip items outside battle" + RESET);
+            System.out.println("  - " + GREEN + "Heroes regenerate 10% HP/MP each battle round" + RESET);
+            System.out.println("  - " + BRIGHT_GREEN + "Fainted heroes revive with half HP/MP after victory" + RESET);
+        }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Battle-focused hero info (equipped items)
     public static void displayHeroBattleInfo(Hero hero) {
@@ -527,9 +609,11 @@ public class Output {
         else if ( game.equals("lov")){
             System.out.println(BRIGHT_CYAN + "\nControls:" + RESET);
             System.out.println(GREEN + "W/A/S/D" + RESET + " - move");
-            System.out.println(CYAN + "I/C" + RESET + " - manage inventory (view info, equip/use items)");
+            System.out.println(CYAN + "I" + RESET + " - manage inventory (view info, equip/use items)");
             System.out.println(YELLOW + "M" + RESET + " - enter market (if on market tile)");
             System.out.println(YELLOW + "P" + RESET + " - Pass this round");
+            System.out.println(YELLOW + "R" + RESET + " - Recall");
+            System.out.println(YELLOW + "T" + RESET + " - Teleport");
             System.out.println(RED + "Q" + RESET + " - quit game");
             System.out.println(BLUE + "H" + RESET + " - Help/Information");
             System.out.print(BRIGHT_YELLOW + "Your move > " + RESET);
