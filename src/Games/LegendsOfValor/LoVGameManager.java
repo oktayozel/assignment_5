@@ -360,9 +360,13 @@ public class LoVGameManager extends GameManager {
     }
 
     private void placeHeroesOnBoard() {
+        LoVBoard lovBoard = (LoVBoard) board;
         for (int i = 0; i < heroes.size(); i++) {
             Hero hero = heroes.get(i);
             String lane = heroLanes.get(i);
+            
+            // Assign hero number based on order (1, 2, 3)
+            lovBoard.assignHeroNumber(hero);
             
             int col;
             if ("left".equals(lane)) {
