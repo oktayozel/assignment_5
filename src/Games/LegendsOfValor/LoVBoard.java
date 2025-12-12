@@ -271,9 +271,21 @@ public class LoVBoard extends Board {
             return false;
         }
         
+        // Determine direction for narrative
+        String directionName;
+        if (newRow < currentRow) directionName = "north";
+        else if (newRow > currentRow) directionName = "south";
+        else if (newCol < currentCol) directionName = "west";
+        else directionName = "east";
+        
         // Move hero
         grid[currentRow][currentCol].setHeroOccupant(null);
         dest.setHeroOccupant(hero);
+        
+        // Narrative
+        int heroNumber = hero.getHeroNumber();
+        Output.narrative(hero.getName() + " (H" + heroNumber + ") moved " + directionName + " from (" + currentRow + "," + currentCol + ") to (" + newRow + "," + newCol + ")");
+        
         return true;
     }
     

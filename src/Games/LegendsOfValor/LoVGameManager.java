@@ -275,7 +275,9 @@ public class LoVGameManager extends GameManager {
         board.getTile(spawnRow, spawnCol).setHeroOccupant(hero);
         heroPositions.put(hero, new int[]{spawnRow, spawnCol, laneIndex});
         
-        Output.print(Output.BRIGHT_GREEN + hero.getName() + " respawned at Nexus!" + Output.RESET);
+        // Narrative
+        int heroNumber = hero.getHeroNumber();
+        Output.narrative(hero.getName() + " (H" + heroNumber + ") respawned at Nexus (" + spawnRow + "," + spawnCol + ")");
     }
 
 

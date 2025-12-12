@@ -85,7 +85,7 @@ public class LoVCombatHandler {
         
         // Dodge check
         if (Math.random() * 100 < target.getDodge()) {
-            Output.narrative(target.getName() + " dodged the attack!\n");
+            Output.narrative(target.getName() + " dodged the attack!");
             return;
         }
         
@@ -96,8 +96,9 @@ public class LoVCombatHandler {
         int finalDamage = Math.max(0, rawDamage - target.getDefense());
         target.takeDamage(finalDamage);
         
-        Output.narrative(attacker.getName() + " hits " + target.getName() + 
-                        " for " + finalDamage + " damage!\n", Output.GREEN);
+        // Narrative with hero number
+        int heroNumber = attacker.getHeroNumber();
+        Output.narrative(attacker.getName() + " (H" + heroNumber + ") attacks " + target.getName() + " for " + finalDamage + " damage!");
         
         if (target.isDefeated()) {
             handleMonsterDefeat(target);
@@ -170,7 +171,7 @@ public class LoVCombatHandler {
         
         // Dodge check
         if (Math.random() * 100 < target.getDodge()) {
-            Output.narrative(target.getName() + " dodged the spell!\n");
+            Output.narrative(target.getName() + " dodged the spell!");
             return;
         }
         
@@ -181,9 +182,9 @@ public class LoVCombatHandler {
         int finalDamage = Math.max(0, rawDamage - target.getDefense());
         target.takeDamage(finalDamage);
         
-        Output.narrative(caster.getName() + " casts " + spell.getName() + 
-                        " on " + target.getName() + " for " + finalDamage + " damage.\n", 
-                        Output.BLUE);
+        // Narrative with hero number
+        int heroNumber = caster.getHeroNumber();
+        Output.narrative(caster.getName() + " (H" + heroNumber + ") casts " + spell.getName() + " on " + target.getName() + " for " + finalDamage + " damage!");
         
         // Apply spell effects
         String type = spell.getSpellType().toUpperCase();
@@ -246,8 +247,9 @@ public class LoVCombatHandler {
             user.getInventory().removeItemByName(potion.getName());
         }
         
-        Output.narrative(user.getName() + " uses " + potion.getName() + ".\n", 
-                        Output.BLUE);
+        // Narrative with hero number
+        int heroNumber = user.getHeroNumber();
+        Output.narrative(user.getName() + " (H" + heroNumber + ") uses " + potion.getName() + " (" + potion.getEffectType() + ")");
     }
     
     // Hero changes equipment
@@ -367,8 +369,8 @@ public class LoVCombatHandler {
 
         // Dodge check
         if (Math.random() < dodgeChance ) {
-            Output.narrative(target.getName() + " dodged " + attacker.getName() + 
-                           "'s attack!", Output.YELLOW);
+            int heroNumber = target.getHeroNumber();
+            Output.narrative(target.getName() + " (H" + heroNumber + ") dodged the attack!");
             return;
         }
         
@@ -376,12 +378,11 @@ public class LoVCombatHandler {
         target.takeDamage(rawDamage);
         
         int actualDamage = Math.max(0, rawDamage - target.getArmorReduction());
-        Output.narrative(attacker.getName() + " hits " + target.getName() + 
-                        " for " + actualDamage + " damage.", Output.RED);
+        int heroNumber = target.getHeroNumber();
+        Output.narrative(attacker.getName() + " attacks " + target.getName() + " (H" + heroNumber + ") for " + actualDamage + " damage!");
         
         if (target.isFainted()) {
-            Output.narrative(target.getName() + " has been defeated! Will respawn next round.", 
-                           Output.BRIGHT_RED);
+            Output.narrative(target.getName() + " (H" + heroNumber + ") has fainted!");
         }
     }
     
@@ -419,8 +420,8 @@ public class LoVCombatHandler {
         monsterPositions.put(monster, new int[]{newRow, currentCol, laneIndex});
         targetTile.setMonsterOccupant(monster);
         
-        Output.narrative(monster.getName() + " advances to (" + newRow + ", " + currentCol + ")", 
-                        Output.MAGENTA);
+        // Narrative
+        Output.narrative(monster.getName() + " (M" + (laneIndex + 1) + ") moved south from (" + currentRow + "," + currentCol + ") to (" + newRow + "," + currentCol + ")");
         
         return false;
     }
@@ -454,8 +455,8 @@ public class LoVCombatHandler {
             activeMonsters.add(m);
             spawnTile.setMonsterOccupant(m);
             
-            Output.narrative(m.getName() + " spawns in lane " + (i+1) + "!", 
-                           Output.BRIGHT_RED);
+            // Narrative
+            Output.narrative(m.getName() + " (M" + (i + 1) + ") spawns at (" + monsterNexusRow + "," + col + ")!");
         }
         
         System.out.println("\n=== Monster wave spawned! (Round " + round + ") ===");
@@ -509,7 +510,8 @@ public class LoVCombatHandler {
 
     // Handle monster defeat: distribute rewards to heroes and remove from board
     private void handleMonsterDefeat(Monster monster) {
-        Output.narrative(monster.getName() + " is defeated!", Output.BRIGHT_GREEN);
+        int[] pos = monsterPositions.get(monster);
+        Output.narrative(monster.getName() + " (M" + (pos[2] + 1) + ") has been defeated!");
         
         // Distribute rewards to ALL heroes (per spec)
         int gold = 500 * monster.getLevel();
@@ -520,15 +522,14 @@ public class LoVCombatHandler {
             h.addExperience(xp);
             boolean leveledUp = h.checkLevelUp();
             if (leveledUp) {
-                Output.narrative(h.getName() + " leveled up to level " + h.getLevel() + "!", 
-                               Output.BRIGHT_YELLOW);
+                int heroNumber = h.getHeroNumber();
+                Output.narrative(h.getName() + " (H" + heroNumber + ") leveled up to Level " + h.getLevel() + "!");
             }
         }
         
         System.out.println("All heroes gain " + gold + " gold and " + xp + " XP!");
         
         // Remove from board
-        int[] pos = monsterPositions.get(monster);
         board.getTile(pos[0], pos[1]).setMonsterOccupant(null);
         
         activeMonsters.remove(monster);
