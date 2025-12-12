@@ -227,6 +227,15 @@ public class Output {
             Output.displayHeroFullInfo(h);
         }
     }
+
+    public static void displayHeroStatus(Hero hero, int row, int col, int lane) {
+        System.out.println("\n" + BRIGHT_CYAN + "=== " + hero.getName() + "'s Turn ===" + RESET);
+        System.out.println("Position: Row " + row + ", Col " + col + " | Lane: " + (lane + 1));
+        System.out.println("HP: " + GREEN + hero.getHP() + RESET + 
+                        " | MP: " + BLUE + hero.getMP() + RESET + 
+                        " | Gold: " + YELLOW + hero.getGold() + RESET);
+    }
+
     public static void displayHeroFullInfo(Hero hero) {
 
 
@@ -314,55 +323,67 @@ public class Output {
             System.out.println("  - " + GREEN + "Heroes regenerate 10% HP/MP each battle round" + RESET);
             System.out.println("  - " + BRIGHT_GREEN + "Fainted heroes revive with half HP/MP after victory" + RESET);
         }
-        else{
+        else if (game.equals("lov")) {
             System.out.println(BRIGHT_CYAN + "\n╔════════════════════════════════════════════════════════════╗");
-            System.out.println("║          LEGENDS OF VALOR  - HELP               ║");
+            System.out.println("║             LEGENDS OF VALOR - HELP                        ║");
             System.out.println("╚════════════════════════════════════════════════════════════╝" + RESET);
+            
             System.out.println(BRIGHT_YELLOW + "\n=== OBJECTIVE ===" + RESET);
-            System.out.println("Battle monsters, gain experience, level up, and survive!");
+            System.out.println("Control 3 heroes in a MOBA-style battle!");
+            System.out.println("  " + BRIGHT_GREEN + "Victory:" + RESET + " Any hero reaches the Monster Nexus (row 0)");
+            System.out.println("  " + BRIGHT_RED + "Defeat:" + RESET + " Any monster reaches your Nexus (row 7)");
             
-            System.out.println(BRIGHT_YELLOW + "\n=== WORLD CONTROLS ===" + RESET);
-            System.out.println("  " + GREEN + "W/w" + RESET + " - Move Up");
-            System.out.println("  " + GREEN + "A/a" + RESET + " - Move Left");
-            System.out.println("  " + GREEN + "S/s" + RESET + " - Move Down");
-            System.out.println("  " + GREEN + "D/d" + RESET + " - Move Right");
-            System.out.println("  " + CYAN + "I/i" + RESET + " - View party info & manage inventory");
-            System.out.println("  " + CYAN + "C/c" + RESET + " - Character/inventory menu");
-            System.out.println("  " + YELLOW + "M/m" + RESET + " - Enter market (only on market tiles)");
-            System.out.println("  " + BLUE + "H/h" + RESET + " - Display this help");
-            System.out.println("  " + RED + "Q/q" + RESET + " - Quit game");
+            System.out.println(BRIGHT_YELLOW + "\n=== MOVEMENT CONTROLS ===" + RESET);
+            System.out.println("  " + GREEN + "W" + RESET + " - Move Up (toward enemy nexus)");
+            System.out.println("  " + GREEN + "A" + RESET + " - Move Left (within lane)");
+            System.out.println("  " + GREEN + "S" + RESET + " - Move Down (toward your nexus)");
+            System.out.println("  " + GREEN + "D" + RESET + " - Move Right (within lane)");
+            System.out.println("  " + BRIGHT_CYAN + "T" + RESET + " - Teleport to another lane (next to ally)");
+            System.out.println("  " + BRIGHT_CYAN + "R" + RESET + " - Recall to your Nexus");
             
-            System.out.println(BRIGHT_YELLOW + "\n=== TILE TYPES ===" + RESET);
-            System.out.println("  " + BRIGHT_GREEN + "P" + RESET + " - Your party");
-            System.out.println("  " + YELLOW + "M" + RESET + " - Market (buy/sell items)");
-            System.out.println("  " + RED + "X" + RESET + " - Inaccessible");
-            System.out.println("  " + CYAN + "(space)" + RESET + " - Common (random battle chance)");
+            System.out.println(BRIGHT_YELLOW + "\n=== COMBAT ACTIONS ===" + RESET);
+            System.out.println("  " + RED + "F" + RESET + " - Attack monster (adjacent tiles only)");
+            System.out.println("  " + MAGENTA + "C" + RESET + " - Cast Spell (consumes MP and spell)");
+            System.out.println("  " + BLUE + "U" + RESET + " - Use Potion (HP/MP/stat boost)");
+            System.out.println("  " + CYAN + "E" + RESET + " - Equip weapon/armor " + CYAN + "(doesn't consume turn)" + RESET);
             
-            System.out.println(BRIGHT_YELLOW + "\n=== BATTLE ACTIONS ===" + RESET);
-            System.out.println("  " + RED + "A" + RESET + " - Attack with equipped weapon");
-            System.out.println("  " + MAGENTA + "S" + RESET + " - Cast spell (consumes MP and spell)");
-            System.out.println("  " + BLUE + "P" + RESET + " - Use potion (HP/MP/stat boost)");
-            System.out.println("  " + CYAN + "E" + RESET + " - Equip weapon or armor");
-            System.out.println("  " + YELLOW + "I" + RESET + " - View battle info");
+            System.out.println(BRIGHT_YELLOW + "\n=== OTHER ACTIONS ===" + RESET);
+            System.out.println("  " + CYAN + "I" + RESET + " - View hero info & inventory " + CYAN + "(doesn't consume turn)" + RESET);
+            System.out.println("  " + YELLOW + "M" + RESET + " - Enter market " + YELLOW + "(only at Nexus)" + RESET);
+            System.out.println("  " + YELLOW + "P" + RESET + " - Pass turn");
+            System.out.println("  " + BLUE + "H" + RESET + " - Display this help " + BLUE + "(doesn't consume turn)" + RESET);
+            System.out.println("  " + RED + "Q" + RESET + " - Quit game");
+            
+            System.out.println(BRIGHT_YELLOW + "\n=== TERRAIN TYPES ===" + RESET);
+            System.out.println("  " + BRIGHT_GREEN + "N" + RESET + " - Nexus (spawn/market for heroes)");
+            System.out.println("  " + BRIGHT_RED + "N" + RESET + " - Nexus (monster spawn point)");
+            System.out.println("  " + RED + "I" + RESET + " - Inaccessible Wall (separates lanes)");
+            System.out.println("  " + MAGENTA + "X" + RESET + " - Obstacle (heroes can break, monsters pass through)");
+            System.out.println("  " + GREEN + "B" + RESET + " - Bush (increases Dexterity by 10%)");
+            System.out.println("  " + BLUE + "C" + RESET + " - Cave (increases Agility by 10%)");
+            System.out.println("  " + YELLOW + "K" + RESET + " - Koulou (increases Strength by 10%)");
+            System.out.println("  " + RED + "(space)" + RESET + " - Plain (no bonuses)");
+            
+            System.out.println(BRIGHT_YELLOW + "\n=== GAME MECHANICS ===" + RESET);
+            System.out.println("  " + BRIGHT_CYAN + "Lanes:" + RESET + " 3 separate lanes (left/mid/right)");
+            System.out.println("  " + BRIGHT_CYAN + "Movement:" + RESET + " Heroes stay in their lane (use Teleport to change)");
+            System.out.println("  " + BRIGHT_CYAN + "Blocking:" + RESET + " Can't move past monsters without defeating them");
+            System.out.println("  " + BRIGHT_CYAN + "Monster Waves:" + RESET + " New monsters spawn every few rounds");
+            System.out.println("  " + BRIGHT_CYAN + "Respawn:" + RESET + " Fainted heroes revive at their Nexus next round");
+            System.out.println("  " + BRIGHT_CYAN + "Regeneration:" + RESET + " Heroes regain 10% HP/MP each round");
             
             System.out.println(BRIGHT_YELLOW + "\n=== HERO CLASSES ===" + RESET);
             System.out.println("  " + BRIGHT_RED + "Warrior" + RESET + "  - Favors Strength & Agility");
             System.out.println("  " + BRIGHT_CYAN + "Sorcerer" + RESET + " - Favors Dexterity & Agility");
             System.out.println("  " + BRIGHT_YELLOW + "Paladin" + RESET + "  - Favors Strength & Dexterity");
             
-            System.out.println(BRIGHT_YELLOW + "\n=== LEVEL UP ===" + RESET);
-            System.out.println("  - Requires " + BRIGHT_CYAN + "EXP = current_level × 10" + RESET);
-            System.out.println("  - All stats increase by " + GREEN + "5%" + RESET);
-            System.out.println("  - Favored stats increase by additional " + BRIGHT_GREEN + "5%" + RESET);
-            System.out.println("  - HP resets to " + GREEN + "level × 100" + RESET);
-            System.out.println("  - MP increases by " + BLUE + "10%" + RESET);
-            
-            System.out.println(BRIGHT_YELLOW + "\n=== TIPS ===" + RESET);
-            System.out.println("  - " + YELLOW + "Buy equipment at markets before battles" + RESET);
-            System.out.println("  - " + MAGENTA + "Use spells for damage + debuffs on monsters" + RESET);
-            System.out.println("  - " + CYAN + "Manage inventory (I/C) to equip items outside battle" + RESET);
-            System.out.println("  - " + GREEN + "Heroes regenerate 10% HP/MP each battle round" + RESET);
-            System.out.println("  - " + BRIGHT_GREEN + "Fainted heroes revive with half HP/MP after victory" + RESET);
+            System.out.println(BRIGHT_YELLOW + "\n=== STRATEGY TIPS ===" + RESET);
+            System.out.println("  - " + GREEN + "Use terrain bonuses" + RESET + " - Position on Bush/Cave/Koulou tiles");
+            System.out.println("  - " + YELLOW + "Coordinate with allies" + RESET + " - Teleport to help struggling lanes");
+            System.out.println("  - " + CYAN + "Block monster advances" + RESET + " - Strategic positioning can delay waves");
+            System.out.println("  - " + MAGENTA + "Use Recall wisely" + RESET + " - Shop at market, then return to battle");
+            System.out.println("  - " + RED + "Focus fire" + RESET + " - Defeat monsters quickly before new waves spawn");
+            System.out.println("  - " + BRIGHT_GREEN + "Push together" + RESET + " - Coordinate lane pushes for victory");
         }
     }
 
@@ -649,19 +670,22 @@ public class Output {
             System.out.println(BLUE + "H" + RESET + " - Help/Information");
             System.out.print(BRIGHT_YELLOW + "Your move > " + RESET);
         }
-        else if ( game.equals("lov")){
+        else if (game.equals("lov")) {
             System.out.println(BRIGHT_CYAN + "\nControls:" + RESET);
-            System.out.println(GREEN + "W/A/S/D" + RESET + " - move");
-            System.out.println(CYAN + "I" + RESET + " - manage inventory (view info, equip/use items)");
-            System.out.println(YELLOW + "M" + RESET + " - enter market (if on market tile)");
-            System.out.println(YELLOW + "P" + RESET + " - Pass this round");
-            System.out.println(YELLOW + "R" + RESET + " - Recall");
-            System.out.println(YELLOW + "T" + RESET + " - Teleport");
-            System.out.println(RED + "Q" + RESET + " - quit game");
+            System.out.println(GREEN + "W/A/S/D" + RESET + " - Move (up/left/down/right)");
+            System.out.println(CYAN + "I" + RESET + " - Hero Info/Inventory");
+            System.out.println(CYAN + "E" + RESET + " - Equip/Unequip items (doesn't consume turn)");
+            System.out.println(YELLOW + "P" + RESET + " - Pass turn");
+            System.out.println(RED + "F" + RESET + " - Attack");
+            System.out.println(MAGENTA + "C" + RESET + " - Cast Spell");
+            System.out.println(BLUE + "U" + RESET + " - Use Potion");
+            System.out.println(BRIGHT_YELLOW + "T" + RESET + " - Teleport");
+            System.out.println(BRIGHT_CYAN + "R" + RESET + " - Recall");
+            System.out.println(YELLOW + "M" + RESET + " - Market (only at Nexus)");
             System.out.println(BLUE + "H" + RESET + " - Help/Information");
+            System.out.println(RED + "Q" + RESET + " - Quit game");
             System.out.print(BRIGHT_YELLOW + "Your move > " + RESET);
         }
-        
     }
 
     public static void printMarketMenu() {
