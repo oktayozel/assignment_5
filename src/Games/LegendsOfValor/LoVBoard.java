@@ -75,7 +75,6 @@ public class LoVBoard extends Board {
 
     @Override
     public void printBoard() {
-        Output.clearScreen();
 
         final String H_BORDER = "=======";
 
@@ -96,7 +95,16 @@ public class LoVBoard extends Board {
                     int heroNum = getHeroNumber(tile.getHeroOccupant());
                     String display = terrainChar + "/H" + heroNum;
                     String colored = Output.BRIGHT_CYAN + display + Output.RESET;
-                    cellText = " " + colored + " ";
+                    // Ensure consistent spacing for 5-character display (e.g., "N/H1")
+                    cellText = " " + colored + "  ";
+                } else if (tile.getMonsterOccupant() != null) {
+                    Terrain t = tile.getTerrain();
+                    String terrainChar = terrainSymbol(t);
+                    int monsterLane = getMonsterLane(c);
+                    String display = terrainChar + "/M" + monsterLane;
+                    String colored = Output.BRIGHT_RED + display + Output.RESET;
+                    // Ensure consistent spacing for 5-character display (e.g., "N/M1")
+                    cellText = " " + colored + "  ";
                 } else {
                     Terrain t = tile.getTerrain();
                     baseSymbol = terrainSymbol(t);
@@ -149,16 +157,24 @@ public class LoVBoard extends Board {
         System.out.println("+");
     }
     
-    private int getHeroNumber(src.Hero.Hero hero) {
-        for (int r = 0; r < size; r++) {
-            for (int c = 0; c < size; c++) {
-                if (grid[r][c].getHeroOccupant() == hero) {
-                    if (c <= 1) return 1;
-                    if (c >= 3 && c <= 4) return 2;
-                    if (c >= 6) return 3;
-                }
-            }
+    private int heroCounter = 0;
+    private java.util.Map<src.Hero.Hero, Integer> heroNumberMap = new java.util.HashMap<>();
+    
+    public void assignHeroNumber(src.Hero.Hero hero) {
+        if (!heroNumberMap.containsKey(hero)) {
+            heroCounter++;
+            heroNumberMap.put(hero, heroCounter);
         }
+    }
+    
+    private int getHeroNumber(src.Hero.Hero hero) {
+        return heroNumberMap.getOrDefault(hero, 0);
+    }
+    
+    private int getMonsterLane(int col) {
+        if (col <= 1) return 1;       // Left lane
+        if (col >= 3 && col <= 4) return 2;  // Mid lane
+        if (col >= 6) return 3;       // Right lane
         return 0;
     }
 
@@ -255,9 +271,21 @@ public class LoVBoard extends Board {
             return false;
         }
         
+        // Determine direction for narrative
+        String directionName;
+        if (newRow < currentRow) directionName = "north";
+        else if (newRow > currentRow) directionName = "south";
+        else if (newCol < currentCol) directionName = "west";
+        else directionName = "east";
+        
         // Move hero
         grid[currentRow][currentCol].setHeroOccupant(null);
         dest.setHeroOccupant(hero);
+        
+        // Narrative
+        int heroNumber = hero.getHeroNumber();
+        Output.narrative(hero.getName() + " (H" + heroNumber + ") moved " + directionName + " from (" + currentRow + "," + currentCol + ") to (" + newRow + "," + newCol + ")");
+        
         return true;
     }
     

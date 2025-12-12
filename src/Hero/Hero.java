@@ -27,6 +27,7 @@ public abstract class Hero implements Combatant {
     private Armor equippedArmor;   // if the hero has equipped an armor
     private boolean usingTwoHands;  // whether using a onehanded weapon with both hands
     private AttackStrategy attackStrategy;  // strategy pattern for damage calc
+    private int heroNumber;  // hero identifier (1, 2, 3)
 
     public Hero(String name, int level, int HP, int MP, int strength, int dexterity, int agility, int gold, Inventory inventory) {
         this.name = name;
@@ -372,6 +373,15 @@ public abstract class Hero implements Combatant {
     }
 
     public abstract void equipDefaultWeapon();
+
+    // Hero number getter/setter
+    public int getHeroNumber() {
+        return heroNumber;
+    }
+    
+    public void setHeroNumber(int heroNumber) {
+        this.heroNumber = heroNumber;
+    }
 
     @Override
     public String toString() {

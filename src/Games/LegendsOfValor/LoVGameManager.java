@@ -154,6 +154,7 @@ public class LoVGameManager extends GameManager {
             while (!turnComplete) {
                 // Display board and hero status
                 Output.clearScreen();
+                Output.boardBanner("lov");
                 board.printBoard();
 
                 int[] pos = heroPositions.get(hero);
@@ -274,7 +275,9 @@ public class LoVGameManager extends GameManager {
         board.getTile(spawnRow, spawnCol).setHeroOccupant(hero);
         heroPositions.put(hero, new int[]{spawnRow, spawnCol, laneIndex});
         
-        Output.print(Output.BRIGHT_GREEN + hero.getName() + " respawned at Nexus!" + Output.RESET);
+        // Narrative
+        int heroNumber = hero.getHeroNumber();
+        Output.narrative(hero.getName() + " (H" + heroNumber + ") respawned at Nexus (" + spawnRow + "," + spawnCol + ")");
     }
 
 
@@ -359,9 +362,13 @@ public class LoVGameManager extends GameManager {
     }
 
     private void placeHeroesOnBoard() {
+        LoVBoard lovBoard = (LoVBoard) board;
         for (int i = 0; i < heroes.size(); i++) {
             Hero hero = heroes.get(i);
             String lane = heroLanes.get(i);
+            
+            // Assign hero number based on order (1, 2, 3)
+            lovBoard.assignHeroNumber(hero);
             
             int col;
             if ("left".equals(lane)) {
