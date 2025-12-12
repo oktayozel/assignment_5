@@ -75,7 +75,6 @@ public class LoVBoard extends Board {
 
     @Override
     public void printBoard() {
-        Output.clearScreen();
 
         final String H_BORDER = "=======";
 

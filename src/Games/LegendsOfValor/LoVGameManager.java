@@ -154,6 +154,7 @@ public class LoVGameManager extends GameManager {
             while (!turnComplete) {
                 // Display board and hero status
                 Output.clearScreen();
+                Output.boardBanner("lov");
                 board.printBoard();
 
                 int[] pos = heroPositions.get(hero);
