@@ -326,6 +326,11 @@ public class LoVCombatHandler {
             Output.narrative(hero.getName() + " equipped armor " + a.getName() + "\n", 
                            Output.CYAN);
         }
+        
+        // Print the board again 
+        Output.sleep(1000);
+        Output.clearScreen();
+        board.printBoard();
     }
     
     // ============================================
@@ -576,17 +581,19 @@ public class LoVCombatHandler {
     }
 
     public void heroRecall(Hero hero) {
-
         int[] spawn = heroSpawnPositions.get(hero);
-
         int spawnRow = spawn[0];
         int spawnCol = spawn[1];
         int spawnLane = spawn[2];
 
-        Tile nexusTile = board.getTile(spawnRow, spawnCol);
-        // remove from old tile, if any
+        // Remove from old tile first
         Tile current = getHeroTile(hero);
-        // move hero to their spawn Nexus
+        if (current != null) {
+            current.setHeroOccupant(null);
+        }
+
+        // Move hero to their spawn Nexus
+        Tile nexusTile = board.getTile(spawnRow, spawnCol);
         nexusTile.setHeroOccupant(hero);
         heroPositions.put(hero, new int[]{spawnRow, spawnCol, spawnLane});
 
@@ -611,9 +618,7 @@ public class LoVCombatHandler {
     }
 
     public void heroTeleport(Hero hero) {
-
         int[] pos = heroPositions.get(hero);
-
         int heroLane = pos[2];
 
         // --- choose target hero in a DIFFERENT lane ---
@@ -626,6 +631,11 @@ public class LoVCombatHandler {
             if (p[2] != heroLane) {
                 targets.add(h);
             }
+        }
+
+        if (targets.isEmpty()) {
+            Output.narrative("No heroes in other lanes to teleport to!", Output.YELLOW);
+            return;
         }
 
         System.out.println("Select target hero to teleport next to (different lane):");
@@ -643,8 +653,8 @@ public class LoVCombatHandler {
         int targetLane = tPos[2];
 
         // --- collect all LEGAL adjacent tiles around target hero ---
-        List<int[]> legal = new ArrayList<>(); // [row, col, laneIndex]
-        int[][] offsets = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // N, S, W, E
+        List<int[]> legal = new ArrayList<>();
+        int[][] offsets = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
         for (int[] off : offsets) {
             int nr = tr + off[0];
@@ -655,36 +665,27 @@ public class LoVCombatHandler {
             }
             Tile tile = board.getTile(nr, nc);
 
-            // cannot land on inaccessible or obstacle tiles
             if (tile.getType() == Tile.Type.INACCESSIBLE) {
                 continue;
             }
             if (tile.getTerrain() == Tile.Terrain.OBSTACLE) {
                 continue;
             }
-
-            // cannot land on another hero
             if (tile.getHeroOccupant() != null) {
                 continue;
             }
             int lane = getLaneIndex(nc);
 
-            //wall or invalid
             if (lane == -1){
                 continue;
             }
-
-            // Teleport must be between different lanes
             if (lane == heroLane) {
                 continue;
             }
-
-            // cannot teleport to a space AHEAD of target hero
             if (nr < tr) {
                 continue;
             }
 
-            // cannot teleport behind the front-most monster in that lane
             int frontMonsterRow = getMonsterRow(lane);
             if (frontMonsterRow != -1 && nr < frontMonsterRow) {
                 continue;
@@ -711,8 +712,13 @@ public class LoVCombatHandler {
         int dc = dest[1];
         int destLane = dest[2];
 
-        // --- move hero ---
+        // Remove from old tile first
         Tile current = getHeroTile(hero);
+        if (current != null) {
+            current.setHeroOccupant(null);
+        }
+
+        // Move hero to new tile
         Tile destTile = board.getTile(dr, dc);
         destTile.setHeroOccupant(hero);
         heroPositions.put(hero, new int[]{dr, dc, destLane});

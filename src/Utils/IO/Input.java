@@ -157,120 +157,119 @@ public  class Input {
 
     }
 
-    public static boolean getInputLoV(GameManager gm) {
-        boolean running = true;
+    public static boolean getInputLoV(src.Games.LegendsOfValor.LoVGameManager lovGm) {
         String input;
+        
         while(true){
             input = scanner.nextLine().trim().toUpperCase();
-        if (!input.equals("W") &&
-            !input.equals("A") &&
-            !input.equals("S") &&
-            !input.equals("D") &&
-            !input.equals("I") &&
-            !input.equals("M") &&
-            !input.equals("H") &&
-            !input.equals("Q") &&
-            !input.equals("R") &&
-            !input.equals("T")
-        ) {
             
-            System.out.println("Invalid input. Please try again.");
-            }
-        else {
+            if (!input.equals("W") &&
+                !input.equals("A") &&
+                !input.equals("S") &&
+                !input.equals("D") &&
+                !input.equals("I") &&
+                !input.equals("E") &&
+                !input.equals("P") &&
+                !input.equals("F") &&
+                !input.equals("C") &&
+                !input.equals("U") &&
+                !input.equals("T") &&
+                !input.equals("R") &&
+                !input.equals("M") &&
+                !input.equals("H") &&
+                !input.equals("Q")) {
+                
+                System.out.println("Invalid input. Please try again.");
+            } else {
                 isGameExit(input);
                 break;
             }
         }
-
+        
+        Hero currentHero = lovGm.getCurrentHero();
+        
+        // Movement actions - consume turn
         if (input.equals("W")) {
-            if (gm instanceof src.Games.LegendsOfValor.LoVGameManager) {
-                src.Games.LegendsOfValor.LoVGameManager lovGm = (src.Games.LegendsOfValor.LoVGameManager) gm;
-                lovGm.getLoVBoard().moveHeroUp(lovGm.getCurrentHero());
-            } else {
-                if (gm.getPartyPiece().moveUp(gm.getBoard())) {
-                    gm.handleTileEvent();
-                }
-            }
-
+            lovGm.moveHeroWithBoard(currentHero, "up");
+            lovGm.checkVictory();
+            return true;
+            
         } else if (input.equals("A")) {
-            if (gm instanceof src.Games.LegendsOfValor.LoVGameManager) {
-                src.Games.LegendsOfValor.LoVGameManager lovGm = (src.Games.LegendsOfValor.LoVGameManager) gm;
-                lovGm.getLoVBoard().moveHeroLeft(lovGm.getCurrentHero());
-            } else {
-                if (gm.getPartyPiece().moveLeft(gm.getBoard())) {
-                    gm.handleTileEvent();
-                }
-            }
-
+            lovGm.moveHeroWithBoard(currentHero, "left");
+            lovGm.checkVictory();
+            return true;
+            
         } else if (input.equals("S")) {
-            if (gm instanceof src.Games.LegendsOfValor.LoVGameManager) {
-                src.Games.LegendsOfValor.LoVGameManager lovGm = (src.Games.LegendsOfValor.LoVGameManager) gm;
-                lovGm.getLoVBoard().moveHeroDown(lovGm.getCurrentHero());
-            } else {
-                if (gm.getPartyPiece().moveDown(gm.getBoard())) {
-                    gm.handleTileEvent();
-                }
-            }
-
+            lovGm.moveHeroWithBoard(currentHero, "down");
+            lovGm.checkVictory();
+            return true;
+            
         } else if (input.equals("D")) {
-            if (gm instanceof src.Games.LegendsOfValor.LoVGameManager) {
-                src.Games.LegendsOfValor.LoVGameManager lovGm = (src.Games.LegendsOfValor.LoVGameManager) gm;
-                lovGm.getLoVBoard().moveHeroRight(lovGm.getCurrentHero());
-            } else {
-                if (gm.getPartyPiece().moveRight(gm.getBoard())) {
-                    gm.handleTileEvent();
-                }
-            }
-
+            lovGm.moveHeroWithBoard(currentHero, "right");
+            lovGm.checkVictory();
+            return true;
+            
+        // Non-turn-consuming actions
         } else if (input.equals("I")) {
-            // Show info AND open inventory 
-            getPartyInfoInput(gm);
-
+            lovGm.showInventory(currentHero);
+            return false;
+            
+        } else if (input.equals("E")) {
+            lovGm.getCombat().heroChangeEquipment(currentHero);
+            return false;
+            
+        // Turn-consuming actions
+        } else if (input.equals("P")) {
+            System.out.println(currentHero.getName() + " passes their turn.");
+            Output.sleep(1000);
+            return true;
+            
+        } else if (input.equals("F")) {
+            lovGm.getCombat().heroAttack(currentHero);
+            lovGm.checkVictory();
+            return true;
+            
         } else if (input.equals("C")) {
-            getPartyInfoInput(gm);
-
+            lovGm.getCombat().heroCastSpell(currentHero);
+            lovGm.checkVictory();
+            return true;
+            
+        } else if (input.equals("U")) {
+            lovGm.getCombat().heroUsePotion(currentHero);
+            return true;
+            
+        } else if (input.equals("T")) {
+            lovGm.getCombat().heroTeleport(currentHero);
+            lovGm.checkVictory();
+            return true;
+            
+        } else if (input.equals("R")) {
+            lovGm.getCombat().heroRecall(currentHero);
+            lovGm.checkVictory();
+            return true;
+            
         } else if (input.equals("M")) {
-            if (gm instanceof src.Games.LegendsOfValor.LoVGameManager) {
-                src.Games.LegendsOfValor.LoVGameManager lovGm = (src.Games.LegendsOfValor.LoVGameManager) gm;
-                lovGm.enterMarketForCurrentHero();
-            } else {
-                gm.getBoard().tryEnterMarket(gm.getPartyPiece().getRow(), gm.getPartyPiece().getCol(), gm.getUser());
-            }
-
+            lovGm.enterMarketForCurrentHero();
+            return false;
+            
         } else if (input.equals("H")) {
             Output.displayInstructions("lov");
             waitForEnter();
-        }
-        else if (input.equals("T")) {
-            // implement teleport
-        }
-        else if (input.equals("R")) {
-            // implement recall
-        }
-
-
-        else if (input.equals("Q")) {
-            running = false;
-
+            return false;
+            
+        } else if (input.equals("Q")) {
+            System.out.print("Are you sure you want to quit? (Y/N): ");
+            String confirm = scanner.nextLine().trim().toUpperCase();
+            if (confirm.equals("Y")) {
+                lovGm.setGameOver(true);
+            }
+            return false;
+            
         } else {
             System.out.println("Unknown command.");
+            return false;
         }
-        return running;
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -703,10 +702,21 @@ public  class Input {
     }
 
 
-
-
-
-
+    public static int getLoVDifficulty() {
+        System.out.println("\nSelect difficulty:");
+        System.out.println("1. Easy (monsters spawn every 5 rounds)");
+        System.out.println("2. Medium (monsters spawn every 4 rounds)");
+        System.out.println("3. Hard (monsters spawn every 3 rounds)");
+        System.out.print("Choice (1-3): ");
+        
+        int choice = readInt(1, 3);
+        int spawnInterval = (choice == 1) ? 5 : (choice == 2) ? 4 : 3;
+        
+        System.out.println("Difficulty set: Monsters spawn every " + spawnInterval + " rounds");
+        Output.someSpace();
+        
+        return spawnInterval;
+    }
 
 
 
