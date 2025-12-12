@@ -1,50 +1,16 @@
 Name/cost/required level/attribute increase/attribute affected
-Healing_Potion  250     1   100		Health
-Strength_Potion 200     1   75		Strength
-Magic_Potion    350     2   100		Mana
-Luck_Elixir     500     4   65  	Agility
-Mermaid_Tears   850     5   100  	Health/Mana/Strength/Agility
-Ambrosia        1000    8   150		All Health/Mana/Strength/Dexterity/Defense/Agility
-Vitality_Brew   300     1   80		Health
-Mana_Draught    280     1   90		Mana
-Power_Elixir    350     2   85		Strength
-Swift_Potion    400     3   70		Agility
-Precision_Tonic 450     3   75		Dexterity
-Fortitude_Flask 500     4   80		Defense
-Rejuvenation    600     5   120		Health/Mana
-Berserker_Brew  550     4   90		Strength/Agility
-Sage_Elixir     650     5   95		Mana/Dexterity
-Guardian_Potion 580     5   85		Defense/Health
-Elixir_of_Life  700     6   130		Health
-Arcane_Essence  720     6   110		Mana
-Titan_Strength  650     5   100		Strength
-Windrunner_Mix  600     5   80		Agility
-Master_Remedy   900     7   140		Health/Mana/Strength
-Divine_Nectar   950     8   130		All Health/Mana/Agility/Dexterity
-Phoenix_Tear    800     7   150		Health
-Ether_Draft     750     6   120		Mana
-Golems_Blood    700     6   110		Strength/Defense
-Elven_Wine      680     6   95		Agility/Dexterity
-Dwarven_Ale     620     5   100		Strength/Health
-Faerie_Dust     850     7   85		Agility/Mana
-Dragon_Essence  1100    9   160		All Health/Mana/Strength/Defense
-Angel_Tears     950     8   145		Health/Mana/Agility
-Demon_Blood     880     7   120		Strength/Dexterity
-Crystal_Elixir  750     6   105		Mana/Dexterity
-Iron_Tonic      650     5   90		Defense/Strength
-Quicksilver     700     6   100		Agility/Dexterity
-Venom_Antidote  400     3   110		Health
-Frost_Resist    500     4   70		Defense
-Fire_Ward       520     4   75		Defense
-Shock_Guard     510     4   72		Defense
-Holy_Water      600     5   100		Health/Defense
-Shadow_Extract  650     5   95		Dexterity/Agility
-Light_Essence   680     6   105		Mana/Health
-Void_Mixture    720     6   110		Strength/Dexterity
-Chaos_Brew      800     7   125		All Strength/Agility/Dexterity
-Order_Elixir    780     7   120		All Defense/Health/Mana
-Cosmic_Potion   1200    10  170		All Health/Mana/Strength/Agility/Dexterity/Defense
-Primal_Essence  950     8   140		Strength/Health/Defense
-Nature_Remedy   700     6   100		Health/Mana/Agility
-Arcane_Fusion   850     7   130		Mana/Dexterity/Agility
-Warrior_Draft   650     5   95		Strength/Defense
+Healing_Potion      250     1     100    Health
+Strength_Potion     200     1     75     Strength
+Magic_Potion        350     1     100    Mana
+Luck_Elixir         500     2     65     Agility
+Mermaid_Tears       850     2     100    Health/Mana/Strength/Agility
+Greater_Healing     500     2     200    Health
+Ambrosia            1000    3     150    All
+Power_Elixir        750     3     150    Strength
+Speed_Potion        650     3     150    Agility
+Super_Healing       800     4     300    Health
+Dragon_Breath       1000    4     200    Strength
+Phoenix_Tears       1500    4     250    All
+Ultimate_Potion     1200    5     400    Health
+Titan_Strength      1500    5     300    Strength
+Divine_Elixir       2000    5     350    All
