@@ -228,12 +228,36 @@ public class Output {
         }
     }
 
-    public static void displayHeroStatus(Hero hero, int row, int col, int lane) {
+    public static void displayHeroStatus(Hero hero, int row, int col, int lane, src.Core.Tile tile) {
         System.out.println("\n" + BRIGHT_CYAN + "=== " + hero.getName() + "'s Turn ===" + RESET);
         System.out.println("Position: Row " + row + ", Col " + col + " | Lane: " + (lane + 1));
         System.out.println("HP: " + GREEN + hero.getHP() + RESET + 
                         " | MP: " + BLUE + hero.getMP() + RESET + 
                         " | Gold: " + YELLOW + hero.getGold() + RESET);
+        
+        // Display terrain bonus if on special tile
+        if (tile != null) {
+            String terrainBonus = getTerrainBonusMessage(tile.getTerrain());
+            if (!terrainBonus.isEmpty()) {
+                System.out.println(terrainBonus);
+            }
+        }
+    }
+
+    // Helper method to get terrain bonus message
+    private static String getTerrainBonusMessage(src.Core.Tile.Terrain terrain) {
+        switch (terrain) {
+            case BUSH:
+                return BRIGHT_GREEN + "Bush Bonus: +10% Dexterity" + RESET;
+            case CAVE:
+                return BLUE + "Cave Bonus: +10% Agility (Dodge)" + RESET;
+            case KOULOU:
+                return BRIGHT_YELLOW + "Koulou Bonus: +10% Strength" + RESET;
+            case NEXUS_HERO:
+                return BRIGHT_GREEN + "Hero Nexus - Market Available" + RESET;
+            default:
+                return "";
+        }
     }
 
     public static void displayHeroFullInfo(Hero hero) {

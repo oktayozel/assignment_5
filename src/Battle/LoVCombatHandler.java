@@ -34,6 +34,9 @@ public class LoVCombatHandler {
     private List<Monster> activeMonsters;
 
     private Map<Hero, int[]> heroSpawnPositions = new HashMap<>();
+
+    private int nextMonsterNumber = 1;
+
     
     public LoVCombatHandler(LoVBoard board, Party party, 
                            Map<Hero, int[]> heroPositions,
@@ -97,7 +100,6 @@ public class LoVCombatHandler {
         target.takeDamage(finalDamage);
         
         // Narrative with hero number
-        int heroNumber = attacker.getHeroNumber();
         Output.narrative(attacker.getName() + "  attacks " + target.getName() + " for " + finalDamage + " damage!");
         
         if (target.isDefeated()) {
@@ -182,8 +184,7 @@ public class LoVCombatHandler {
         int finalDamage = Math.max(0, rawDamage - target.getDefense());
         target.takeDamage(finalDamage);
         
-        // Narrative with hero number
-        int heroNumber = caster.getHeroNumber();
+        // Narrative 
         Output.narrative(caster.getName() + "  casts " + spell.getName() + " on " + target.getName() + " for " + finalDamage + " damage!");
         
         // Apply spell effects
@@ -361,26 +362,27 @@ public class LoVCombatHandler {
     
     // Monster attacks a hero
     private void monsterAttack(Monster attacker, Hero target) {
-
         int[] hPos = heroPositions.get(target);
         Tile heroTile = board.getTile(hPos[0], hPos[1]);
         double dodgeChance = TerrainEffects.effectiveDodgeChance(target, heroTile);
-
+        
+        // Show attack message first 
+        Output.narrative(attacker.getName() + " attacks " + target.getName() + "!");
+        
         // Dodge check
-        if (Math.random() < dodgeChance ) {
-            Output.narrative(attacker.getName() + " attacks " + target.getName());
-            Output.narrative(target.getName() + "  dodged the attack!");
+        if (Math.random() < dodgeChance) {
+            Output.narrative(target.getName() + " dodged the attack!");
             return;
         }
         
+        // Attack hits
         int rawDamage = attacker.computeAttackDamage();
         target.takeDamage(rawDamage);
-        
         int actualDamage = Math.max(0, rawDamage - target.getArmorReduction());
-        Output.narrative(attacker.getName() + " attacks " + target.getName() + "  for " + actualDamage + " damage!");
+        Output.narrative(target.getName() + " takes " + actualDamage + " damage!");
         
         if (target.isFainted()) {
-            Output.narrative(target.getName() + "  has fainted!");
+            Output.narrative(target.getName() + " has fainted!");
         }
     }
     
@@ -418,9 +420,11 @@ public class LoVCombatHandler {
         monsterPositions.put(monster, new int[]{newRow, currentCol, laneIndex});
         targetTile.setMonsterOccupant(monster);
         
-        // Narrative
-        Output.narrative(monster.getName() + " (M" + (laneIndex + 1) + ") moved south from (" + currentRow + "," + currentCol + ") to (" + newRow + "," + currentCol + ")");
-        
+        // Narrative with correct monster number
+        int monsterNum = board.getMonsterNumber(monster);
+        Output.narrative(monster.getName() + " (M" + monsterNum + ") moved south from (" 
+                        + currentRow + "," + currentCol + ") to (" 
+                        + newRow + "," + currentCol + ")");
         return false;
     }
     
@@ -453,8 +457,12 @@ public class LoVCombatHandler {
             activeMonsters.add(m);
             spawnTile.setMonsterOccupant(m);
             
-            // Narrative
-            Output.narrative(m.getName() + " (M" + (i + 1) + ") spawns at (" + monsterNexusRow + "," + col + ")!");
+            // Set monster number on board
+            board.setMonsterNumber(m, nextMonsterNumber);
+            
+            Output.narrative(m.getName() + " (M" + nextMonsterNumber + ") spawns at (" 
+                            + monsterNexusRow + "," + col + ")!");
+            nextMonsterNumber++;
         }
         
         System.out.println("\n=== Monster wave spawned! (Round " + round + ") ===");
@@ -469,7 +477,14 @@ public class LoVCombatHandler {
     public List<Monster> getMonstersInRange(int row, int col) {
         List<Monster> inRange = new ArrayList<>();
         int[][] offsets = {{-1,0}, {1,0}, {0,-1}, {0,1}}; // N, S, W, E
-        
+
+        // Check same tile first
+        Tile currentTile = board.getTile(row, col);
+        Monster monsterOnTile = currentTile.getMonsterOccupant();
+        if (monsterOnTile != null && !monsterOnTile.isDefeated()) {
+            inRange.add(monsterOnTile);
+        }
+    
         for (int[] offset : offsets) {
             int r = row + offset[0];
             int c = col + offset[1];
@@ -485,11 +500,19 @@ public class LoVCombatHandler {
         return inRange;
     }
     
-    // Get all heroes in attack range of a position
+    // Get all heroes in attack range of a position (including same tile)
     public List<Hero> getHeroesInRange(int row, int col) {
         List<Hero> inRange = new ArrayList<>();
-        int[][] offsets = {{-1,0}, {1,0}, {0,-1}, {0,1}};
         
+        // Check same tile first
+        Tile currentTile = board.getTile(row, col);
+        Hero heroOnTile = currentTile.getHeroOccupant();
+        if (heroOnTile != null && !heroOnTile.isFainted()) {
+            inRange.add(heroOnTile);
+        }
+        
+        // Check adjacent tiles
+        int[][] offsets = {{-1,0}, {1,0}, {0,-1}, {0,1}};
         for (int[] offset : offsets) {
             int r = row + offset[0];
             int c = col + offset[1];
