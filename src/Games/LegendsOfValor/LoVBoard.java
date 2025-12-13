@@ -263,6 +263,12 @@ public class LoVBoard extends Board {
             Output.sleep(1000);
             return false;
         }
+
+        if (dest.getTerrain() == Terrain.OBSTACLE) {
+            Output.print("An obstacle blocks the way!");
+            Output.sleep(1000);
+            return false;
+        }
         
         // Check if destination is in the same lane
         if (!isInSameLane(currentCol, newCol)) {
@@ -307,5 +313,9 @@ public class LoVBoard extends Board {
         int lane1 = (col1 <= 1) ? 0 : (col1 <= 4) ? 1 : 2;
         int lane2 = (col2 <= 1) ? 0 : (col2 <= 4) ? 1 : 2;
         return lane1 == lane2;
+    }
+
+    public int[] getHeroPosition(src.Hero.Hero hero) {
+        return findHeroPosition(hero);
     }
 }

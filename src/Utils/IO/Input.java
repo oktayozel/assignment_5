@@ -12,6 +12,8 @@ import src.Inventory.InventoryEntry;
 import src.Item.Item;
 import src.Utils.Statistics.Statistics;
 import src.Utils.Interface.Repairable;
+import src.Core.Board;
+import src.Core.Tile;
 
 // handles all user input
 public  class Input {
@@ -190,24 +192,24 @@ public  class Input {
         
         // Movement actions - consume turn
         if (input.equals("W")) {
-            lovGm.moveHeroWithBoard(currentHero, "up");
-            lovGm.checkVictory();
-            return true;
-            
+            boolean acted = tryMoveLoVWithObstaclePrompt(lovGm, currentHero, -1, 0, "up");
+            if (acted) lovGm.checkVictory();
+            return acted;
+
         } else if (input.equals("A")) {
-            lovGm.moveHeroWithBoard(currentHero, "left");
-            lovGm.checkVictory();
-            return true;
-            
+            boolean acted = tryMoveLoVWithObstaclePrompt(lovGm, currentHero, 0, -1, "left");
+            if (acted) lovGm.checkVictory();
+            return acted;
+
         } else if (input.equals("S")) {
-            lovGm.moveHeroWithBoard(currentHero, "down");
-            lovGm.checkVictory();
-            return true;
-            
+            boolean acted = tryMoveLoVWithObstaclePrompt(lovGm, currentHero, 1, 0, "down");
+            if (acted) lovGm.checkVictory();
+            return acted;
+
         } else if (input.equals("D")) {
-            lovGm.moveHeroWithBoard(currentHero, "right");
-            lovGm.checkVictory();
-            return true;
+            boolean acted = tryMoveLoVWithObstaclePrompt(lovGm, currentHero, 0, 1, "right");
+            if (acted) lovGm.checkVictory();
+            return acted;
             
         // Non-turn-consuming actions
         } else if (input.equals("I")) {
@@ -716,6 +718,41 @@ public  class Input {
         Output.someSpace();
         
         return spawnInterval;
+    }
+
+    private static boolean tryMoveLoVWithObstaclePrompt(
+            src.Games.LegendsOfValor.LoVGameManager gm,
+            src.Hero.Hero hero,
+            int dr, int dc,
+            String dirName
+    ) {
+        src.Games.LegendsOfValor.LoVBoard board = (src.Games.LegendsOfValor.LoVBoard) gm.getBoard();
+        int[] pos = board.getHeroPosition(hero);
+        if (pos == null) return false;
+
+        int nr = pos[0] + dr;
+        int nc = pos[1] + dc;
+
+        if (!board.isInside(nr, nc)) return false;
+
+        Tile dest = board.getTile(nr, nc);
+
+        // Obstacles in your LoV are Terrain.OBSTACLE (tile type is still COMMON). :contentReference[oaicite:3]{index=3}
+        if (dest != null && dest.getTerrain() == Tile.Terrain.OBSTACLE) {
+            System.out.print("Obstacle ahead. Remove it? (Y/N): ");
+            String ans = scanner.nextLine().trim().toUpperCase();
+
+            if (ans.equals("Y")) {
+                board.removeObstacleAt(nr, nc); // OBSTACLE -> PLAIN :contentReference[oaicite:4]{index=4}
+                Output.print("Obstacle removed!");
+                Output.sleep(800);
+                return true;  // consumes turn (breaking is the action)
+            }
+            return false;     // NO: do not consume turn, go back to action menu
+        }
+
+        // Normal movement: consume turn only if moved
+        return gm.moveHeroWithBoard(hero, dirName);
     }
 
 

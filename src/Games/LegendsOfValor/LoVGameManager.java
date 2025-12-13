@@ -168,20 +168,21 @@ public class LoVGameManager extends GameManager {
     }    
 
     // Movement wrapper
-    public void moveHeroWithBoard(Hero hero, String direction) {
+    public boolean moveHeroWithBoard(Hero hero, String direction) {
         LoVBoard lovBoard = (LoVBoard) board;
         boolean moved = false;
-        
+
         switch (direction) {
             case "up":    moved = lovBoard.moveHeroUp(hero); break;
             case "down":  moved = lovBoard.moveHeroDown(hero); break;
             case "left":  moved = lovBoard.moveHeroLeft(hero); break;
             case "right": moved = lovBoard.moveHeroRight(hero); break;
         }
-        
+
         if (moved) {
             updateHeroPosition(hero);
         }
+        return moved;
     }
 
     // Needed for heroPosition map for combat handler
