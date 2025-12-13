@@ -17,6 +17,7 @@ import java.util.Arrays;
 import src.Battle.LoVCombatHandler;
 import src.Core.GameManager;
 import src.Core.Party;
+import src.Core.Tile;
 import src.Utils.Statistics.Statistics;
 import src.Utils.IO.Input;
 import src.Utils.IO.Output;
@@ -162,7 +163,8 @@ public class LoVGameManager extends GameManager {
                 board.printBoard();
 
                 int[] pos = heroPositions.get(hero);
-                Output.displayHeroStatus(hero, pos[0], pos[1], pos[2]);
+                Tile heroTile = board.getTile(pos[0], pos[1]);
+                Output.displayHeroStatus(hero, pos[0], pos[1], pos[2], heroTile);
                 
                 Output.printMenu("lov");  
                 turnComplete = Input.getInputLoV(this);

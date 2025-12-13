@@ -1,5 +1,7 @@
 package src.Games.LegendsOfValor;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import src.Core.Board;
@@ -16,10 +18,21 @@ public class LoVBoard extends Board {
     public static final int BOARD_SIZE = 8;
     private final Random rand = new Random();
 
+    private Map<src.Monster.Monster, Integer> monsterNumbers;
+
 
     public LoVBoard() {
         super(BOARD_SIZE);
+        this.monsterNumbers = new HashMap<>();
         generateRandomLayout();
+    }
+
+    public void setMonsterNumber(src.Monster.Monster monster, int number) {
+        monsterNumbers.put(monster, number);
+    }
+    
+    public int getMonsterNumber(src.Monster.Monster monster) {
+        return monsterNumbers.getOrDefault(monster, 1);
     }
 
     @Override
@@ -73,43 +86,54 @@ public class LoVBoard extends Board {
         }
     }
 
-    @Override
+   @Override
     public void printBoard() {
-
         final String H_BORDER = "=======";
-
+        
         for (int r = 0; r < size; r++) {
             for (int c = 0; c < size; c++) {
                 System.out.print("+" + H_BORDER);
             }
             System.out.println("+");
-
+            
             for (int c = 0; c < size; c++) {
                 Tile tile = grid[r][c];
-                String baseSymbol;
                 String cellText;
-
-                if (tile.getHeroOccupant() != null) {
-                    Terrain t = tile.getTerrain();
-                    String terrainChar = terrainSymbol(t);
-                    int heroNum = getHeroNumber(tile.getHeroOccupant());
-                    String display = terrainChar + "/H" + heroNum;
+                
+                src.Hero.Hero hero = tile.getHeroOccupant();
+                src.Monster.Monster monster = tile.getMonsterOccupant();
+                Terrain t = tile.getTerrain();
+                
+                // Case 1: Both hero and monster on same tile
+                if (hero != null && monster != null) {
+                    int heroNum = getHeroNumber(hero);
+                    int monsterNum = getMonsterNumber(monster);
+                    // Color hero part cyan, monster part red
+                    String display = Output.BRIGHT_CYAN + "H" + heroNum + Output.RESET + 
+                                    "/" + 
+                                    Output.BRIGHT_RED + "M" + monsterNum + Output.RESET;
+                    cellText = " " + display + " ";
+                    
+                // Case 2: Only hero (no terrain symbol)
+                } else if (hero != null) {
+                    int heroNum = getHeroNumber(hero);
+                    String display = "H" + heroNum;
                     String colored = Output.BRIGHT_CYAN + display + Output.RESET;
-                    // Ensure consistent spacing for 5-character display (e.g., "N/H1")
-                    cellText = " " + colored + "  ";
-                } else if (tile.getMonsterOccupant() != null) {
-                    Terrain t = tile.getTerrain();
-                    String terrainChar = terrainSymbol(t);
-                    int monsterLane = getMonsterLane(c);
-                    String display = terrainChar + "/M" + monsterLane;
-                    String colored = Output.BRIGHT_RED + display + Output.RESET;
-                    // Ensure consistent spacing for 5-character display (e.g., "N/M1")
-                    cellText = " " + colored + "  ";
-                } else {
-                    Terrain t = tile.getTerrain();
-                    baseSymbol = terrainSymbol(t);
-                    String coloredSymbol = baseSymbol;
+                    cellText = "  " + colored + "   ";
+                    
+                // Case 3: Only monster (no terrain symbol)
+                } else if (monster != null) {
+                    int monsterNum = getMonsterNumber(monster);
 
+                    String display = "M" + monsterNum;
+                    String colored = Output.BRIGHT_RED + display + Output.RESET;
+                    cellText = "  " + colored + "   ";
+                    
+                // Case 4: Empty tile - show terrain
+                } else {
+                    String baseSymbol = terrainSymbol(t);
+                    String coloredSymbol = baseSymbol;
+                    
                     switch (t) {
                         case NEXUS_HERO:
                             coloredSymbol = Output.BRIGHT_GREEN + baseSymbol + Output.RESET;
@@ -134,29 +158,28 @@ public class LoVBoard extends Board {
                         case PLAIN:
                         case NONE:
                         default:
-
                             break;
                     }
-
+                    
                     cellText = "   " + coloredSymbol + "   ";
-
+                    
                     if (t == Terrain.WALL) {
                         String inner = "   " + baseSymbol + "   ";
                         cellText = Output.BLACK_BG + inner + Output.RESET;
                     }
                 }
-
+                
                 System.out.print("|" + cellText);
             }
             System.out.println("|");
         }
-
+        
         for (int c = 0; c < size; c++) {
             System.out.print("+" + H_BORDER);
         }
         System.out.println("+");
     }
-    
+
     private int heroCounter = 0;
     private java.util.Map<src.Hero.Hero, Integer> heroNumberMap = new java.util.HashMap<>();
     
@@ -276,6 +299,14 @@ public class LoVBoard extends Board {
             Output.sleep(1000);
             return false;
         }
+
+        // Check if hero is currently on the same tile as a monster
+        Tile currentTile = grid[currentRow][currentCol];
+        if (currentTile.getMonsterOccupant() != null && !currentTile.getMonsterOccupant().isDefeated()) {
+            Output.print("You must defeat the monster in your tile before moving!");
+            Output.sleep(1000);
+            return false;
+        }
         
         // Determine direction for narrative
         String directionName;
@@ -289,8 +320,7 @@ public class LoVBoard extends Board {
         dest.setHeroOccupant(hero);
         
         // Narrative
-        int heroNumber = hero.getHeroNumber();
-        Output.narrative(hero.getName() + " (H" + heroNumber + ") moved " + directionName + " from (" + currentRow + "," + currentCol + ") to (" + newRow + "," + newCol + ")");
+        Output.narrative(hero.getName() + " moved " + directionName + " from (" + currentRow + "," + currentCol + ") to (" + newRow + "," + newCol + ")");
         
         return true;
     }
