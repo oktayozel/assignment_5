@@ -98,7 +98,7 @@ public class LoVCombatHandler {
         
         // Narrative with hero number
         int heroNumber = attacker.getHeroNumber();
-        Output.narrative(attacker.getName() + " (H" + heroNumber + ") attacks " + target.getName() + " for " + finalDamage + " damage!");
+        Output.narrative(attacker.getName() + "  attacks " + target.getName() + " for " + finalDamage + " damage!");
         
         if (target.isDefeated()) {
             handleMonsterDefeat(target);
@@ -184,7 +184,7 @@ public class LoVCombatHandler {
         
         // Narrative with hero number
         int heroNumber = caster.getHeroNumber();
-        Output.narrative(caster.getName() + " (H" + heroNumber + ") casts " + spell.getName() + " on " + target.getName() + " for " + finalDamage + " damage!");
+        Output.narrative(caster.getName() + "  casts " + spell.getName() + " on " + target.getName() + " for " + finalDamage + " damage!");
         
         // Apply spell effects
         String type = spell.getSpellType().toUpperCase();
@@ -248,8 +248,7 @@ public class LoVCombatHandler {
         }
         
         // Narrative with hero number
-        int heroNumber = user.getHeroNumber();
-        Output.narrative(user.getName() + " (H" + heroNumber + ") uses " + potion.getName() + " (" + potion.getEffectType() + ")");
+        Output.narrative(user.getName() + " uses " + potion.getName() + " (" + potion.getEffectType() + ")");
     }
     
     // Hero changes equipment
@@ -369,8 +368,8 @@ public class LoVCombatHandler {
 
         // Dodge check
         if (Math.random() < dodgeChance ) {
-            int heroNumber = target.getHeroNumber();
-            Output.narrative(target.getName() + " (H" + heroNumber + ") dodged the attack!");
+            Output.narrative(attacker.getName() + " attacks " + target.getName());
+            Output.narrative(target.getName() + "  dodged the attack!");
             return;
         }
         
@@ -378,11 +377,10 @@ public class LoVCombatHandler {
         target.takeDamage(rawDamage);
         
         int actualDamage = Math.max(0, rawDamage - target.getArmorReduction());
-        int heroNumber = target.getHeroNumber();
-        Output.narrative(attacker.getName() + " attacks " + target.getName() + " (H" + heroNumber + ") for " + actualDamage + " damage!");
+        Output.narrative(attacker.getName() + " attacks " + target.getName() + "  for " + actualDamage + " damage!");
         
         if (target.isFainted()) {
-            Output.narrative(target.getName() + " (H" + heroNumber + ") has fainted!");
+            Output.narrative(target.getName() + "  has fainted!");
         }
     }
     
@@ -523,7 +521,7 @@ public class LoVCombatHandler {
             boolean leveledUp = h.checkLevelUp();
             if (leveledUp) {
                 int heroNumber = h.getHeroNumber();
-                Output.narrative(h.getName() + " (H" + heroNumber + ") leveled up to Level " + h.getLevel() + "!");
+                Output.narrative(h.getName() + "  leveled up to Level " + h.getLevel() + "!");
             }
         }
         
@@ -704,7 +702,7 @@ public class LoVCombatHandler {
         System.out.println("Select teleport destination:");
         for (int i = 0; i < legal.size(); i++) {
             int[] p = legal.get(i);
-            System.out.println("(" + (i + 1) + ") (" + p[0] + "," + p[1] + ") lane " + p[2]
+            System.out.println("(" + (i + 1) + ") (" + p[0] + "," + p[1] + ") lane " + (p[2] +1)
                     + " [" + board.getTile(p[0], p[1]).getTerrain() + "]");
         }
         int goal = Input.readInt(1, legal.size()) - 1;

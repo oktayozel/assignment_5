@@ -222,8 +222,7 @@ public  class Input {
             
         // Turn-consuming actions
         } else if (input.equals("P")) {
-            System.out.println(currentHero.getName() + " passes their turn.");
-            Output.sleep(1000);
+            Output.narrative(currentHero.getName() + " passes their turn.");
             return true;
             
         } else if (input.equals("F")) {

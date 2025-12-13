@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Arrays;
 
 import src.Battle.LoVCombatHandler;
 import src.Core.GameManager;
@@ -51,7 +54,7 @@ public class LoVGameManager extends GameManager {
         Output.someSpace();
 
         this.user = new User(Input.getUsername());
-        
+
         this.spawnInterval = Input.getLoVDifficulty();
         this.round = 0;
         this.gameOver = false;
@@ -62,9 +65,11 @@ public class LoVGameManager extends GameManager {
             this.board = new LoVBoard();
         }
         placeHeroesOnBoard();
+
         initializeHeroMarkets();
         
         initializeCombatSystem();
+
     }
 
 
@@ -110,7 +115,6 @@ public class LoVGameManager extends GameManager {
 
     @Override
     public void start() {
-        Output.displaySecondWelcomeMessage(heroes, user);
         
         while (!gameOver) {
             round++;
@@ -241,7 +245,7 @@ public class LoVGameManager extends GameManager {
 
     // Respawn hero at Nexus 
     private void endOfRound() {
-        Output.print("\n" + Output.BRIGHT_YELLOW + "===== END OF ROUND " + round + " =====" + Output.RESET);
+        Output.print("\n" + Output.BRIGHT_YELLOW + "===== END OF ROUND " + round + " =====" + Output.RESET + "\n");
         
         for (Hero h : heroes) {
             if (h.isFainted()) {
@@ -291,10 +295,10 @@ public class LoVGameManager extends GameManager {
             boolean heroesWon = checkVictory();
 
             if (heroesWon) {
-                Output.print(Output.BRIGHT_GREEN + "\n🎉🎉🎉 VICTORY! 🎉🎉🎉" + Output.RESET);
+                Output.print(Output.BRIGHT_GREEN + "\n VICTORY! " + Output.RESET);
                 Output.print("The heroes have conquered the Monster Nexus!");
             } else {
-                Output.print(Output.BRIGHT_RED + "\n💀💀💀 DEFEAT! 💀💀💀" + Output.RESET);
+                Output.print(Output.BRIGHT_RED + "\nDEFEAT!" + Output.RESET);
                 Output.print("The monsters have overrun your Nexus...");
             }
         }
@@ -320,11 +324,15 @@ public class LoVGameManager extends GameManager {
     public void showInventory(Hero hero) {
         Output.clearScreen();
         Output.displayHeroFullInfo(hero);
+        Output.someSpace();
         Input.waitForEnter();
     }
 
 
     public void initializeHeroes() {
+        
+        Set<Integer> previousChoices = new HashSet<>();
+
         String[] laneNames = {"left", "mid", "right"};
         for (int i = 1; i <= 3; i++) {
             Output.print("Select type for Hero " + i + " (1: Warrior, 2: Sorcerer, 3: Paladin): ");
@@ -357,7 +365,20 @@ public class LoVGameManager extends GameManager {
             heroes.add(hero);
             
             Output.print("Select lane for Hero " + i + " (1: left, 2: mid, 3: right): ");
-            int laneChoice = Input.readInt(1, 3);
+            
+            int laneChoice;
+            while(true){
+                laneChoice = Input.readInt(1, 3);
+                if (previousChoices.contains(laneChoice)){
+                    Output.print("Another Hero is in this lane already. Try another lane!\n");
+                    Output.sleep(2000);
+                    continue;
+                }
+                break;
+            }
+            previousChoices.add(laneChoice);
+
+
             heroLanes.add(laneNames[laneChoice-1]);
         }
     }
@@ -386,6 +407,8 @@ public class LoVGameManager extends GameManager {
             
             Output.print(hero.getName() + " placed in " + lane + " lane at (" + row + ", " + col + ")");
         }
+        Output.displaySecondWelcomeMessage(heroes, user);
+
     }
     
     private void initializeHeroMarkets() {
