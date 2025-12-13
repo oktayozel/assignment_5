@@ -13,11 +13,11 @@ public class MainMenu {
     public void start() {
         System.out.println("Welcome to the Fantastic Games Main Menu. Hope you are ready for the adventure!");
 
-        String game = Input.getGame();
         Input.setStatistics(statistics);
 
         
         while (true) {
+            String game = Input.getGame();
             GameManager gm = null;
             if (game.equals("1")) {
                 gm = new src.Games.MonstersAndHeroes.MaHGameManager(statistics);
