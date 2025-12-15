@@ -33,7 +33,7 @@ public class LoVCombatHandler {
     private Map<Monster, int[]> monsterPositions; // Monster -> [row, col, laneIndex]
     private List<Monster> activeMonsters;
 
-    private Map<Hero, int[]> heroSpawnPositions = new HashMap<>();
+    public Map<Hero, int[]> heroSpawnPositions = new HashMap<>();
 
     private int nextMonsterNumber = 1;
 
@@ -436,7 +436,7 @@ public class LoVCombatHandler {
     // Spawn a wave of monsters at the monster nexus - one per lane
     public void spawnMonsterWave(int round) {
         int[] laneCols = {1, 4, 7}; // Right columns of each lane
-        int monsterNexusRow = 0;
+        int monsterNexusRow = 0; // 0 and 6 to debug
         int level = party.getHighestLevel();
         
         List<Monster> newMonsters = MonsterSpawner.generateRandomMonsters(3, level);
@@ -590,6 +590,10 @@ public class LoVCombatHandler {
         if (pos == null) return null;
         return board.getTile(pos[0], pos[1]);
     }
+
+
+
+    
 
     public void heroRecall(Hero hero) {
         int[] spawn = heroSpawnPositions.get(hero);

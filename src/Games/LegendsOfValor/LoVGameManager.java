@@ -266,20 +266,34 @@ public class LoVGameManager extends GameManager {
         Input.waitForEnter();
     }
 
+
+
     // respawn hero method
     private void respawnHero(Hero hero) {
         hero.reviveHalf();  // existing Hero method
         
-        // Reposition to nexus
+        // Get hero's current position and lane
         int[] pos = heroPositions.get(hero);
         if (pos == null) return;
         
+        int currentRow = pos[0];
+        int currentCol = pos[1];
         int laneIndex = pos[2];
+        
+        // Remove hero from their current tile first
+        Tile currentTile = board.getTile(currentRow, currentCol);
+        if (currentTile != null) {
+            currentTile.setHeroOccupant(null);
+        }
+        
+        // Calculate spawn position at their lane's Nexus
         int[] laneCols = {0, 3, 6};
         int spawnRow = 7;
         int spawnCol = laneCols[laneIndex];
         
-        board.getTile(spawnRow, spawnCol).setHeroOccupant(hero);
+        // Place hero at spawn Nexus
+        Tile nexusTile = board.getTile(spawnRow, spawnCol);
+        nexusTile.setHeroOccupant(hero);
         heroPositions.put(hero, new int[]{spawnRow, spawnCol, laneIndex});
         
         // Narrative
