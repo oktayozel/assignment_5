@@ -7,7 +7,7 @@ import src.Utils.Default.DefaultReader;
 import java.util.Random;
 
 // generates monsters for battle
-public class MonsterSpawner {
+public class MonsterFactory {
     static Random rand = new Random();
 
     public static List<Monster> generateRandomMonsters(int count, int level) {

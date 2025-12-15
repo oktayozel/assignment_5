@@ -5,7 +5,7 @@ import src.Games.LegendsOfValor.LoVBoard;
 import src.Games.LegendsOfValor.TerrainEffects;
 import src.Hero.Hero;
 import src.Monster.Monster;
-import src.Monster.MonsterSpawner;
+import src.Monster.MonsterFactory;
 import src.Item.*;
 import src.Inventory.InventoryEntry;
 import src.Utils.IO.Input;
@@ -444,7 +444,7 @@ public class LoVCombatHandler {
         int monsterNexusRow = 0; // 0 and 6 to debug checkpoint
         int level = party.getHighestLevel();
         
-        List<Monster> newMonsters = MonsterSpawner.generateRandomMonsters(3, level);
+        List<Monster> newMonsters = MonsterFactory.generateRandomMonsters(3, level);
         
         for (int i = 0; i < newMonsters.size() && i < 3; i++) {
             Monster m = newMonsters.get(i);

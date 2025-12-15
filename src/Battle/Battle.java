@@ -4,7 +4,7 @@ package src.Battle;
 import java.util.List;
 import java.util.ArrayList;
 
-import src.Monster.MonsterSpawner;
+import src.Monster.MonsterFactory;
 import src.Utils.Default.DefaultReader;
 import src.Utils.IO.Input;
 import src.Utils.IO.Output;
@@ -455,7 +455,7 @@ public class Battle {
         this.finished = true;
     }
     private List<Monster> generateMonstersForBattle(int numberOfMonsters, int averagePartyLevel) {
-        return MonsterSpawner.generateRandomMonsters(numberOfMonsters, averagePartyLevel);
+        return MonsterFactory.generateRandomMonsters(numberOfMonsters, averagePartyLevel);
     }
 
     public Party getParty() {

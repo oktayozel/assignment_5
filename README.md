@@ -46,7 +46,7 @@ assignment_4/
 │   │   ├── Dragon.java
 │   │   ├── Exoskeleton.java
 │   │   ├── Spirit.java
-│   │   └── MonsterSpawner.java
+│   │   └── MonsterFactory.java
 │   │
 │   ├── Item/
 │   │   ├── Item.java
