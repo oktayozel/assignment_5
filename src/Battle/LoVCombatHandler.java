@@ -11,6 +11,7 @@ import src.Inventory.InventoryEntry;
 import src.Utils.IO.Input;
 import src.Utils.IO.Output;
 import src.Core.Party;
+import src.Utils.Statistics.Statistics;
 
 import java.util.*;
 
@@ -32,6 +33,7 @@ public class LoVCombatHandler {
     private Map<Hero, int[]> heroPositions;      // Hero -> [row, col, laneIndex]
     private Map<Monster, int[]> monsterPositions; // Monster -> [row, col, laneIndex]
     private List<Monster> activeMonsters;
+    private Statistics statistics;
 
     public Map<Hero, int[]> heroSpawnPositions = new HashMap<>();
 
@@ -41,12 +43,16 @@ public class LoVCombatHandler {
     public LoVCombatHandler(LoVBoard board, Party party, 
                            Map<Hero, int[]> heroPositions,
                            Map<Monster, int[]> monsterPositions,
-                           List<Monster> activeMonsters) {
+                           List<Monster> activeMonsters,
+                           Statistics statistics
+                        
+                        ) {
         this.board = board;
         this.party = party;
         this.heroPositions = heroPositions;
         this.monsterPositions = monsterPositions;
         this.activeMonsters = activeMonsters;
+        this.statistics = statistics;
 
         for (Map.Entry<Hero, int[]> e : heroPositions.entrySet()) {
             int[] p = e.getValue();
@@ -144,7 +150,7 @@ public class LoVCombatHandler {
         
         // Check mana
         if (!caster.spendMP(spell.getManaCost())) {
-            System.out.println("Not enough MP to cast the spell.");
+            Output.narrative("Not enough MP to cast the spell.");
             return;
         }
         
@@ -441,7 +447,7 @@ public class LoVCombatHandler {
     // Spawn a wave of monsters at the monster nexus - one per lane
     public void spawnMonsterWave(int round) {
         int[] laneCols = {1, 4, 7}; // Right columns of each lane
-        int monsterNexusRow = 0; // 0 and 6 to debug checkpoint
+        int monsterNexusRow = 6; // 0 and 6 to debug checkpoint
         int level = party.getHighestLevel();
         
         List<Monster> newMonsters = MonsterFactory.generateRandomMonsters(3, level);
@@ -533,12 +539,12 @@ public class LoVCombatHandler {
         return inRange;
     }
     
-
     // Handle monster defeat: distribute rewards to heroes and remove from board
     private void handleMonsterDefeat(Monster monster) {
         int[] pos = monsterPositions.get(monster);
         Output.narrative(monster.getName() + " (M" + (pos[2] + 1) + ") has been defeated!");
-        
+        statistics.incrementMonstersDefeated(1);
+
         // Distribute rewards to ALL heroes (per spec)
         int gold = 500 * monster.getLevel();
         int xp = 2 * monster.getLevel();
@@ -548,8 +554,8 @@ public class LoVCombatHandler {
             h.addExperience(xp);
             boolean leveledUp = h.checkLevelUp();
             if (leveledUp) {
-                int heroNumber = h.getHeroNumber();
                 Output.narrative(h.getName() + "  leveled up to Level " + h.getLevel() + "!");
+                statistics.incrementHeroesLevelledUp();
             }
         }
         

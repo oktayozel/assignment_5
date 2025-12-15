@@ -63,6 +63,7 @@ public class Statistics {
     public void incrementMonstersDefeated(int count) {
         totalMonstersDefeated += count;
     }
+
     
 
 }

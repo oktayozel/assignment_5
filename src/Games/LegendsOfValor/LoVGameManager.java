@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Arrays;
 
 import src.Battle.LoVCombatHandler;
 import src.Core.GameManager;
@@ -75,7 +74,7 @@ public class LoVGameManager extends GameManager {
 
 
 
-    // Initialize combat system -- for LoVCombatHandler
+    // Initialize combat system  for LoVCombatHandler
     private void initializeCombatSystem() {
         this.heroPositions = new HashMap<>();
         this.monsterPositions = new HashMap<>();
@@ -104,7 +103,8 @@ public class LoVGameManager extends GameManager {
             party,
             heroPositions,
             monsterPositions,
-            activeMonsters
+            activeMonsters,
+            statistics
         );
         
         // Spawn initial monsters (round 0)
@@ -425,7 +425,7 @@ public class LoVGameManager extends GameManager {
             }
             
             // Place hero at heroes' Nexus (row 7)
-            int row = 1; //checkpoint
+            int row = 7; //checkpoint 7 and 1 for debug
             board.getTile(row, col).setHeroOccupant(hero);
             
             Output.print(hero.getName() + " placed in " + lane + " lane at (" + row + ", " + col + ")");
