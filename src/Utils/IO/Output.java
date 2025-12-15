@@ -636,7 +636,7 @@ public class Output {
         int cnt = 10;
         while (cnt > 0) {
             System.out.println(">");
-            sleep(200);
+            sleep(20);
             cnt--;
         }
         System.out.println("\n>--- " + color + message + RESET + " ---\n");

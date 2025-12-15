@@ -336,12 +336,12 @@ public class LoVCombatHandler {
     }
     
     // ============================================
-    // MONSTER AI & ACTIONS
+    // MONSTER AI -  ACTIONS
     // ============================================
     
     // MonsterAI: Attack if hero in range, else move south
-    public void monsterTakeTurn(Monster monster) {
-        if (monster.isDefeated()) return;
+    public boolean monsterTakeTurn(Monster monster) {
+        if (monster.isDefeated()) return false;
         
         int[] pos = monsterPositions.get(monster);
         int currentRow = pos[0];
@@ -349,8 +349,12 @@ public class LoVCombatHandler {
         
         // Check if can attack hero
         List<Hero> targets = getHeroesInRange(currentRow, currentCol);
-        
-        if (!targets.isEmpty()) {
+        if(currentRow == 6){
+            moveMonsterSouth(monster);
+            return true;
+
+        }
+        else if (!targets.isEmpty()) {
             // Attack random hero in range
             Hero target = targets.get(new Random().nextInt(targets.size()));
             monsterAttack(monster, target);
@@ -358,6 +362,7 @@ public class LoVCombatHandler {
             // Move south toward hero nexus
             moveMonsterSouth(monster);
         }
+        return false;
     }
     
     // Monster attacks a hero
@@ -404,7 +409,7 @@ public class LoVCombatHandler {
                 Output.narrative("\n" + monster.getName() + 
                                " REACHED THE HERO NEXUS! DEFEAT!", 
                                Output.BRIGHT_RED);
-                return true; // Game over
+                return true;
             }
         }
         
@@ -436,7 +441,7 @@ public class LoVCombatHandler {
     // Spawn a wave of monsters at the monster nexus - one per lane
     public void spawnMonsterWave(int round) {
         int[] laneCols = {1, 4, 7}; // Right columns of each lane
-        int monsterNexusRow = 0; // 0 and 6 to debug
+        int monsterNexusRow = 0; // 0 and 6 to debug checkpoint
         int level = party.getHighestLevel();
         
         List<Monster> newMonsters = MonsterSpawner.generateRandomMonsters(3, level);

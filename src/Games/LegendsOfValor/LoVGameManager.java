@@ -231,11 +231,18 @@ public class LoVGameManager extends GameManager {
         for (Monster m : monsters) {
             if (m.isDefeated()) continue;
             
-            combat.monsterTakeTurn(m);
-            
+            if (combat.monsterTakeTurn(m)) {
+                gameOver = true;
+                return;
+            }
+        }
+        
+        // Double check after all monsters moved  ensure no monster is at or past row 7
+        for (Monster m : activeMonsters) {
+            if (m.isDefeated()) continue;
             int[] pos = monsterPositions.get(m);
             if (pos != null && pos[0] >= 7) {
-                Output.print("\n" + Output.BRIGHT_RED + "💀 DEFEAT! Monsters breached your Nexus!" + Output.RESET);
+                Output.sleep(1000);
                 gameOver = true;
                 return;
             }
@@ -418,7 +425,7 @@ public class LoVGameManager extends GameManager {
             }
             
             // Place hero at heroes' Nexus (row 7)
-            int row = 7;
+            int row = 1; //checkpoint
             board.getTile(row, col).setHeroOccupant(hero);
             
             Output.print(hero.getName() + " placed in " + lane + " lane at (" + row + ", " + col + ")");
