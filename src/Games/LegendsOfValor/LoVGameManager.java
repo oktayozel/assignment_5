@@ -254,7 +254,7 @@ public class LoVGameManager extends GameManager {
                 respawnHero(h);
             } else {
                 h.regenAfterRound();
-                Output.print(h.getName() + " regenerated 10% HP and MP");
+                Output.print(h.getName() + " regenerated 10% HP and MP\n");
             }
         }
         

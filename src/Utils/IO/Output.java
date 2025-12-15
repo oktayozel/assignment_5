@@ -230,7 +230,7 @@ public class Output {
 
     public static void displayHeroStatus(Hero hero, int row, int col, int lane, src.Core.Tile tile) {
         System.out.println("\n" + BRIGHT_CYAN + "=== " + hero.getName() + "'s Turn ===" + RESET);
-        System.out.println("Position: Row " + row + ", Col " + col + " | Lane: " + (lane + 1));
+        System.out.println("Position: Row " + row + ", Col " + col + " | Lane: " + (lane));
         System.out.println("HP: " + GREEN + hero.getHP() + RESET + 
                         " | MP: " + BLUE + hero.getMP() + RESET + 
                         " | Gold: " + YELLOW + hero.getGold() + RESET);
