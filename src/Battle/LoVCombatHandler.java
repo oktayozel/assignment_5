@@ -558,18 +558,7 @@ public class LoVCombatHandler {
     }
     
 
-    // Display combat information
-    public void displayCombatInfo() {
-        System.out.println("\n=== Combat Information ===");
-        System.out.println("Active Monsters: " + activeMonsters.size());
-        
-        for (Monster m : activeMonsters) {
-            if (m.isDefeated()) continue;
-            int[] pos = monsterPositions.get(m);
-            System.out.println("  " + m.getName() + " | HP: " + m.getHP() + 
-                             " | Pos: (" + pos[0] + "," + pos[1] + ")");
-        }
-    }
+
     
     // ============================================
     // GETTERS
