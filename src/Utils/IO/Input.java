@@ -567,6 +567,7 @@ public  class Input {
         Output.sleep(DefaultReader.getDefaultSettings("sleep_ms_after_action"));
     }
     
+    // get input for repairing items in market
     private static void handleRepair(Market market, User user) {
         if (user.getParty().getHeroes().isEmpty()) {
             System.out.println("No heroes in party to repair items.");
