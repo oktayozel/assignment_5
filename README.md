@@ -148,7 +148,42 @@ assignment_5/
 
 
 
+Presentation
 
+- Architecture
+    - Core: Board, GameManager, Tile, Piece, Party, User
+        - GameManager: orchestrates game flow
+    - Games: LegendsOfValor and MonstersAndHeroes
+    - Combatant sytem:
+        - Hero and Monster superclasses implements Combatant
+        - MonsterFactory for monster generation
+    - Game Mechanics:
+        - Battle: Battle (for MaH) and LoVCombatHandler (for simultaneous combat in LoV)
+        - Market: Item trading system
+        - Inventory: equipment and item management
+        - Item: Armor, Weapon, Spell, Potion types
+    - Key Decisions: 
+        - Preserved MaH infrastructure where possible
+        - Differences/Additions/Modifications for LoV:
+            - Extended Tile system for new types (Bush, Cave, Koulou)
+                - TerrainEffects class to apply terrain effects to heroes
+            - Refactored combat system Battle in to LoVCombatHandler for simultaneous combat
+            - Extended Board class as LoVBoard for new version 
+            - Added Sound system for game music
+            - Refactored Spell with SpellEffect interface for different type of effects for scalability (source: Alim’s MaH version)
+- Design Patterns
+    - Singleton to ensure only one instance exists
+        - SoundManager, Statistics
+    - Strategy 
+        - SpellEffect: FireSpellEffect, IceSpellEffect, LightningSpellEffect
+        - AttackStrategy: WarriorAttackStrategy, PaladinAttackStrategy, SorcererAttackStrategy
+    - Factory:
+        - MonsterFactory
+    - Template:
+        - GameManager
+        - Market
+- Why we chose Oktay’s code
+    - Our code was mostly the same but Oktay’s code was more modular and easier to scale. He had also implemented ASCII art and colors which was easy to reuse in the new game.
 
 
 
@@ -163,19 +198,8 @@ assignment_5/
 ---------------------------------------------------------------------------
 Please explain the cool features of your program. Anything that you feel like you did a good job at or were creative about, explain it in bullets here. Additionally, any design decisions should be made here.
 
-Overall:
-- Implemented a Statistics module which was not asked.
-- I have implemented several animations to the game.
-- I have implemented colored UI.
-- I have implemented settings file that is not in requirements also
-- You can type exit at any moment in the game and can gracefully.
-- Seperating the components into subdirectories app, components, core, data, io. 
-- In the Settings class, it enables dynamic configuration by loading properties like board size and supported games from an external file.
-- Implemented Strategy Design Pattern
-- Implemented several interfaces for the items namely Consumable, Equippable, Repairable, or Tradable
-- Makes sure that game is playable.
-- and lots of coool features.
-
+- Sound 
+- Ascii Art 
 
 ## Source and Citations
 We have used the following website for animations.
@@ -187,11 +211,13 @@ https://freetouse.com/music/zambolino/wanderer-at-night
 
 
 
+
+
 ## How to compile and run
 ---------------------------------------------------------------------------
 Your directions on how to run the code. Make sure to be as thorough as possible! Ideally should resemble the lines below
 
-1. Navigate to the directory "assignment_4" after unzipping the files
+1. Navigate to the directory "assignment_5" after unzipping the files
 2. Run the following instructions:
 
 javac -encoding UTF-8 -d out \
@@ -199,18 +225,23 @@ javac -encoding UTF-8 -d out \
       src/Battle/*.java \
       src/Inventory/*.java \
       src/Market/*.java \
-      src/Statistics/*.java \
-      src/IO/*.java \
       src/Hero/*.java \
       src/Monster/*.java \
       src/Item/*.java \
       src/Core/*.java \
-      src/Default/*.java \
-      src/Interface/*.java \
-      src/Strategy/*.java
+      src/Games/MonstersAndHeroes/*.java \
+      src/Games/LegendsOfValor/*.java \
+      src/Utils/Statistics/*.java \
+      src/Utils/IO/*.java \
+      src/Utils/Default/*.java \
+      src/Utils/Interface/*.java \
+      src/Utils/Strategy/*.java \
+      src/Utils/Sound/*.java
+      
 
 
 java -Dfile.encoding=UTF-8 -cp out src.Main
+
 
 NOTE: Instead you can simply run ./compile.sh and then ./run.sh
 
