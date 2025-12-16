@@ -14,6 +14,8 @@ public class DefaultReader {
     private static final String DEFAULTS_DIR = "src/data/new_defaults"; // list-based data here
     private static final Random RAND = new Random();
 
+
+    // templates for all entities
     public static class HeroTemplate {
         public String name;
         public int level; 

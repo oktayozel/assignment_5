@@ -2,10 +2,10 @@ package src.Utils.Interface;
 
 import src.Monster.Monster;
 
-/**
- * Interface for spell effects using Strategy Pattern
- * Each spell type implements its own effect on monsters
- */
+
+
+
+// Interface for spell effects using Strategy Pattern
 public interface SpellEffect {
     
     /**

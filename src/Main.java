@@ -13,7 +13,6 @@ public class Main {
         // stop music when exiting
         SoundManager.getInstance().stop(); 
 
-
     }
 }
 

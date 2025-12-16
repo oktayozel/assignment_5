@@ -4,6 +4,8 @@ import javax.sound.sampled.*;
 import java.io.File;
 
 
+// manages sound and audio playback using singleton pattern
+
 public class SoundManager {
     private static SoundManager instance;
     private Clip clip;

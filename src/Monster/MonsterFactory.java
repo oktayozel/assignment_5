@@ -10,6 +10,9 @@ import java.util.Random;
 public class MonsterFactory {
     static Random rand = new Random();
 
+
+    // generates random monsters based on the level of the max hero
+    // this parameter should be passed from the battle manager
     public static List<Monster> generateRandomMonsters(int count, int level) {
         List<Monster> monsters = new ArrayList<>();
         
@@ -28,7 +31,7 @@ public class MonsterFactory {
                 }
             }
             
-            // If no level-appropriate monsters, use closest level
+            // If no level appropriate monsters, use closest level
             if (levelAppropriate.isEmpty()) {
                 DefaultReader.MonsterTemplate closest = templates.get(0);
                 for (DefaultReader.MonsterTemplate t : templates) {

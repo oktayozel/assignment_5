@@ -3,9 +3,9 @@ package src.Utils.Strategy;
 import src.Monster.Monster;
 import src.Utils.Interface.SpellEffect;
 
-/**
- * Lightning spell effect that reduces monster's dodge chance by 10%
- */
+
+  // Lightning spell effect that reduces monster's dodge chance by 10%
+ 
 public class LightningSpellEffect implements SpellEffect {
 
     @Override

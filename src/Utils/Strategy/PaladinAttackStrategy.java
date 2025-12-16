@@ -5,9 +5,11 @@ import src.Item.Weapon;
 import src.Utils.Interface.AttackStrategy;
 
 // paladin balanced with 10 percent chance to heal 5 percent of damage
+
 public class PaladinAttackStrategy implements AttackStrategy {
     @Override
     public int calculateDamage(Hero hero, Weapon weapon, boolean usingTwoHands) {
+        
         int weaponDamage = (weapon != null && !weapon.isBroken()) ? weapon.getDamage() : 0;
         double multiplier = usingTwoHands ? 1.5 : 1.0;
         double raw = (hero.getStrength() + weaponDamage) * 0.05 * multiplier;
@@ -18,7 +20,6 @@ public class PaladinAttackStrategy implements AttackStrategy {
             hero.healHP(healAmount);
             System.out.println(hero.getName() + " heals " + healAmount + " HP from righteous strike!");
         }
-        
         return damage;
     }
 }

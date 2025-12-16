@@ -52,13 +52,17 @@ public abstract class Monster implements Combatant {
         }
     }
 
+
+    // methods to reduce attributes by 10% if spell effects are applied
     public void reduceBaseDamageBy10Percent() {
         baseDamage = (int)Math.max(0, Math.round(baseDamage * 0.9));
     }
+    // reduces defense by 10% if fire spell is applied
     public void reduceDefenseBy10Percent() {
         defense = (int)Math.max(0, Math.round(defense * 0.9));
     }
 
+    // reduces dodge chance by 10% if lightning spell is applied
     public void reduceDodgeBy10Percent() {
         dodge = Math.max(0.0, dodge * 0.9);
     }

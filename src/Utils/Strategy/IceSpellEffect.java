@@ -3,9 +3,9 @@ package src.Utils.Strategy;
 import src.Monster.Monster;
 import src.Utils.Interface.SpellEffect;
 
-/**
- * Ice spell effect that reduces monster's damage output by 10%
- */
+ 
+ // Ice spell effect that reduces monster's damage output by 10%
+ 
 public class IceSpellEffect implements SpellEffect {
 
     @Override
