@@ -487,7 +487,7 @@ public class LoVCombatHandler {
     // Get all monsters in attack range of a position
     public List<Monster> getMonstersInRange(int row, int col) {
         List<Monster> inRange = new ArrayList<>();
-        int[][] offsets = {{-1,0}, {1,0}, {0,-1}, {0,1}}; // N, S, W, E
+        int[][] offsets = {{-1,0}, {1,0}, {0,-1}, {0,1}, {-1,1}, {-1,-1} , {1,1} , {1,-1}}; // N, S, W, E
 
         // Check same tile first
         Tile currentTile = board.getTile(row, col);
@@ -523,7 +523,7 @@ public class LoVCombatHandler {
         }
         
         // Check adjacent tiles
-        int[][] offsets = {{-1,0}, {1,0}, {0,-1}, {0,1}};
+        int[][] offsets = {{-1,0}, {1,0}, {0,-1}, {0,1}, {-1,1}, {-1,-1} , {1,1} , {1,-1}};
         for (int[] offset : offsets) {
             int r = row + offset[0];
             int c = col + offset[1];
