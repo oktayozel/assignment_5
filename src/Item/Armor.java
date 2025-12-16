@@ -18,6 +18,7 @@ public class Armor extends Item implements Equippable, Repairable {
         this.maxDurability = 10;
         this.durability = maxDurability;
     }
+    
     // getters
     public int getDamageReduction() {
         return damageReduction;

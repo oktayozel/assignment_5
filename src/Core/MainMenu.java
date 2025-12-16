@@ -3,6 +3,8 @@ package src.Core;
 import src.Utils.IO.Input;
 import src.Utils.Statistics.Statistics;
 
+
+// main menu for selecting games
 public class MainMenu {
     private Statistics statistics;
     public MainMenu() {
@@ -10,11 +12,12 @@ public class MainMenu {
 
     }
  
+    // starts main menu loop
     public void start() {
         System.out.println("Welcome to the Fantastic Games Main Menu. Hope you are ready for the adventure!");
 
         Input.setStatistics(statistics);
-
+        // main game loop
         
         while (true) {
             String game = Input.getGame();

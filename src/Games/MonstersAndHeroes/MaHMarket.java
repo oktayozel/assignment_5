@@ -6,6 +6,9 @@ import src.Market.MarketItemTemplates;
 import src.Utils.IO.Input;
 import src.Utils.IO.Output;
 
+
+
+// monsters and heroes market implementation
 public class MaHMarket extends Market {
     
     public MaHMarket() {
@@ -15,13 +18,18 @@ public class MaHMarket extends Market {
         }
     }
 
+    
+    // start market interaction leaves back to the 
     @Override
     public void start(User user) {
         if (user == null) {
             return;
         }
+        
         user.setInMarket(true);
+
         boolean running = true;
+
         while (running) {
             Output.displayMarket(this);
             Output.printMarketMenu();

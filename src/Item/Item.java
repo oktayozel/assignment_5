@@ -8,12 +8,14 @@ abstract public class Item implements Tradeable {
     private int price;
     private int level;
 
+
+    // holds item info
     public Item(String name, int price, int level) {
         this.name = name;
         this.price = price;
         this.level = level;
     }
-    
+    // getters 
     public String getName() {
         return name;
     }

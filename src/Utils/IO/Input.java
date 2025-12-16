@@ -31,7 +31,7 @@ public  class Input {
         if (input.equals("Q")) {
             if (statistics != null) {
                 Output.clearScreen();
-                Output.displayStatistics(statistics);
+                Output.displayStatistics(statistics,"lov");
                 System.out.println(Output.BRIGHT_YELLOW + "Press ENTER to exit..." + Output.RESET);
                 scanner.nextLine();
             }
@@ -691,7 +691,7 @@ public  class Input {
                 break;
             } else if (raw.equals("N")) {
                 Output.clearScreen();
-                Output.displayStatistics(statistics);
+                Output.displayStatistics(statistics,"lov");
                 System.out.println(Output.BRIGHT_YELLOW + "Press ENTER to exit..." + Output.RESET);
                 scanner.nextLine();
                 System.out.println("Exiting the game...");

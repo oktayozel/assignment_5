@@ -24,6 +24,8 @@ import src.Market.Market;
 import src.Monster.Monster;
 import src.Core.User;
 
+
+// game manager for Legends of Valor extends the generic game manager
 public class LoVGameManager extends GameManager {
     private List<Hero> heroes;
     private List<String> heroLanes;
@@ -327,7 +329,7 @@ public class LoVGameManager extends GameManager {
         }
         
         Output.print("\n");
-        Output.displayStatistics(statistics);
+        Output.displayStatistics(statistics, "lov");
         Input.waitForEnter();
         Output.print("Thanks for playing Legends of Valor!");
     }

@@ -7,10 +7,10 @@ import src.Utils.Strategy.IceSpellEffect;
 import src.Utils.Strategy.LightningSpellEffect;
 import src.Monster.Monster;
 
-/**
- * Spell item that can be cast by heroes
- * Uses Strategy Pattern for spell effects
- */
+
+ // Spell item that can be cast by heroes
+ // Uses Strategy Pattern for spell effects
+ 
 public class Spell extends Item implements Consumable {
     private int damage;
     private int manaCost;
@@ -40,6 +40,8 @@ public class Spell extends Item implements Consumable {
         }
     }
 
+
+    //getters 
     public int getDamage() {
         return damage;
     }
@@ -56,30 +58,24 @@ public class Spell extends Item implements Consumable {
         return spellType;
     }
     
-    /**
-     * Get the spell effect strategy
-     * @return The SpellEffect implementation for this spell type
-     */
+    // 
+    // Get the spell effect strategy
+    // 
     public SpellEffect getSpellEffect() {
         return spellEffect;
     }
     
-    /**
-     * Apply the spell's special effect to a target monster
-     * @param target The monster to apply the effect to
-     */
+    // apply effect function
     public void applyEffect(Monster target) {
         spellEffect.applyEffect(target);
     }
     
-    /**
-     * Get description of what this spell's effect does
-     * @return Effect description
-     */
+    // get effect description
     public String getEffectDescription() {
         return spellEffect.getEffectDescription();
     }
     
+    // overrides toString method
     public String toString() {
         return String.format("[Spell] %s (Price: %d, Level: %d, Spell Type: %s, Damage: %d, Mana Cost: %d)", 
                            getName(), getPrice(), getLevel(), spellType, damage, manaCost);

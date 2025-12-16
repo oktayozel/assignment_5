@@ -9,6 +9,8 @@ public class Potion extends Item implements Consumable {
     private int effectAmount;
     private String effectType;
 
+
+    // constructor
     public Potion(String name, int price, int level, int effectAmount, String effectType) {
         super(name, price, level);
         this.effectAmount = effectAmount;

@@ -26,6 +26,7 @@ public abstract class GameManager {
     }
     abstract public void setupGame();
 
+    // getters and setters
     public Board getBoard() {
         return board;
     }

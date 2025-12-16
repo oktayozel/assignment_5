@@ -75,12 +75,16 @@ public class Inventory {
             }
         }
     }
+
+    // generates a string list of inventory items
     public void toStringList() {
         for (InventoryEntry entry : entries) {
             System.out.println(entry.getItem().getName() + " x" + entry.getQuantity());
         }
     }
 
+
+    // replaces default toString method
     @Override
     public String toString() {
         if (entries.isEmpty()) {

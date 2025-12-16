@@ -10,15 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+// market class for buying, selling, repairing items
 public abstract class Market {
     protected final Random random = new Random();
     protected final List<Item> items;
     protected final List<Item> secondHandItems;
 
+    
+    // constructor
     public Market() {
         items = new ArrayList<>();
         secondHandItems = new ArrayList<>();
     }
+
 
     public List<Item> getItems() { return items; }
     public List<Item> getSecondHandItems() { return secondHandItems; }
@@ -27,6 +31,8 @@ public abstract class Market {
         items.add(item);
     }
 
+
+    // buy item for hero
     public boolean buyItem(Hero hero, Item item) {
         if (hero == null || item == null) {
             return false;

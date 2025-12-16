@@ -8,6 +8,8 @@ public class User {
     private boolean inMarket;
     private boolean inBattle;
 
+
+    // constructors
     public User(String name) {
         this.name = name;
         this.party = new Party();

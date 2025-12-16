@@ -14,12 +14,14 @@ public class Warrior extends Hero {
         setAttackStrategy(new WarriorAttackStrategy());
     }
     
+    // apply favored attribute boosts strength times 0.5 and agility times 0.5
     @Override
     protected void applyFavoredAttributeBoosts() {
         setStrength((int)Math.max(1, Math.round(getStrength() * 1.05)));
         setAgility((int)Math.max(1, Math.round(getAgility() * 1.05)));
     }
     
+    // equips default weapon Axe for warrior
     public void equipDefaultWeapon() {
         List<DefaultReader.WeaponTemplate> weapons = DefaultReader.loadWeapons();
         for (DefaultReader.WeaponTemplate wt : weapons) {

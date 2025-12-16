@@ -12,21 +12,25 @@ import src.Core.User;
 import src.Utils.IO.Output;
 import src.Utils.Default.DefaultReader;
 
+
+// class representing the game board for Legends of Valor
 public class LoVBoard extends Board {
 
-
+    // default board size for LoV
     public static final int BOARD_SIZE = 8;
     private final Random rand = new Random();
 
+    // Map to track monster numbers for display
     private Map<src.Monster.Monster, Integer> monsterNumbers;
 
-
+    // constructor
     public LoVBoard() {
         super(BOARD_SIZE);
         this.monsterNumbers = new HashMap<>();
         generateRandomLayout();
     }
 
+    // setter and getter for monster numbers
     public void setMonsterNumber(src.Monster.Monster monster, int number) {
         monsterNumbers.put(monster, number);
     }
@@ -35,6 +39,8 @@ public class LoVBoard extends Board {
         return monsterNumbers.getOrDefault(monster, 1);
     }
 
+
+    // generate a random board 
     @Override
     protected void generateRandomLayout() {
         grid = new Tile[size][size];
@@ -64,6 +70,7 @@ public class LoVBoard extends Board {
         }
     }
 
+    // randomly select a terrain type based on defined probabilities
     private Terrain randomTerrain() {
         double p = rand.nextDouble();
         if (p < 0.20)      return Terrain.BUSH;
@@ -73,11 +80,13 @@ public class LoVBoard extends Board {
         else               return Terrain.PLAIN;
     }
 
+    // check if the board is playable (always true for LoV)
     @Override
     public boolean isBoardPlayable() {
         return true;
     }
 
+    // remove obstacle at specified position (asks before doing so))
     public void removeObstacleAt(int row, int col) {
         if (!isInside(row, col)) return;
         Tile tile = grid[row][col];
@@ -190,6 +199,7 @@ public class LoVBoard extends Board {
         }
     }
     
+    // get hero number for display
     private int getHeroNumber(src.Hero.Hero hero) {
         return heroNumberMap.getOrDefault(hero, 0);
     }

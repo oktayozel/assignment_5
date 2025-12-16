@@ -10,6 +10,8 @@ import src.Utils.IO.Input;
 import java.util.ArrayList;
 import java.util.List;
 
+
+// hero spesific market for Legends of Valor
 public class LoVMarket extends Market {
     private final Hero hero;
     
@@ -100,11 +102,21 @@ public class LoVMarket extends Market {
             return;
         }
         
-        Output.print("\nEnter item name to sell (or type 'cancel'): ");
-        String itemName = Input.getUsername();
+        // Display inventory items with numbers
+        Output.print("\n--- Your Inventory ---");
+        List<src.Inventory.InventoryEntry> entries = hero.getInventory().getEntries();
+        for (int i = 0; i < entries.size(); i++) {
+            src.Inventory.InventoryEntry entry = entries.get(i);
+            Output.print("\n" + (i + 1) + ". " + entry.getItem().toString() + " x" + entry.getQuantity());
+        }
         
-        if (itemName.equalsIgnoreCase("cancel")) return;
+        Output.print("\n\nSelect item to sell (1-" + entries.size() + ") or 0 to cancel: ");
+        int itemChoice = Input.readInt(0, entries.size());
         
+        if (itemChoice == 0) return;
+        
+        // Get the item name from the selected entry
+        String itemName = entries.get(itemChoice - 1).getItem().getName();
         sellItem(hero, itemName);
         Output.sleep(1500);
     }

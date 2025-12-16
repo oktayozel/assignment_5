@@ -10,8 +10,12 @@ import src.Utils.IO.Output;
 import src.Battle.Battle;
 import src.Utils.Statistics.Statistics;
 
+
+
+// game manager for Monsters and Heroes extends the generic game manager
 public class MaHGameManager extends GameManager{
     
+    // constructor
     public MaHGameManager(Statistics statistics) {
         super(statistics);
     }
@@ -66,7 +70,7 @@ public class MaHGameManager extends GameManager{
             }
         }
         Output.clearScreen();
-        Output.displayStatistics(statistics);
+        Output.displayStatistics(statistics,"mah");
         System.out.println(Output.BRIGHT_YELLOW + "Press ENTER to continue..." + Output.RESET);
         Input.waitForEnter();
         Output.print("Thanks for playing!");

@@ -16,12 +16,15 @@ public class Paladin extends Hero{
         
     }
     
+
+    // apply favored attribute boosts strength times 0.5 and dexterity times 0.5
     @Override
     protected void applyFavoredAttributeBoosts() {
         setStrength((int)Math.max(1, Math.round(getStrength() * 1.05)));
         setDexterity((int)Math.max(1, Math.round(getDexterity() * 1.05)));
     }
     
+    // equips default weapon Sword for paladin
     public void equipDefaultWeapon() {
         List<DefaultReader.WeaponTemplate> weapons = DefaultReader.loadWeapons();
         for (DefaultReader.WeaponTemplate wt : weapons) {

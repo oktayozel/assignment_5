@@ -132,13 +132,22 @@ public class Output {
             System.out.println(BRIGHT_CYAN + "███████╗███████╗╚██████╔╝███████╗██║ ╚████║██████╔╝███████║╚═╝" + RESET + "    " + BRIGHT_RED + "██║ ╚═╝ ██║" + RESET + "      " + BRIGHT_YELLOW + "██║  ██║" + RESET + "        ");
             System.out.println(BRIGHT_CYAN + "╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚══════╝" + RESET + "       " + BRIGHT_RED + "╚═╝     ╚═╝" + RESET + "      " + BRIGHT_YELLOW + "╚═╝  ╚═╝" + RESET + "        ");
         }
-        else if (game.equals("lov")){
-            System.out.println(BRIGHT_CYAN + "██╗     ███████╗ ██████╗ ███████╗███╗   ██╗██████╗ ███████╗" + RESET + "       " + BRIGHT_YELLOW + "  ██████╗" + RESET + "      " + BRIGHT_YELLOW +  "██╗   ██╗" + RESET + "        ");
-            System.out.println(BRIGHT_CYAN + "██║     ██╔════╝██╔════╝ ██╔════╝████╗  ██║██╔══██╗██╔════╝██╗" + RESET + "    " + BRIGHT_YELLOW + " ██╔═══██╗" + RESET + "     " + BRIGHT_YELLOW +  "██║   ██║" + RESET + "        ");
-            System.out.println(BRIGHT_CYAN + "██║     █████╗  ██║  ███╗█████╗  ██╔██╗ ██║██║  ██║███████╗╚═╝" + RESET + "    " + BRIGHT_YELLOW + " ██║   ██║" + RESET + "     " + BRIGHT_YELLOW +  "██║   ██║" + RESET + "        ");
-            System.out.println(BRIGHT_CYAN + "██║     ██╔══╝  ██║   ██║██╔══╝  ██║╚██╗██║██║  ██║╚════██║██╗" + RESET + "    " + BRIGHT_YELLOW + " ██║   ██║" + RESET + " and  " + BRIGHT_YELLOW + "╚██╗ ██╔╝" + RESET + "        ");
-            System.out.println(BRIGHT_CYAN + "███████╗███████╗╚██████╔╝███████╗██║ ╚████║██████╔╝███████║╚═╝" + RESET + "    " + BRIGHT_YELLOW + " ╚██████╔╝" + RESET + "      " + BRIGHT_YELLOW + " ╚████╔╝ " + RESET + "        ");
+        else if ( game.equals("lov")){
+            System.out.println(BRIGHT_CYAN + "██╗     ███████╗ ██████╗ ███████╗███╗   ██╗██████╗ ███████╗                    " + RESET);
+            System.out.println(BRIGHT_CYAN + "██║     ██╔════╝██╔════╝ ██╔════╝████╗  ██║██╔══██╗██╔════╝██╗                 " + RESET);
+            System.out.println(BRIGHT_CYAN + "██║     █████╗  ██║  ███╗█████╗  ██╔██╗ ██║██║  ██║███████╗╚═╝                 " + RESET);
+            System.out.println(BRIGHT_CYAN + "██║     ██╔══╝  ██║   ██║██╔══╝  ██║╚██╗██║██║  ██║╚════██║██╗                 " + RESET);
+            System.out.println(BRIGHT_CYAN + "███████╗███████╗╚██████╔╝███████╗██║ ╚████║██████╔╝███████║╚═╝                 " + RESET);
+            System.out.println(BRIGHT_CYAN + "╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚══════╝                    " + RESET);
+            System.out.println("                                                                               ");
+            System.out.println(BRIGHT_YELLOW + "  ██████╗ ███████╗   ██╗   ██╗ █████╗ ██╗      ██████╗ ██████╗  "+ RESET);
+            System.out.println(BRIGHT_YELLOW + " ██╔═══██╗██╔════╝   ██║   ██║██╔══██╗██║     ██╔═══██╗██╔══██╗ "+ RESET);
+            System.out.println(BRIGHT_YELLOW + " ██║   ██║█████╗     ██║   ██║███████║██║     ██║   ██║██████╔╝ "+ RESET); 
+            System.out.println(BRIGHT_YELLOW + " ██║   ██║██╔══╝     ╚██╗ ██╔╝██╔══██║██║     ██║   ██║██╔══██╗ "+ RESET); 
+            System.out.println(BRIGHT_YELLOW + " ╚██████╔╝██║         ╚████╔╝ ██║  ██║███████╗╚██████╔╝██║  ██║ "+ RESET);
+            System.out.println(BRIGHT_YELLOW + "  ╚═════╝ ╚═╝          ╚═══╝  ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝ "+ RESET);
         }
+
         someSpace();
 
     }
@@ -654,7 +663,7 @@ public class Output {
 
 
     // Display statistics
-    public static void displayStatistics(Statistics stats) {
+    public static void displayStatistics(Statistics stats, String game) {
         String BRIGHT_CYAN = "\u001B[96m";
         String BRIGHT_GREEN = "\u001B[92m";
         String BRIGHT_YELLOW = "\u001B[93m";
@@ -665,7 +674,9 @@ public class Output {
         System.out.println("          GAME STATISTICS");
         System.out.println(separator + RESET);
         System.out.println("Total Games Played:       " + BRIGHT_GREEN + stats.getTotalGamesPlayed() + RESET);
-        System.out.println("Total Battles Won:        " + BRIGHT_GREEN + stats.getTotalBattlesWon() + RESET);
+        if (game.equals("mah")) {
+            System.out.println("Total Battles Won:        " + BRIGHT_GREEN + stats.getTotalBattlesWon() + RESET);
+        }
         System.out.println("Total Heroes Levelled Up: " + BRIGHT_YELLOW + stats.getTotalHeroesLevelledUp() + RESET);
         System.out.println("Total Monsters Defeated:  " + BRIGHT_GREEN + stats.getTotalMonstersDefeated() + RESET);
         System.out.println(BRIGHT_CYAN + separator + RESET + "\n");
