@@ -23,7 +23,7 @@ public abstract class Market {
         secondHandItems = new ArrayList<>();
     }
 
-
+    // getters
     public List<Item> getItems() { return items; }
     public List<Item> getSecondHandItems() { return secondHandItems; }
 
@@ -51,6 +51,8 @@ public abstract class Market {
         return true;
     }
 
+
+    // gets items from the inventory first lists them and assigns ids to them and sells based on id
     public boolean sellItem(Hero hero, String itemName) {
         if (hero == null || itemName == null || itemName.isEmpty()) {
             return false;
@@ -73,6 +75,7 @@ public abstract class Market {
         return true;
     }
     
+    // repair item for hero
     public boolean repairItem(Hero hero, Item item) {
         if (hero == null || item == null) {
             return false;
