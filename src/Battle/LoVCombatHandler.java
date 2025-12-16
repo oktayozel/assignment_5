@@ -193,18 +193,9 @@ public class LoVCombatHandler {
         // Narrative 
         Output.narrative(caster.getName() + "  casts " + spell.getName() + " on " + target.getName() + " for " + finalDamage + " damage!");
         
-        // Apply spell effects
-        String type = spell.getSpellType().toUpperCase();
-        if (type.equals("FIRE")) {
-            target.reduceDefenseBy10Percent();
-            Output.narrative(target.getName() + "'s defense reduced!\n");
-        } else if (type.equals("ICE")) {
-            target.reduceBaseDamageBy10Percent();
-            Output.narrative(target.getName() + "'s damage reduced!\n");
-        } else if (type.equals("LIGHTNING")) {
-            target.reduceDodgeBy10Percent();
-            Output.narrative(target.getName() + "'s dodge reduced!\n");
-        }
+        // Apply spell effect using Strategy Pattern
+        spell.applyEffect(target);
+        Output.narrative(spell.getEffectDescription() + " applied to " + target.getName() + "!\n");
         
         // Consume spell
         spellEntry.decreaseQuantity(1);
@@ -447,7 +438,7 @@ public class LoVCombatHandler {
     // Spawn a wave of monsters at the monster nexus - one per lane
     public void spawnMonsterWave(int round) {
         int[] laneCols = {1, 4, 7}; // Right columns of each lane
-        int monsterNexusRow = 6; // 0 and 6 to debug checkpoint
+        int monsterNexusRow = 0; // 0 and 6 to debug checkpoint
         int level = party.getHighestLevel();
         
         List<Monster> newMonsters = MonsterFactory.generateRandomMonsters(3, level);

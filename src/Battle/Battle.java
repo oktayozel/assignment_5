@@ -215,19 +215,9 @@ public class Battle {
         target.takeDamage(finalDamage);
         Output.narrative(caster.getName() + " casts " + spell.getName() + " on " + target.getName() + " for " + finalDamage + " damage.\n");
 
-
-    
-        String type = spell.getSpellType().toUpperCase();
-        if (type.equals("FIRE")) {
-            target.reduceDefenseBy10Percent();
-            Output.narrative(target.getName() + "'s defense reduced!\n");
-        } else if (type.equals("ICE")) {
-            target.reduceBaseDamageBy10Percent();
-            Output.narrative(target.getName() + "'s damage reduced!\n");
-        } else if (type.equals("LIGHTNING")) {
-            target.reduceDodgeBy10Percent();
-            Output.narrative(target.getName() + "'s dodge reduced!\n");
-        }
+        // Apply spell effect using Strategy Pattern
+        spell.applyEffect(target);
+        Output.narrative(spell.getEffectDescription() + " applied to " + target.getName() + "!\n");
 
         spellEntry.decreaseQuantity(1);
         if (spellEntry.getQuantity() <= 0) {

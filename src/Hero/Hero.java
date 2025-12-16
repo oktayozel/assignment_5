@@ -213,9 +213,8 @@ public abstract class Hero implements Combatant {
         while (experience >= level * 10) {
             level++;
             leveled = true;
-
             // reset hp and boost stats
-            HP = level * 100; 
+            HP = level * 100;
             MP = (int)Math.round(MP * 1.10);
             strength = (int)Math.max(1, Math.round(strength * 1.05));
             dexterity = (int)Math.max(1, Math.round(dexterity * 1.05));

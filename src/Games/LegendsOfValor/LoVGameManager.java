@@ -108,7 +108,7 @@ public class LoVGameManager extends GameManager {
         );
         
         // Spawn initial monsters (round 0)
-        Output.print("\n" + Output.BRIGHT_RED + "⚔️  MONSTERS APPROACHING! ⚔️" + Output.RESET);
+        Output.print("\n" + Output.BRIGHT_RED + " MONSTERS APPROACHING! " + Output.RESET);
         combat.spawnMonsterWave(0);
         Output.sleep(2000);
     }
@@ -266,7 +266,7 @@ public class LoVGameManager extends GameManager {
         }
         
         if (round % spawnInterval == 0 && round > 0) {
-            Output.print("\n" + Output.BRIGHT_RED + "🔥 NEW MONSTER WAVE APPROACHING! 🔥" + Output.RESET);
+            Output.print("\n" + Output.BRIGHT_RED + "NEW MONSTER WAVE APPROACHING!" + Output.RESET);
             combat.spawnMonsterWave(round);
         }
         
